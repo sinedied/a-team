@@ -32,11 +32,12 @@
       <stop offset="100%" stop-color="#a06800"/>
     </linearGradient>
 
-    <!-- Red stripe gradient -->
+    <!-- Stripe gradient -->
     <linearGradient id="red" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="transparent"/>
-      <stop offset="10%" stop-color="#c0180c"/>
-      <stop offset="90%" stop-color="#c0180c"/>
+      <stop offset="10%" stop-color="#1a3a6b"/>
+      <stop offset="50%" stop-color="#2563a8"/>
+      <stop offset="90%" stop-color="#1a3a6b"/>
       <stop offset="100%" stop-color="transparent"/>
     </linearGradient>
 
@@ -106,8 +107,8 @@
     <ellipse cx="92" cy="132" rx="5" ry="8" fill="#b87a5a"/>
     <ellipse cx="148" cy="132" rx="5" ry="8" fill="#b87a5a"/>
     <!-- Eye black bar -->
-    <rect x="88" y="120" width="64" height="20" rx="3" fill="url(#eyebar)"/>
-    <text x="120" y="135" font-family="'Oswald', sans-serif" font-size="9" font-weight="700" fill="#f5c842" text-anchor="middle" letter-spacing="1">ORCHESTRATOR</text>
+    <rect x="82" y="120" width="76" height="20" rx="3" fill="url(#eyebar)"/>
+    <text x="120" y="135" font-family="'Oswald', sans-serif" font-size="8" font-weight="700" fill="#f5c842" text-anchor="middle" letter-spacing="0.5">ORCHESTRATOR</text>
     <!-- Mouth/chin detail -->
     <path d="M110 148 Q120 155 130 148" stroke="#a06040" stroke-width="1.5" fill="none"/>
     <!-- Military cap -->
@@ -160,8 +161,8 @@
     <ellipse cx="254" cy="130" rx="5" ry="8" fill="#b87a5a"/>
     <ellipse cx="306" cy="130" rx="5" ry="8" fill="#b87a5a"/>
     <!-- Eye black bar -->
-    <rect x="252" y="118" width="56" height="20" rx="3" fill="url(#eyebar)"/>
-    <text x="280" y="133" font-family="'Oswald', sans-serif" font-size="9" font-weight="700" fill="#f5c842" text-anchor="middle" letter-spacing="1">PRODUCT MGR</text>
+    <rect x="248" y="118" width="64" height="20" rx="3" fill="url(#eyebar)"/>
+    <text x="280" y="133" font-family="'Oswald', sans-serif" font-size="8" font-weight="700" fill="#f5c842" text-anchor="middle" letter-spacing="0.5">PRODUCT MGR</text>
     <!-- Smile -->
     <path d="M270 148 Q280 156 290 148" stroke="#904030" stroke-width="2" fill="none"/>
     <!-- Pants -->
@@ -357,8 +358,8 @@
     <ellipse cx="881" cy="130" rx="5" ry="8" fill="#b87a5a"/>
     <ellipse cx="931" cy="130" rx="5" ry="8" fill="#b87a5a"/>
     <!-- Eye black bar -->
-    <rect x="879" y="118" width="54" height="20" rx="3" fill="url(#eyebar)"/>
-    <text x="906" y="133" font-family="'Oswald', sans-serif" font-size="9" font-weight="700" fill="#f5c842" text-anchor="middle" letter-spacing="1">REVIEWER</text>
+    <rect x="873" y="118" width="66" height="20" rx="3" fill="url(#eyebar)"/>
+    <text x="906" y="133" font-family="'Oswald', sans-serif" font-size="9" font-weight="700" fill="#f5c842" text-anchor="middle" letter-spacing="0.5">REVIEWER</text>
     <!-- Stern expression -->
     <path d="M896 150 Q906 148 916 150" stroke="#804030" stroke-width="2" fill="none"/>
     <!-- Pants -->
