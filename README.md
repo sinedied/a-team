@@ -1,12 +1,10 @@
-<div align="center">
+![A-Team Banner](assets/banner.svg)
 
 # A-Team
 
-![A-Team Banner](assets/banner.svg)
-
 A squad of custom [VS Code Copilot agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) for autonomous project development.
 
-</div>
+*"I love it when a plan comes together."* — Hannibal
 
 ## Agents
 
