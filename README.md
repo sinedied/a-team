@@ -11,7 +11,7 @@ A squad of custom [VS Code Copilot agents](https://code.visualstudio.com/docs/co
 | **planner** | Creates detailed implementation specs with architecture, subtasks, and constraints | Opus 4.6 |
 | **designer** | Handles UI/UX design using the `frontend-design` skill | Opus 4.6 |
 | **coder** | Implements features, writes tests, updates docs | Opus 4.6 |
-| **reviewer** | Adversarial code and architecture reviews (spawned 3× with diverse models) | GPT-5.4, GPT-5.3-Codex, Opus 4.5 |
+| **reviewer** | Adversarial code and architecture reviews (spawned 3× with diverse models) | GPT-5.4, Gemini 3.1 Pro, Opus 4.5 |
 | **qa** | Tests the running app from a user perspective | Opus 4.6 |
 
 ## Pipeline

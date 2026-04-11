@@ -22,7 +22,7 @@ You are the Orchestrator. Your job is to assess the current state of the project
 When delegating to `reviewer`, use the **task tool** to spawn **3 parallel reviews** with explicit model overrides for diverse perspectives:
 
 1. `reviewer` with model `gpt-5.4`
-2. `reviewer` with model `gpt-5.3-codex`
+2. `reviewer` with model `gemini-3.1-pro` (fallback: `gpt-5.3-codex`)
 3. `reviewer` with model `claude-opus-4.5`
 
 After all 3 complete:
