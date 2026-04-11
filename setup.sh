@@ -4,9 +4,6 @@ set -euo pipefail
 REPO="sinedied/a-team"
 EXCLUDE="README.md LICENSE setup.sh setup.ps1"
 
-target="${1:-.}"
-mkdir -p "$target"
-
 # Download to temp directory first
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
@@ -26,18 +23,18 @@ cd "$tmp/scaffold"
 for pattern in $EXCLUDE; do
   rm -f $pattern
 done
+cd - >/dev/null
 
 # Check for conflicts
 conflicts=()
 while IFS= read -r file; do
-  dest="$target/$file"
-  if [ -f "$dest" ]; then
+  if [ -f "$file" ]; then
     conflicts+=("$file")
   fi
-done < <(find . -type f | sed 's|^\./||')
+done < <(cd "$tmp/scaffold" && find . -type f | sed 's|^\./||')
 
 if [ ${#conflicts[@]} -gt 0 ]; then
-  echo "The following files already exist in $target:"
+  echo "The following files already exist:"
   for f in "${conflicts[@]}"; do
     echo "  - $f"
   done
@@ -49,5 +46,5 @@ if [ ${#conflicts[@]} -gt 0 ]; then
 fi
 
 # Copy files
-cp -a "$tmp/scaffold/." "$target/"
-echo "Done. Project scaffolded in $target"
+cp -a "$tmp/scaffold/." .
+echo "Done. Agent squad installed in current directory."

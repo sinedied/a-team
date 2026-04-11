@@ -67,19 +67,23 @@ All agents read and write to `memory/`:
 
 ## Setup
 
-Scaffold a new project with the agent squad:
+Add the agent squad to your project:
+
+```bash
+cd my-project
+```
 
 **Mac/Linux:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/sinedied/a-team/main/setup.sh | bash -s ./my-project
+curl -fsSL https://raw.githubusercontent.com/sinedied/a-team/main/setup.sh | bash
 ```
 
 **Windows (PowerShell):**
 ```powershell
-iwr -useb https://raw.githubusercontent.com/sinedied/a-team/main/setup.ps1 -OutFile setup.ps1; .\setup.ps1 ./my-project; rm setup.ps1
+iwr -useb https://raw.githubusercontent.com/sinedied/a-team/main/setup.ps1 -OutFile setup.ps1; .\setup.ps1; rm setup.ps1
 ```
 
-This copies the agent definitions, shared memory, and specs directory into your project — excluding the README, LICENSE, and setup scripts.
+Files are installed in the current directory. Existing files are never overwritten without confirmation.
 
 ## License
 

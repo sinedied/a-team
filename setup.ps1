@@ -1,13 +1,7 @@
-param(
-  [string]$Target = "."
-)
-
 $ErrorActionPreference = "Stop"
 
 $Repo = "sinedied/a-team"
 $Exclude = @("README.md", "LICENSE", "setup.sh", "setup.ps1")
-
-New-Item -ItemType Directory -Path $Target -Force | Out-Null
 
 # Download to temp directory first
 $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ([System.Guid]::NewGuid().ToString())
@@ -35,14 +29,13 @@ $scaffoldFiles = Get-ChildItem -Recurse -File "$tmp/scaffold" | ForEach-Object {
 }
 $conflicts = @()
 foreach ($file in $scaffoldFiles) {
-  $dest = Join-Path $Target $file
-  if (Test-Path $dest) {
+  if (Test-Path $file) {
     $conflicts += $file
   }
 }
 
 if ($conflicts.Count -gt 0) {
-  Write-Host "The following files already exist in $Target`:"
+  Write-Host "The following files already exist:"
   foreach ($f in $conflicts) {
     Write-Host "  - $f"
   }
@@ -55,7 +48,7 @@ if ($conflicts.Count -gt 0) {
 }
 
 # Copy files
-Copy-Item -Recurse -Force "$tmp/scaffold/*" $Target
+Copy-Item -Recurse -Force "$tmp/scaffold/*" .
 Remove-Item -Recurse -Force $tmp
 
-Write-Host "Done. Project scaffolded in $Target"
+Write-Host "Done. Agent squad installed in current directory."
