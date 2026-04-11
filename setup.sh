@@ -2,7 +2,7 @@
 set -euo pipefail
 
 REPO="sinedied/a-team"
-EXCLUDE="README.md LICENSE setup.sh setup.ps1"
+EXCLUDE="README.md LICENSE setup.sh setup.ps1 assets"
 
 # Download to temp directory first
 tmp=$(mktemp -d)
@@ -21,7 +21,7 @@ fi
 # Remove excluded files from scaffold
 cd "$tmp/scaffold"
 for pattern in $EXCLUDE; do
-  rm -f $pattern
+  rm -rf $pattern
 done
 cd - >/dev/null
 

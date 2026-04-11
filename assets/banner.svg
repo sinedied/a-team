@@ -26,22 +26,22 @@
   <rect x="0" y="397" width="1200" height="3" fill="#c0392b"/>
   <rect x="5" y="0" width="1195" height="1" fill="#181818"/>
 
-  <text x="28" y="108"
+  <text x="28" y="100"
     font-family="Impact,Arial Narrow,Haettenschweiler,sans-serif"
-    font-size="86" fill="#ffffff" letter-spacing="5">A&#xB7;TEAM</text>
-  <rect x="28" y="115" width="180" height="3" fill="#c0392b"/>
-  <text x="28" y="135"
+    font-size="56" fill="#ffffff" letter-spacing="3">A&#xB7;TEAM</text>
+  <rect x="28" y="106" width="170" height="3" fill="#c0392b"/>
+  <text x="28" y="124"
     font-family="Courier New,Courier,monospace"
     font-size="8.5" fill="#484848" letter-spacing="2.5">AGENT ROSTER</text>
-  <text x="28" y="150"
+  <text x="28" y="139"
     font-family="Courier New,Courier,monospace"
     font-size="8.5" fill="#333333" letter-spacing="2.5">// CLASSIFIED //</text>
 
-  <text x="28" y="326"
+  <text x="28" y="310"
     font-family="Impact,Arial Narrow,sans-serif"
-    font-size="22" fill="url(#tagGrad)" letter-spacing="1.5">THERE IS NO PLAN B.</text>
-  <rect x="28" y="332" width="155" height="1" fill="#1a3a5c"/>
-  <text x="28" y="350"
+    font-size="15" fill="url(#tagGrad)" letter-spacing="1">THERE IS NO PLAN B.</text>
+  <rect x="28" y="315" width="155" height="1" fill="#1a3a5c"/>
+  <text x="28" y="332"
     font-family="Courier New,Courier,monospace"
     font-size="7.5" fill="#2e2e2e" letter-spacing="2">AUTONOMOUS DEV SQUAD</text>
 

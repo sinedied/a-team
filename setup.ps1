@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 
 $Repo = "sinedied/a-team"
-$Exclude = @("README.md", "LICENSE", "setup.sh", "setup.ps1")
+$Exclude = @("README.md", "LICENSE", "setup.sh", "setup.ps1", "assets")
 
 # Download to temp directory first
 $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ([System.Guid]::NewGuid().ToString())
@@ -19,7 +19,7 @@ if (Get-Command npx -ErrorAction SilentlyContinue) {
 # Remove excluded files from scaffold
 Push-Location "$tmp/scaffold"
 foreach ($pattern in $Exclude) {
-  Get-ChildItem -Filter $pattern -ErrorAction SilentlyContinue | Remove-Item -Force
+  Get-ChildItem -Filter $pattern -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force
 }
 Pop-Location
 
