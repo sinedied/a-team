@@ -1,0 +1,433 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&amp;family=Oswald:wght@300;700&amp;display=swap');
+    </style>
+
+    <!-- Grain texture -->
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feBlend in="SourceGraphic" mode="multiply" result="blend"/>
+      <feComposite in="blend" in2="SourceGraphic" operator="in"/>
+    </filter>
+
+    <!-- Vignette gradient -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="transparent"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.7"/>
+    </radialGradient>
+
+    <!-- Background gradient -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="40%" stop-color="#1a1008"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+
+    <!-- Gold gradient for title -->
+    <linearGradient id="gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5c842"/>
+      <stop offset="50%" stop-color="#e8a800"/>
+      <stop offset="100%" stop-color="#a06800"/>
+    </linearGradient>
+
+    <!-- Red stripe gradient -->
+    <linearGradient id="red" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="transparent"/>
+      <stop offset="10%" stop-color="#c0180c"/>
+      <stop offset="90%" stop-color="#c0180c"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+
+    <!-- Eye bar gradient -->
+    <linearGradient id="eyebar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="50%" stop-color="#000"/>
+      <stop offset="100%" stop-color="#1a1a1a"/>
+    </linearGradient>
+
+    <!-- Clip paths for figures -->
+    <clipPath id="fig1clip"><rect x="60" y="60" width="120" height="280"/></clipPath>
+    <clipPath id="fig2clip"><rect x="220" y="60" width="120" height="280"/></clipPath>
+    <clipPath id="fig3clip"><rect x="380" y="60" width="120" height="280"/></clipPath>
+    <clipPath id="fig4clip"><rect x="540" y="60" width="120" height="280"/></clipPath>
+    <clipPath id="fig5clip"><rect x="700" y="60" width="120" height="280"/></clipPath>
+    <clipPath id="fig6clip"><rect x="860" y="60" width="120" height="280"/></clipPath>
+    <clipPath id="fig7clip"><rect x="1020" y="60" width="120" height="280"/></clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="400" fill="url(#bg)"/>
+
+  <!-- Subtle halftone-like dots pattern -->
+  <pattern id="dots" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
+    <circle cx="6" cy="6" r="0.8" fill="#ffffff" opacity="0.04"/>
+  </pattern>
+  <rect width="1200" height="400" fill="url(#dots)"/>
+
+  <!-- Diagonal slash accents -->
+  <line x1="0" y1="400" x2="200" y2="0" stroke="#c0180c" stroke-width="1" opacity="0.15"/>
+  <line x1="100" y1="400" x2="300" y2="0" stroke="#c0180c" stroke-width="0.5" opacity="0.08"/>
+  <line x1="1000" y1="0" x2="1200" y2="400" stroke="#c0180c" stroke-width="1" opacity="0.15"/>
+  <line x1="900" y1="0" x2="1100" y2="400" stroke="#c0180c" stroke-width="0.5" opacity="0.08"/>
+
+  <!-- ═══════════════════════════════ FIGURES ═══════════════════════════════ -->
+
+  <!-- Figure 1: HANNIBAL (orchestrator) — military commander pose -->
+  <g opacity="0.92">
+    <!-- Body -->
+    <rect x="90" y="175" width="60" height="130" rx="3" fill="#2a2a2a"/>
+    <!-- Military jacket details -->
+    <rect x="90" y="175" width="28" height="130" rx="2" fill="#222"/>
+    <rect x="118" y="175" width="32" height="130" rx="2" fill="#2a2a2a"/>
+    <!-- Collar/tie -->
+    <polygon points="110,175 120,175 117,200 113,200" fill="#111"/>
+    <!-- Medals -->
+    <circle cx="98" cy="195" r="4" fill="#e8a800" opacity="0.8"/>
+    <circle cx="108" cy="195" r="4" fill="#c0180c" opacity="0.8"/>
+    <circle cx="98" cy="207" r="4" fill="#aaa" opacity="0.6"/>
+    <!-- Arms -->
+    <rect x="72" y="175" width="18" height="80" rx="4" fill="#2a2a2a"/>
+    <rect x="150" y="175" width="18" height="80" rx="4" fill="#2a2a2a"/>
+    <!-- Cigar in hand -->
+    <rect x="152" y="240" width="20" height="5" rx="2" fill="#c8a060"/>
+    <circle cx="172" cy="242" r="3" fill="#ff6020" opacity="0.9"/>
+    <!-- Hands -->
+    <ellipse cx="81" cy="256" rx="9" ry="8" fill="#c8956a"/>
+    <ellipse cx="159" cy="256" rx="9" ry="8" fill="#c8956a"/>
+    <!-- Neck -->
+    <rect x="107" y="155" width="26" height="22" rx="4" fill="#c8956a"/>
+    <!-- Head -->
+    <ellipse cx="120" cy="132" rx="28" ry="32" fill="#c8956a"/>
+    <!-- Hair — silver/white -->
+    <ellipse cx="120" cy="108" rx="28" ry="14" fill="#ccc"/>
+    <!-- Ear -->
+    <ellipse cx="92" cy="132" rx="5" ry="8" fill="#b87a5a"/>
+    <ellipse cx="148" cy="132" rx="5" ry="8" fill="#b87a5a"/>
+    <!-- Eye black bar -->
+    <rect x="88" y="120" width="64" height="20" rx="3" fill="url(#eyebar)"/>
+    <text x="120" y="135" font-family="'Oswald', sans-serif" font-size="9" font-weight="700" fill="#f5c842" text-anchor="middle" letter-spacing="1">ORCHESTRATOR</text>
+    <!-- Mouth/chin detail -->
+    <path d="M110 148 Q120 155 130 148" stroke="#a06040" stroke-width="1.5" fill="none"/>
+    <!-- Military cap -->
+    <rect x="88" y="95" width="64" height="16" rx="2" fill="#1a1a1a"/>
+    <rect x="85" y="103" width="70" height="8" rx="1" fill="#222"/>
+    <rect x="88" y="108" width="64" height="3" fill="#e8a800" opacity="0.6"/>
+    <!-- Pants -->
+    <rect x="90" y="305" width="26" height="50" rx="2" fill="#1a1a1a"/>
+    <rect x="124" y="305" width="26" height="50" rx="2" fill="#1a1a1a"/>
+    <!-- Boots -->
+    <rect x="88" y="347" width="30" height="18" rx="3" fill="#111"/>
+    <rect x="122" y="347" width="30" height="18" rx="3" fill="#111"/>
+  </g>
+
+  <!-- Figure 2: FACE (product-manager) — smooth operator, suit -->
+  <g opacity="0.92">
+    <!-- Suit body -->
+    <rect x="248" y="175" width="64" height="130" rx="3" fill="#1e2d3d"/>
+    <!-- Lapels -->
+    <polygon points="268,175 280,175 275,210 265,210" fill="#162230"/>
+    <polygon points="300,175 292,175 285,210 295,210" fill="#162230"/>
+    <!-- Shirt -->
+    <rect x="275" y="175" width="10" height="130" fill="#eee"/>
+    <!-- Tie -->
+    <polygon points="277,180 283,180 281,230 279,230" fill="#c0180c"/>
+    <!-- Pocket square -->
+    <polygon points="295,182 305,182 305,192 298,192" fill="#eee" opacity="0.9"/>
+    <!-- Arms -->
+    <rect x="228" y="175" width="20" height="80" rx="4" fill="#1e2d3d"/>
+    <rect x="312" y="175" width="20" height="80" rx="4" fill="#1e2d3d"/>
+    <!-- Cuffs -->
+    <rect x="228" y="245" width="20" height="10" rx="2" fill="#ddd"/>
+    <rect x="312" y="245" width="20" height="10" rx="2" fill="#ddd"/>
+    <!-- Hands holding clipboard -->
+    <ellipse cx="238" cy="262" rx="9" ry="8" fill="#d4956a"/>
+    <ellipse cx="322" cy="262" rx="9" ry="8" fill="#d4956a"/>
+    <rect x="242" y="248" width="36" height="46" rx="2" fill="#f0e8d8"/>
+    <rect x="242" y="248" width="36" height="6" rx="2" fill="#888"/>
+    <line x1="248" y1="262" x2="272" y2="262" stroke="#bbb" stroke-width="1"/>
+    <line x1="248" y1="270" x2="272" y2="270" stroke="#bbb" stroke-width="1"/>
+    <line x1="248" y1="278" x2="266" y2="278" stroke="#bbb" stroke-width="1"/>
+    <!-- Neck -->
+    <rect x="265" y="155" width="30" height="22" rx="4" fill="#d4956a"/>
+    <!-- Head — slightly more angular -->
+    <ellipse cx="280" cy="130" rx="26" ry="30" fill="#d4956a"/>
+    <!-- Hair — styled -->
+    <ellipse cx="280" cy="106" rx="26" ry="12" fill="#3a2010"/>
+    <path d="M254 112 Q280 98 306 112" fill="#3a2010"/>
+    <!-- Ear -->
+    <ellipse cx="254" cy="130" rx="5" ry="8" fill="#b87a5a"/>
+    <ellipse cx="306" cy="130" rx="5" ry="8" fill="#b87a5a"/>
+    <!-- Eye black bar -->
+    <rect x="252" y="118" width="56" height="20" rx="3" fill="url(#eyebar)"/>
+    <text x="280" y="133" font-family="'Oswald', sans-serif" font-size="9" font-weight="700" fill="#f5c842" text-anchor="middle" letter-spacing="1">PRODUCT MGR</text>
+    <!-- Smile -->
+    <path d="M270 148 Q280 156 290 148" stroke="#904030" stroke-width="2" fill="none"/>
+    <!-- Pants -->
+    <rect x="248" y="305" width="28" height="50" rx="2" fill="#162230"/>
+    <rect x="284" y="305" width="28" height="50" rx="2" fill="#162230"/>
+    <!-- Shoes -->
+    <rect x="246" y="347" width="32" height="15" rx="4" fill="#0a0a0a"/>
+    <rect x="282" y="347" width="32" height="15" rx="4" fill="#0a0a0a"/>
+  </g>
+
+  <!-- Figure 3: AMY (planner) — journalist, notepad -->
+  <g opacity="0.92">
+    <!-- Body — jacket -->
+    <rect x="405" y="175" width="70" height="130" rx="3" fill="#4a3520"/>
+    <!-- Blouse visible -->
+    <rect x="425" y="175" width="20" height="130" fill="#8a6a8a"/>
+    <!-- Arms -->
+    <rect x="387" y="175" width="18" height="75" rx="4" fill="#4a3520"/>
+    <rect x="475" y="175" width="18" height="75" rx="4" fill="#4a3520"/>
+    <!-- Hands — one holding notepad, one with pen -->
+    <ellipse cx="396" cy="252" rx="9" ry="8" fill="#d4956a"/>
+    <ellipse cx="484" cy="252" rx="8" ry="8" fill="#d4956a"/>
+    <!-- Notepad -->
+    <rect x="398" y="236" width="44" height="56" rx="2" fill="#f5f0e0"/>
+    <rect x="398" y="236" width="44" height="8" rx="2" fill="#d44"/>
+    <line x1="406" y1="252" x2="436" y2="252" stroke="#aaa" stroke-width="1"/>
+    <line x1="406" y1="260" x2="436" y2="260" stroke="#aaa" stroke-width="1"/>
+    <line x1="406" y1="268" x2="430" y2="268" stroke="#aaa" stroke-width="1"/>
+    <!-- Pen in right hand -->
+    <rect x="482" y="240" width="4" height="20" rx="1" fill="#333"/>
+    <polygon points="482,260 486,260 484,268" fill="#333"/>
+    <!-- Neck -->
+    <rect x="422" y="157" width="26" height="20" rx="4" fill="#d4956a"/>
+    <!-- Head -->
+    <ellipse cx="435" cy="132" rx="26" ry="30" fill="#d4956a"/>
+    <!-- Hair — medium length, wavy -->
+    <ellipse cx="435" cy="106" rx="28" ry="13" fill="#4a2a10"/>
+    <path d="M407 118 Q410 150 412 165" stroke="#4a2a10" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M463 118 Q460 150 458 165" stroke="#4a2a10" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <!-- Ear -->
+    <ellipse cx="409" cy="130" rx="5" ry="8" fill="#b87a5a"/>
+    <ellipse cx="461" cy="130" rx="5" ry="8" fill="#b87a5a"/>
+    <!-- Eye black bar -->
+    <rect x="407" y="118" width="56" height="20" rx="3" fill="url(#eyebar)"/>
+    <text x="435" y="133" font-family="'Oswald', sans-serif" font-size="9" font-weight="700" fill="#f5c842" text-anchor="middle" letter-spacing="1">PLANNER</text>
+    <!-- Mouth -->
+    <path d="M425 148 Q435 154 445 148" stroke="#904030" stroke-width="1.5" fill="none"/>
+    <!-- Pants -->
+    <rect x="405" y="305" width="28" height="50" rx="2" fill="#2a1a10"/>
+    <rect x="441" y="305" width="28" height="50" rx="2" fill="#2a1a10"/>
+    <!-- Boots -->
+    <rect x="403" y="347" width="32" height="18" rx="4" fill="#1a0a00"/>
+    <rect x="439" y="347" width="32" height="18" rx="4" fill="#1a0a00"/>
+  </g>
+
+  <!-- Figure 4: MURDOCK (designer) — wild pose, beret, art tools -->
+  <g opacity="0.92">
+    <!-- Body — colourful jacket -->
+    <rect x="560" y="175" width="64" height="130" rx="3" fill="#1a3a2a"/>
+    <!-- Paint splatters on jacket -->
+    <circle cx="572" cy="200" r="5" fill="#e8a800" opacity="0.7"/>
+    <circle cx="610" cy="215" r="4" fill="#c0180c" opacity="0.6"/>
+    <circle cx="585" cy="230" r="3" fill="#4a8fd4" opacity="0.7"/>
+    <circle cx="600" cy="195" r="6" fill="#9a4a9a" opacity="0.5"/>
+    <!-- Arms — one raised with brush -->
+    <rect x="540" y="155" width="20" height="90" rx="4" fill="#1a3a2a" transform="rotate(-20 550 155)"/>
+    <rect x="624" y="175" width="20" height="80" rx="4" fill="#1a3a2a"/>
+    <!-- Paint brush in raised arm -->
+    <rect x="534" y="130" width="5" height="30" rx="1" fill="#8a6030" transform="rotate(-20 536 130)"/>
+    <ellipse cx="533" cy="127" rx="5" ry="8" fill="#e8a800" opacity="0.9" transform="rotate(-20 533 127)"/>
+    <!-- Hands -->
+    <ellipse cx="644" cy="258" rx="9" ry="8" fill="#d4956a"/>
+    <!-- Palette in hand -->
+    <ellipse cx="644" cy="270" rx="16" ry="12" fill="#8a6030"/>
+    <circle cx="636" cy="266" r="4" fill="#c0180c"/>
+    <circle cx="648" cy="264" r="3" fill="#e8a800"/>
+    <circle cx="654" cy="272" r="4" fill="#4a8fd4"/>
+    <!-- Neck -->
+    <rect x="577" y="157" width="26" height="20" rx="4" fill="#d4956a"/>
+    <!-- Head -->
+    <ellipse cx="590" cy="130" rx="27" ry="30" fill="#d4956a"/>
+    <!-- Hair — wild -->
+    <path d="M563 110 Q575 90 590 100 Q605 90 617 110" fill="#2a1a08" stroke="#2a1a08" stroke-width="2"/>
+    <path d="M565 108 Q560 90 568 80" stroke="#2a1a08" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M615 108 Q620 90 612 80" stroke="#2a1a08" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <!-- Beret -->
+    <ellipse cx="590" cy="103" rx="32" ry="10" fill="#c0180c"/>
+    <ellipse cx="610" cy="100" rx="5" ry="5" fill="#c0180c"/>
+    <!-- Ear -->
+    <ellipse cx="563" cy="130" rx="5" ry="8" fill="#b87a5a"/>
+    <ellipse cx="617" cy="130" rx="5" ry="8" fill="#b87a5a"/>
+    <!-- Eye black bar -->
+    <rect x="561" y="118" width="58" height="20" rx="3" fill="url(#eyebar)"/>
+    <text x="590" y="133" font-family="'Oswald', sans-serif" font-size="9" font-weight="700" fill="#f5c842" text-anchor="middle" letter-spacing="1">DESIGNER</text>
+    <!-- Manic grin -->
+    <path d="M576 150 Q590 162 604 150" stroke="#904030" stroke-width="2" fill="none"/>
+    <!-- Pants -->
+    <rect x="560" y="305" width="26" height="50" rx="2" fill="#1a2a1a"/>
+    <rect x="594" y="305" width="26" height="50" rx="2" fill="#1a2a1a"/>
+    <!-- Sneakers — colourful -->
+    <rect x="558" y="347" width="30" height="18" rx="5" fill="#4a8fd4"/>
+    <rect x="592" y="347" width="30" height="18" rx="5" fill="#c0180c"/>
+  </g>
+
+  <!-- Figure 5: BARACUS (coder) — big, mohawk, laptop -->
+  <g opacity="0.92">
+    <!-- Body — black sleeveless + chains -->
+    <rect x="718" y="170" width="84" height="135" rx="3" fill="#111"/>
+    <!-- Muscles on arms -->
+    <rect x="692" y="170" width="26" height="90" rx="8" fill="#8a5a30"/>
+    <rect x="802" y="170" width="26" height="90" rx="8" fill="#8a5a30"/>
+    <!-- Arm muscles detail -->
+    <ellipse cx="705" cy="200" rx="12" ry="18" fill="#7a4a20" opacity="0.4"/>
+    <ellipse cx="815" cy="200" rx="12" ry="18" fill="#7a4a20" opacity="0.4"/>
+    <!-- Chains/jewelry on neck -->
+    <path d="M730 180 Q760 195 790 180" stroke="#e8a800" stroke-width="3" fill="none" opacity="0.9"/>
+    <path d="M732 188 Q760 200 788 188" stroke="#e8a800" stroke-width="2" fill="none" opacity="0.7"/>
+    <!-- Hands holding laptop -->
+    <ellipse cx="700" cy="263" rx="11" ry="10" fill="#7a4a20"/>
+    <ellipse cx="820" cy="263" rx="11" ry="10" fill="#7a4a20"/>
+    <!-- Laptop -->
+    <rect x="700" y="250" width="120" height="75" rx="3" fill="#222"/>
+    <rect x="704" y="254" width="112" height="67" rx="2" fill="#0d1117"/>
+    <!-- Code on screen -->
+    <text x="710" y="268" font-family="monospace" font-size="7" fill="#3fb950">const build = () =&gt; {</text>
+    <text x="710" y="278" font-family="monospace" font-size="7" fill="#79c0ff">  compile(spec);</text>
+    <text x="710" y="288" font-family="monospace" font-size="7" fill="#3fb950">  test(); ship();</text>
+    <text x="710" y="298" font-family="monospace" font-size="7" fill="#3fb950">}</text>
+    <rect x="700" y="324" width="120" height="8" rx="2" fill="#333"/>
+    <!-- Neck -->
+    <rect x="745" y="152" width="30" height="20" rx="4" fill="#8a5a30"/>
+    <!-- Head — large, powerful -->
+    <ellipse cx="760" cy="125" rx="32" ry="34" fill="#8a5a30"/>
+    <!-- Mohawk! -->
+    <path d="M748 95 Q760 55 772 95" fill="#f5c842"/>
+    <path d="M752 93 Q760 60 768 93" fill="#e8a800"/>
+    <!-- Ear -->
+    <ellipse cx="728" cy="125" rx="6" ry="9" fill="#7a4a20"/>
+    <ellipse cx="792" cy="125" rx="6" ry="9" fill="#7a4a20"/>
+    <!-- Earring -->
+    <circle cx="728" cy="130" r="4" fill="#e8a800"/>
+    <circle cx="792" cy="130" r="4" fill="#e8a800"/>
+    <!-- Eye black bar -->
+    <rect x="726" y="112" width="68" height="22" rx="3" fill="url(#eyebar)"/>
+    <text x="760" y="128" font-family="'Oswald', sans-serif" font-size="9" font-weight="700" fill="#f5c842" text-anchor="middle" letter-spacing="1">CODER</text>
+    <!-- Scowl -->
+    <path d="M747 152 Q760 148 773 152" stroke="#5a2a10" stroke-width="2" fill="none"/>
+    <!-- Pants -->
+    <rect x="718" y="305" width="34" height="50" rx="2" fill="#111"/>
+    <rect x="768" y="305" width="34" height="50" rx="2" fill="#111"/>
+    <!-- Boots — heavy -->
+    <rect x="716" y="347" width="38" height="20" rx="3" fill="#0a0a0a"/>
+    <rect x="766" y="347" width="38" height="20" rx="3" fill="#0a0a0a"/>
+    <!-- Boot buckles -->
+    <rect x="724" y="355" width="22" height="4" rx="1" fill="#555"/>
+    <rect x="774" y="355" width="22" height="4" rx="1" fill="#555"/>
+  </g>
+
+  <!-- Figure 6: DECKER (reviewer) — inspector, magnifying glass -->
+  <g opacity="0.92">
+    <!-- Body — government suit, grey -->
+    <rect x="875" y="175" width="62" height="130" rx="3" fill="#3a3a3a"/>
+    <!-- Suit jacket lapels -->
+    <polygon points="893,175 906,175 901,215 888,215" fill="#2a2a2a"/>
+    <polygon points="937,175 924,175 919,215 932,215" fill="#2a2a2a"/>
+    <!-- Tie — grey/institutional -->
+    <polygon points="903,180 909,180 907,228 905,228" fill="#555"/>
+    <!-- Arms -->
+    <rect x="855" y="175" width="20" height="85" rx="4" fill="#3a3a3a"/>
+    <rect x="937" y="175" width="20" height="85" rx="4" fill="#3a3a3a"/>
+    <!-- Hands -->
+    <ellipse cx="865" cy="263" rx="9" ry="8" fill="#c8956a"/>
+    <ellipse cx="947" cy="263" rx="9" ry="8" fill="#c8956a"/>
+    <!-- Magnifying glass -->
+    <circle cx="870" cy="272" r="18" stroke="#e8a800" stroke-width="3" fill="none"/>
+    <circle cx="870" cy="272" r="15" fill="#0d1a2a" opacity="0.7"/>
+    <line x1="883" y1="285" x2="896" y2="298" stroke="#e8a800" stroke-width="4" stroke-linecap="round"/>
+    <!-- X-ray red in glass -->
+    <circle cx="870" cy="272" r="12" fill="#c0180c" opacity="0.15"/>
+    <text x="870" y="276" font-family="monospace" font-size="8" fill="#f5c842" text-anchor="middle">BUG?</text>
+    <!-- Documents in other hand -->
+    <rect x="935" y="248" width="28" height="36" rx="2" fill="#f5f0e0"/>
+    <line x1="940" y1="258" x2="958" y2="258" stroke="#c00" stroke-width="1.5"/>
+    <line x1="940" y1="266" x2="958" y2="266" stroke="#c00" stroke-width="1.5"/>
+    <line x1="940" y1="274" x2="952" y2="274" stroke="#c00" stroke-width="1.5"/>
+    <!-- Neck -->
+    <rect x="894" y="157" width="24" height="20" rx="4" fill="#c8956a"/>
+    <!-- Head -->
+    <ellipse cx="906" cy="130" rx="25" ry="30" fill="#c8956a"/>
+    <!-- Hair — short, military -->
+    <ellipse cx="906" cy="106" rx="25" ry="11" fill="#1a1a1a"/>
+    <!-- Ear -->
+    <ellipse cx="881" cy="130" rx="5" ry="8" fill="#b87a5a"/>
+    <ellipse cx="931" cy="130" rx="5" ry="8" fill="#b87a5a"/>
+    <!-- Eye black bar -->
+    <rect x="879" y="118" width="54" height="20" rx="3" fill="url(#eyebar)"/>
+    <text x="906" y="133" font-family="'Oswald', sans-serif" font-size="9" font-weight="700" fill="#f5c842" text-anchor="middle" letter-spacing="1">REVIEWER</text>
+    <!-- Stern expression -->
+    <path d="M896 150 Q906 148 916 150" stroke="#804030" stroke-width="2" fill="none"/>
+    <!-- Pants -->
+    <rect x="875" y="305" width="26" height="50" rx="2" fill="#2a2a2a"/>
+    <rect x="911" y="305" width="26" height="50" rx="2" fill="#2a2a2a"/>
+    <!-- Shoes -->
+    <rect x="873" y="347" width="30" height="15" rx="3" fill="#111"/>
+    <rect x="909" y="347" width="30" height="15" rx="3" fill="#111"/>
+  </g>
+
+  <!-- Figure 7: LYNCH (qa) — testing gear, tablet, suspicious look -->
+  <g opacity="0.92">
+    <!-- Body — field operative vest -->
+    <rect x="1035" y="175" width="62" height="130" rx="3" fill="#2a3a1a"/>
+    <!-- Vest pockets -->
+    <rect x="1040" y="185" width="18" height="22" rx="2" fill="#1a2a10"/>
+    <rect x="1040" y="215" width="18" height="22" rx="2" fill="#1a2a10"/>
+    <rect x="1072" y="185" width="18" height="22" rx="2" fill="#1a2a10"/>
+    <!-- Arms -->
+    <rect x="1015" y="175" width="20" height="80" rx="4" fill="#2a3a1a"/>
+    <rect x="1097" y="175" width="20" height="80" rx="4" fill="#2a3a1a"/>
+    <!-- Hands -->
+    <ellipse cx="1025" cy="257" rx="9" ry="8" fill="#c8956a"/>
+    <ellipse cx="1107" cy="257" rx="9" ry="8" fill="#c8956a"/>
+    <!-- Tablet/device -->
+    <rect x="1025" y="240" width="82" height="54" rx="4" fill="#111"/>
+    <rect x="1029" y="244" width="74" height="46" rx="3" fill="#0d2a1a"/>
+    <!-- Bug report on screen -->
+    <text x="1035" y="257" font-family="monospace" font-size="6.5" fill="#3fb950">▶ Running tests...</text>
+    <text x="1035" y="268" font-family="monospace" font-size="6.5" fill="#f85149">✗ FAIL: form submit</text>
+    <text x="1035" y="279" font-family="monospace" font-size="6.5" fill="#3fb950">✓ nav works</text>
+    <text x="1035" y="290" font-family="monospace" font-size="6.5" fill="#f85149">✗ FAIL: 404 on /api</text>
+    <!-- Neck -->
+    <rect x="1053" y="157" width="26" height="20" rx="4" fill="#c8956a"/>
+    <!-- Head -->
+    <ellipse cx="1066" cy="130" rx="26" ry="30" fill="#c8956a"/>
+    <!-- Hair — dark, cropped -->
+    <ellipse cx="1066" cy="106" rx="26" ry="12" fill="#1a0a00"/>
+    <!-- Ear -->
+    <ellipse cx="1040" cy="130" rx="5" ry="8" fill="#b87a5a"/>
+    <ellipse cx="1092" cy="130" rx="5" ry="8" fill="#b87a5a"/>
+    <!-- Eye black bar -->
+    <rect x="1038" y="118" width="56" height="20" rx="3" fill="url(#eyebar)"/>
+    <text x="1066" y="133" font-family="'Oswald', sans-serif" font-size="9" font-weight="700" fill="#f5c842" text-anchor="middle" letter-spacing="1">QA</text>
+    <!-- Suspicious smirk -->
+    <path d="M1058 149 Q1066 153 1076 147" stroke="#804030" stroke-width="1.5" fill="none"/>
+    <!-- Pants -->
+    <rect x="1035" y="305" width="26" height="50" rx="2" fill="#1a2a10"/>
+    <rect x="1069" y="305" width="26" height="50" rx="2" fill="#1a2a10"/>
+    <!-- Boots -->
+    <rect x="1033" y="347" width="30" height="18" rx="4" fill="#0a1208"/>
+    <rect x="1067" y="347" width="30" height="18" rx="4" fill="#0a1208"/>
+  </g>
+
+  <!-- ═══════════════════════════════ TITLE AREA ═══════════════════════════════ -->
+
+  <!-- Red horizontal stripe -->
+  <rect x="0" y="355" width="1200" height="45" fill="url(#red)" opacity="0.9"/>
+
+  <!-- "THERE IS NO PLAN B" -->
+  <text x="600" y="388" font-family="'Black Ops One', 'Impact', sans-serif" font-size="28" fill="#fff" text-anchor="middle" letter-spacing="6" opacity="0.95">THERE IS NO PLAN B</text>
+
+  <!-- Title above figures -->
+  <text x="600" y="45" font-family="'Black Ops One', 'Impact', sans-serif" font-size="42" fill="url(#gold)" text-anchor="middle" letter-spacing="8">THE A-TEAM</text>
+  <text x="600" y="65" font-family="'Oswald', sans-serif" font-size="13" font-weight="300" fill="#aaa" text-anchor="middle" letter-spacing="4">AUTONOMOUS COPILOT AGENT SQUAD</text>
+
+  <!-- Vignette overlay -->
+  <rect width="1200" height="400" fill="url(#vignette)"/>
+
+  <!-- Grain overlay -->
+  <rect width="1200" height="400" fill="#888" opacity="0.04" filter="url(#grain)"/>
+</svg>
