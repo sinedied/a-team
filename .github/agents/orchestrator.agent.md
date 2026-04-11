@@ -1,4 +1,5 @@
 ---
+name: "Hannibal (orchestrator)"
 description: "Use when you need to assess the current project state and decide what to do next. Coordinates work across the team: planner, designer, coder, reviewer, qa. Reads specs, memory, and codebase to determine the right next step."
 model: Claude Sonnet 4.6
 tools: [read, search, agent, execute]

@@ -1,4 +1,5 @@
 ---
+name: "Baracus (coder)"
 description: "Use when implementing features, fixing bugs, resolving review findings, or making code changes. Reads specs from specs/ directory, follows the plan, writes working code."
 model: Claude Opus 4.6
 tools: [read, edit, search, execute, web, agent, todo]

@@ -1,4 +1,5 @@
 ---
+name: "Amy (planner)"
 description: "Use when creating implementation plans, feature specs, or architecture designs. Analyzes requirements, investigates the codebase, designs solutions with architecture and subtasks, and ensures all decisions are resolved before finalizing. Saves specs to specs/ directory."
 model: Claude Opus 4.6
 tools: [read, edit, search, web, agent]

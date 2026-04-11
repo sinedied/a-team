@@ -1,4 +1,5 @@
 ---
+name: "Face (product-manager)"
 description: "Use when defining what to build: feature decomposition, roadmap creation, MVP scoping, or adjusting priorities based on project progress. Takes a high-level project goal and produces an ordered feature roadmap."
 model: Claude Opus 4.6
 tools: [read, edit, search, web, agent]

@@ -4,15 +4,15 @@ A squad of custom [VS Code Copilot agents](https://code.visualstudio.com/docs/co
 
 ## Agents
 
-| Agent | Role | Model |
-|-------|------|-------|
-| **orchestrator** | Assesses project state, delegates to the right agent, commits after pipeline passes | Sonnet 4.6 |
-| **product-manager** | Decomposes goals into features, creates and maintains the roadmap | Opus 4.6 |
-| **planner** | Creates detailed implementation specs with architecture, subtasks, and constraints | Opus 4.6 |
-| **designer** | Handles UI/UX design using the `frontend-design` skill | Opus 4.6 |
-| **coder** | Implements features, writes tests, updates docs | Opus 4.6 |
-| **reviewer** | Adversarial code and architecture reviews (spawned 3× with diverse models) | GPT-5.4, Gemini 3.1 Pro, Opus 4.5 |
-| **qa** | Tests the running app from a user perspective | Opus 4.6 |
+| Agent | Name | Role | Model |
+|-------|------|------|-------|
+| **orchestrator** | Hannibal | Leads the team, delegates to the right agent, commits after pipeline passes | Sonnet 4.6 |
+| **product-manager** | Face | Scopes the mission: feature decomposition, roadmap, priorities | Opus 4.6 |
+| **planner** | Amy | Creates detailed implementation specs with architecture and subtasks | Opus 4.6 |
+| **designer** | Murdock | Creative UI/UX design using the `frontend-design` skill | Opus 4.6 |
+| **coder** | Baracus | Builds it. Implements features, writes tests, updates docs | Opus 4.6 |
+| **reviewer** | Decker | Adversarial reviews (spawned 3× with diverse models) | GPT-5.4, Gemini 3.1 Pro, Opus 4.5 |
+| **qa** | Lynch | Tests the running app, never stops probing | Opus 4.6 |
 
 ## Pipeline
 

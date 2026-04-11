@@ -1,4 +1,5 @@
 ---
+name: "Murdock (designer)"
 description: "Use when designing UI/UX, creating component layouts, defining visual patterns, or completing the design aspects of a plan. Focuses on user experience, accessibility, and visual consistency."
 model: Claude Opus 4.6
 tools: [read, edit, search, web]
