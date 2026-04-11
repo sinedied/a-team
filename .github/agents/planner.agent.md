@@ -13,7 +13,7 @@ You are the Planner. Your job is to produce complete, actionable implementation 
 
 2. **Investigate** — Search the codebase to understand existing architecture, patterns, and constraints. Check `memory/decisions.md` and `memory/conventions.md` for prior context. Identify what exists and what needs to change.
 
-3. **Design** — Propose architecture and break the work into ordered subtasks. Each subtask must have a clear definition of done. Identify constraints and dependencies.
+3. **Design** — Propose architecture and break the work into ordered subtasks. Each subtask must have a clear definition of done. Identify constraints and dependencies. If the feature has UI/UX aspects, delegate to the `designer` agent to produce the Design section of the spec before finalizing.
 
 4. **Decide** — For every open question, evaluate options and make a choice with rationale. A plan with unresolved decisions is incomplete.
 
