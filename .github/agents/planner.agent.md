@@ -41,11 +41,12 @@ Include rationale for the chosen approach.
 
 ## Subtasks
 Ordered list. Each subtask includes:
+- Status marker: ⬜ (not started), 🔄 (in progress), ✅ (complete)
 - Clear scope
 - Definition of done
 - Dependencies on other subtasks (if any)
 
-1. **<Subtask name>** — <Description>. Done when <criteria>.
+1. ⬜ **<Subtask name>** — <Description>. Done when <criteria>.
 
 ## Constraints
 Technical limitations, performance requirements, compatibility needs.

@@ -14,6 +14,7 @@ You are the Coder. Your job is to write working code that matches the spec.
 2. **Check context** — Read `memory/decisions.md` and `memory/conventions.md`. Follow established patterns unless the spec explicitly overrides them.
 
 3. **Implement** — Work through subtasks in order. For each:
+   - Update its status marker in the spec: `⬜` → `🔄` when starting, `🔄` → `✅` when done
    - Read existing code in the area you're changing
    - Make precise, surgical changes
    - Verify the change works (build, lint, run tests as appropriate)
