@@ -1,8 +1,12 @@
+<div align="center">
+
 # A-Team
 
 ![A-Team Banner](assets/banner.svg)
 
 A squad of custom [VS Code Copilot agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) for autonomous project development.
+
+</div>
 
 ## Agents
 
@@ -16,15 +20,40 @@ A squad of custom [VS Code Copilot agents](https://code.visualstudio.com/docs/co
 | **reviewer** | Decker | Adversarial reviews (spawned 3× with diverse models) | GPT-5.4, Gemini 3.1 Pro, Opus 4.5 |
 | **qa** | Lynch | Tests the running app, never stops probing | Opus 4.6 |
 
+## Setup
+
+Add the agent squad to your project:
+
+```bash
+cd my-project
+```
+
+**Mac/Linux:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/sinedied/a-team/main/setup.sh | bash
+```
+
+**Windows (PowerShell):**
+```powershell
+iwr -useb https://raw.githubusercontent.com/sinedied/a-team/main/setup.ps1 -OutFile setup.ps1; .\setup.ps1; rm setup.ps1
+```
+
+Files are installed in the current directory. Existing files are never overwritten without confirmation.
+
 ## Pipeline
 
 ```mermaid
+---
+config:
+  flowchart:
+    curve: linear
+---
 graph TD
     Goal([🎯 Goal]) --> O
 
     O{🎻 Orchestrator}
 
-    O -->|new project or<br>reprioritize| PM[📋 Product Manager]
+    O -->|new project or reprioritize| PM[📋 Product Manager]
     PM -->|roadmap| O
 
     O -->|feature needs spec| P[📐 Planner]
@@ -66,26 +95,6 @@ Goal → orchestrator → product-manager (roadmap)
 All agents read and write to `memory/`:
 - `memory/decisions.md` — Architectural and design decisions
 - `memory/conventions.md` — Established project conventions
-
-## Setup
-
-Add the agent squad to your project:
-
-```bash
-cd my-project
-```
-
-**Mac/Linux:**
-```bash
-curl -fsSL https://raw.githubusercontent.com/sinedied/a-team/main/setup.sh | bash
-```
-
-**Windows (PowerShell):**
-```powershell
-iwr -useb https://raw.githubusercontent.com/sinedied/a-team/main/setup.ps1 -OutFile setup.ps1; .\setup.ps1; rm setup.ps1
-```
-
-Files are installed in the current directory. Existing files are never overwritten without confirmation.
 
 ## License
 

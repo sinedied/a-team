@@ -12,6 +12,10 @@
       <stop offset="60%" stop-color="transparent"/>
       <stop offset="100%" stop-color="rgba(0,0,0,0.6)"/>
     </radialGradient>
+    <linearGradient id="tagGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
   </defs>
 
   <rect width="1200" height="400" fill="#080808"/>
@@ -35,8 +39,8 @@
 
   <text x="28" y="326"
     font-family="Impact,Arial Narrow,sans-serif"
-    font-size="22" fill="#c0392b" letter-spacing="1.5">THERE IS NO PLAN B.</text>
-  <rect x="28" y="332" width="155" height="1" fill="#3a1010"/>
+    font-size="22" fill="url(#tagGrad)" letter-spacing="1.5">THERE IS NO PLAN B.</text>
+  <rect x="28" y="332" width="155" height="1" fill="#1a3a5c"/>
   <text x="28" y="350"
     font-family="Courier New,Courier,monospace"
     font-size="7.5" fill="#2e2e2e" letter-spacing="2">AUTONOMOUS DEV SQUAD</text>
@@ -67,7 +71,7 @@
     <path d="M-58,-30 Q-68,-17 -62,18 L-44,130 L50,130 L62,18 Q68,-17 58,-30 Z" fill="#252525"/>
     <path d="M-12,-32 L0,-20 L12,-32" fill="#1e1e1e" stroke="#2c2c2c" stroke-width="1"/>
     <rect x="-52" y="-117" width="104" height="26" fill="#000000"/>
-    <text x="0" y="-99" font-family="Impact,Arial Narrow,sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" letter-spacing="1">PRODUCT MANAGER</text>
+    <text x="0" y="-99" font-family="Impact,Arial Narrow,sans-serif" font-size="7.5" fill="#c0392b" text-anchor="middle" letter-spacing="0.3">PRODUCT MANAGER</text>
     <text x="0" y="152" font-family="Courier New,monospace" font-size="12" fill="#777" text-anchor="middle" letter-spacing="1.5">FACE</text>
     <text x="-57" y="-152" font-family="Courier New,monospace" font-size="7" fill="#252525">02</text>
   </g>
