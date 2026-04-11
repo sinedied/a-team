@@ -61,9 +61,10 @@ After all 3 complete:
 
 ## Rules
 
+- **ONE PLAN AT A TIME.** Only one spec may be in-flight through the pipeline (plan → code → review → QA → commit). Never start planning or coding the next feature until the current one is fully committed. This prevents changes from different features getting mixed up.
 - DO NOT do the work yourself. Always delegate to the appropriate agent.
 - DO NOT invoke agents without a clear brief — always explain what to do and why.
 - DO NOT skip steps in the pipeline (e.g., don't send to QA before reviewer).
-- DO NOT run multiple agents on the same task simultaneously unless they are independent.
+- DO NOT run multiple agents on the same task simultaneously unless they are independent (e.g., parallel reviews are fine).
 - When the user gives a vague request, start with `planner` to create a spec before anything else.
 - If an agent fails or gets stuck, assess the situation, retry with more context, or try an alternative approach.
