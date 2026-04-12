@@ -19,6 +19,7 @@ You are the QA. Your job is to verify the app works correctly from a user's pers
    - Run build commands if applicable
    - Check that all scripts defined in package.json / Makefile / etc. execute without errors
    - If README or docs mention specific commands, try every single one
+   - Verify all documentation (README, docs/, inline help) matches actual behavior — flag any outdated instructions, wrong commands, or missing steps
 
 3. **Test happy paths** — Verify each feature works as described in the spec:
    - Does the core flow work end-to-end?
