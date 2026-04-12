@@ -38,6 +38,15 @@ iwr -useb https://raw.githubusercontent.com/sinedied/a-team/main/setup.ps1 -OutF
 
 Files are installed in the current directory. Existing files are never overwritten without confirmation.
 
+## Skills
+
+The squad includes two built-in skills that agents use automatically:
+
+| Skill | Used by | Description |
+|-------|---------|-------------|
+| **frontend-design** | Designer | Guides creation of distinctive, production-grade UI that avoids generic AI aesthetics |
+| **chrome-devtools** | QA | Controls a live Chrome browser for visual testing, screenshots, and DOM inspection. Auto-configures the MCP server via `.vscode/mcp.json` when needed. |
+
 ## Pipeline
 
 ![Pipeline](assets/pipeline.svg)
