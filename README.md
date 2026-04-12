@@ -2,7 +2,7 @@
 
 # A-Team
 
-A squad of custom [VS Code Copilot agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) for autonomous project development. No roleplay bullshit, just gets the job done.
+A squad of custom [GitHub Copilot agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) for autonomous project development. No roleplay bullshit, just gets the job done.
 
 *"I love it when a plan comes together."* — Hannibal
 
@@ -45,7 +45,33 @@ The squad includes two built-in skills that agents use automatically:
 | Skill | Used by | Description |
 |-------|---------|-------------|
 | **frontend-design** | Designer | Guides creation of distinctive, production-grade UI that avoids generic AI aesthetics |
-| **chrome-devtools** | QA | Controls a live Chrome browser for visual testing, screenshots, and DOM inspection. Auto-configures the MCP server via `.vscode/mcp.json` when needed. |
+| **chrome-devtools** | QA | Controls a live Chrome browser for visual testing, screenshots, and DOM inspection. Auto-configures the MCP server when needed. |
+
+<details>
+<summary>Configuring chrome-devtools for GitHub Copilot cloud agent</summary>
+
+The chrome-devtools skill auto-configures in VS Code and Copilot CLI. For the **GitHub Copilot cloud agent** (SWE agent), you need to configure the MCP server manually in your repository settings:
+
+1. Go to your repository on GitHub.com
+2. Navigate to **Settings → Code & automation → Copilot → Cloud agent**
+3. Add the following to the **MCP configuration** section:
+
+```json
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "type": "local",
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest", "--headless"],
+      "tools": ["*"]
+    }
+  }
+}
+```
+
+Chrome runs in headless mode in the cloud agent environment. You may also need a `copilot-setup-steps.yml` to install Chrome in the runner — see [GitHub docs](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/extend-cloud-agent-with-mcp).
+
+</details>
 
 ## Pipeline
 

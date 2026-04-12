@@ -13,7 +13,9 @@ The `chrome-devtools-mcp` server must be configured for chrome-devtools tools to
 
 ### Auto-configuration
 
-If chrome-devtools tools are not available, configure the MCP server by adding it to `.vscode/mcp.json` in the project (create the file if it doesn't exist, merge into existing config if it does):
+If chrome-devtools tools are not available, configure the MCP server automatically based on the environment:
+
+**VS Code / VS Code Insiders** — Add to `.vscode/mcp.json` in the project (create the file if it doesn't exist, merge into existing config if it does):
 
 ```json
 {
@@ -28,9 +30,24 @@ If chrome-devtools tools are not available, configure the MCP server by adding i
 
 After writing the config, tell the user to reload the window or restart the agent session for the MCP server to be picked up.
 
+**Copilot CLI** — Add to `~/.copilot/mcp-config.json` (create if it doesn't exist, merge into existing `mcpServers` if it does):
+
+```json
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest", "--headless"]
+    }
+  }
+}
+```
+
+The server is available immediately after writing the config — no restart needed.
+
 ### Manual installation (VS Code only)
 
-Alternatively, the user can install it manually:
+Alternatively, the user can install it as a plugin:
 
 1. Open VS Code Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`)
 2. Run **Chat: Install Plugin From Source**
