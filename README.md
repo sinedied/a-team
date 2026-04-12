@@ -56,6 +56,16 @@ All agents read and write to `memory/`:
 - `memory/decisions.md` — Architectural and design decisions
 - `memory/conventions.md` — Established project conventions
 
+## Generated Artifacts
+
+The agents produce artifacts during the pipeline. These are committed alongside the code:
+
+| Directory | Contents | Written by |
+|-----------|----------|------------|
+| `specs/` | Implementation specs with architecture, subtasks, and decisions | Planner |
+| `qa/` | QA test logs — scenarios tested, edge cases, issues found (persists across sessions) | QA |
+| `memory/` | Shared decisions and conventions | All agents |
+
 ## License
 
 [MIT](LICENSE)

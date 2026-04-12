@@ -43,7 +43,7 @@ After all 3 complete:
    - Spec finalized? → Delegate to `coder`
    - Code written? → Delegate to `reviewer`
    - Review passed? → Delegate to `qa`
-   - QA found issues? → Delegate to `coder` with the QA findings
+   - QA found issues? → Delegate to `coder` with the QA findings. **Brief must include: fix the issue AND write a regression test.**
    - Review found issues? → Delegate to `coder` with the review findings
 
 3. **Delegate** — Invoke the chosen agent by name with a clear, specific brief:
