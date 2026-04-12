@@ -2,7 +2,7 @@
 
 # A-Team
 
-A squad of custom [VS Code Copilot agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) for autonomous project development.
+A squad of custom [VS Code Copilot agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) for autonomous project development. No roleplay bullshit, just gets the job done.
 
 *"I love it when a plan comes together."* — Hannibal
 
