@@ -17,7 +17,7 @@
   <rect width="540" height="620" rx="8" fill="#0d1117"/>
   <rect x="1" y="1" width="538" height="618" rx="7" fill="none" stroke="#21262d" stroke-width="1"/>
 
-  <rect x="145" y="18" width="150" height="36" rx="18" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+  <rect x="145" y="18" width="150" height="36" rx="18" fill="#21262d" stroke="#30363d" stroke-width="1" stroke-dasharray="4,2"/>
   <text x="220" y="41" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="13" fill="#c9d1d9" text-anchor="middle" font-weight="500">Goal</text>
   <line x1="220" y1="54" x2="220" y2="72" stroke="#555" stroke-width="1.5" marker-end="url(#a)"/>
 
@@ -80,7 +80,7 @@
   <line x1="220" y1="452" x2="220" y2="484" stroke="#555" stroke-width="1.5" marker-end="url(#a)"/>
   <text x="228" y="473" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="8" fill="#6e7681" text-anchor="start">all passed</text>
 
-  <rect x="145" y="484" width="150" height="36" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+  <rect x="145" y="484" width="150" height="36" rx="18" fill="#21262d" stroke="#30363d" stroke-width="1" stroke-dasharray="4,2"/>
   <text x="220" y="507" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="13" fill="#c9d1d9" text-anchor="middle" font-weight="500">Commit</text>
 
   <path d="M145,502 L38,502 L38,93 L120,93" fill="none" stroke="#555" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#a)"/>
@@ -89,7 +89,7 @@
   <line x1="220" y1="520" x2="220" y2="548" stroke="#238636" stroke-width="1.5" marker-end="url(#ag)"/>
   <text x="228" y="540" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="8" fill="#3fb950" text-anchor="start">goal complete</text>
 
-  <rect x="135" y="548" width="170" height="36" rx="18" fill="#21262d" stroke="#238636" stroke-width="1.5"/>
+  <rect x="135" y="548" width="170" height="36" rx="18" fill="#21262d" stroke="#238636" stroke-width="1.5" stroke-dasharray="4,2"/>
   <text x="220" y="571" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="13" fill="#3fb950" text-anchor="middle" font-weight="600">Goal Achieved</text>
 
   <text x="220" y="604" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="9" fill="#484f58" text-anchor="middle" font-style="italic">Each agent hands back to the Orchestrator, who decides the next step.</text>
