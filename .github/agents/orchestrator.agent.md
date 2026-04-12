@@ -26,11 +26,13 @@ When delegating to `reviewer`, use the **task tool** to spawn **3 parallel revie
 2. `reviewer` with model `gemini-3.1-pro` (fallback: `gpt-5.3-codex`)
 3. `reviewer` with model `claude-opus-4.5`
 
-After all 3 complete:
-- **Consensus findings** (flagged by 2+ reviewers): Forward to `coder` for fixing.
-- **Single-reviewer findings at high/critical severity**: Forward to `coder` for fixing — err on the side of caution.
-- **Single-reviewer findings at medium severity**: Discard.
-- Report the aggregated review summary to the user.
+After all 3 complete, run a **consolidation review** — spawn `reviewer` with model `claude-opus-4.6` and provide it with all 3 review outputs plus the relevant code. The consolidation reviewer produces the final findings list by applying these rules:
+
+- **Consensus findings** (flagged by 2+ reviewers) at any severity → **Kept**.
+- **Single-reviewer findings at high/critical severity** → **Kept**.
+- **Single-reviewer findings at medium/low severity** → **Kept if the consolidation reviewer confirms the finding is valid**, discarded if not.
+
+The consolidation reviewer's final list is forwarded to `coder` for fixing. No findings bypass this step, no findings are silently dropped. Report the aggregated review summary to the user.
 
 ## Process
 
@@ -44,7 +46,7 @@ After all 3 complete:
    - Code written? → Delegate to `reviewer`
    - Review passed? → Delegate to `qa`
    - QA found issues? → Delegate to `coder` with the QA findings. **Brief must include: fix the issue AND write a regression test.**
-   - Review found issues? → Delegate to `coder` with the review findings
+   - Review found issues? → Delegate to `coder` with the consolidated review findings. **Brief must include: fix the issues AND write regression tests.**
 
 3. **Delegate** — Invoke the chosen agent by name with a clear, specific brief:
    - What to work on (reference the spec or findings)
