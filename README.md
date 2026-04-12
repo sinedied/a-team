@@ -38,6 +38,14 @@ iwr -useb https://raw.githubusercontent.com/sinedied/a-team/main/setup.ps1 -OutF
 
 Files are installed in the current directory. Existing files are never overwritten without confirmation.
 
+### Optional: Chrome DevTools (recommended for web projects)
+
+The QA agent can use Chrome DevTools to visually test web applications in a real browser. Install the MCP server:
+
+1. Open VS Code Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`)
+2. Run **Chat: Install Plugin From Source**
+3. Paste: `https://github.com/ChromeDevTools/chrome-devtools-mcp`
+
 ## Pipeline
 
 ![Pipeline](assets/pipeline.svg)
