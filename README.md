@@ -15,7 +15,7 @@ A squad of custom [GitHub Copilot agents](https://code.visualstudio.com/docs/cop
 | **planner** | Amy | Creates detailed implementation specs with architecture and subtasks | Opus 4.6 |
 | **designer** | Murdock | Creative UI/UX design using the `frontend-design` skill | Opus 4.6 |
 | **coder** | Baracus | Builds it. Implements features, writes tests, updates docs | Opus 4.6 |
-| **reviewer** | Decker | Adversarial reviews (spawned 3× with diverse models) | GPT-5.4, Gemini 3.1 Pro, Opus 4.5 |
+| **reviewer** | Decker | Adversarial reviews (3× diverse models + Opus 4.6 consolidation) | GPT-5.4, Gemini 3.1 Pro, Opus 4.5 |
 | **qa** | Lynch | Tests the running app, never stops probing | Opus 4.6 |
 
 ## Setup
