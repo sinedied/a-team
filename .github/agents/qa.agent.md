@@ -41,7 +41,7 @@ You are the QA. Your job is to verify the app works correctly from a user's pers
    - Verify interactive elements work: click buttons, fill forms, navigate links
    - Check browser console for JavaScript errors or warnings
    - Verify focus order and keyboard navigation for accessibility
-   - If chrome-devtools tools are unavailable, skip this step and note it in the report
+   - If chrome-devtools tools are unavailable, follow the auto-configuration steps in the `chrome-devtools` skill to set up `.vscode/mcp.json`, then ask the user to reload. If that's not possible, skip this step and note it in the report.
 
 6. **Test UX** — Evaluate the user experience:
    - Is feedback clear when actions succeed or fail?

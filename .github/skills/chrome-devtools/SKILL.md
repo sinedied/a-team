@@ -9,7 +9,28 @@ Use the chrome-devtools MCP tools to control and inspect a live Chrome browser.
 
 ## Prerequisites
 
-The `chrome-devtools-mcp` server must be configured. If tools are unavailable, tell the user to install it:
+The `chrome-devtools-mcp` server must be configured for chrome-devtools tools to be available.
+
+### Auto-configuration
+
+If chrome-devtools tools are not available, configure the MCP server by adding it to `.vscode/mcp.json` in the project (create the file if it doesn't exist, merge into existing config if it does):
+
+```json
+{
+  "servers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest"]
+    }
+  }
+}
+```
+
+After writing the config, tell the user to reload the window or restart the agent session for the MCP server to be picked up.
+
+### Manual installation (VS Code only)
+
+Alternatively, the user can install it manually:
 
 1. Open VS Code Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`)
 2. Run **Chat: Install Plugin From Source**
