@@ -3,6 +3,7 @@ $ErrorActionPreference = "Stop"
 $Repo = "sinedied/a-team"
 $Exclude = @("README.md", "LICENSE", "setup.sh", "setup.ps1", "assets")
 $Verbose = $args -contains "-v" -or $args -contains "--verbose"
+$Yes = $args -contains "-y" -or $args -contains "--yes"
 
 function Log($msg) { if ($Verbose) { Write-Host $msg } }
 
@@ -69,11 +70,19 @@ if ($conflicts.Count -gt 0) {
   foreach ($f in $conflicts) {
     Write-Host "  - $f"
   }
-  $answer = Read-Host "Overwrite? [y/N]"
-  if ($answer -ne "y" -and $answer -ne "Y") {
-    Write-Host "Aborted."
-    Remove-Item -Recurse -Force $tmp
-    exit 1
+  if (-not $Yes) {
+    if ([Environment]::UserInteractive) {
+      $answer = Read-Host "Overwrite? [y/N]"
+      if ($answer -ne "y" -and $answer -ne "Y") {
+        Write-Host "Aborted."
+        Remove-Item -Recurse -Force $tmp
+        exit 1
+      }
+    } else {
+      Write-Error "Use -y/--yes to overwrite in non-interactive mode."
+      Remove-Item -Recurse -Force $tmp
+      exit 1
+    }
   }
 }
 

@@ -4,10 +4,12 @@ set -euo pipefail
 REPO="sinedied/a-team"
 EXCLUDE="README.md LICENSE setup.sh setup.ps1 assets"
 VERBOSE=false
+YES=false
 
 for arg in "$@"; do
   case "$arg" in
     -v|--verbose) VERBOSE=true ;;
+    -y|--yes) YES=true ;;
   esac
 done
 
@@ -67,10 +69,19 @@ if [ ${#conflicts[@]} -gt 0 ]; then
   for f in "${conflicts[@]}"; do
     echo "  - $f"
   done
-  read -rp "Overwrite? [y/N] " answer
-  if [[ ! "$answer" =~ ^[Yy]$ ]]; then
-    echo "Aborted."
-    exit 1
+  if ! $YES; then
+    if [ -t 0 ]; then
+      read -rp "Overwrite? [y/N] " answer
+    elif [ -r /dev/tty ]; then
+      read -rp "Overwrite? [y/N] " answer </dev/tty
+    else
+      echo "Use -y/--yes to overwrite in non-interactive mode." >&2
+      exit 1
+    fi
+    if [[ ! "$answer" =~ ^[Yy]$ ]]; then
+      echo "Aborted."
+      exit 1
+    fi
   fi
 fi
 
