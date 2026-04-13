@@ -38,6 +38,22 @@ for pattern in $EXCLUDE; do
 done
 cd - >/dev/null
 
+# Handle AGENTS.md separately: append shared memory rules if missing
+if [ -f "$tmp/scaffold/AGENTS.md" ]; then
+  memory_section=$(sed -n '/^## Shared Memory/,$p' "$tmp/scaffold/AGENTS.md")
+  if [ -f "AGENTS.md" ]; then
+    if ! grep -q '^## Shared Memory' "AGENTS.md"; then
+      log "Appending shared memory rules to existing AGENTS.md..."
+      printf '\n%s\n' "$memory_section" >> "AGENTS.md"
+    else
+      log "AGENTS.md already contains shared memory rules, skipping."
+    fi
+  else
+    cp "$tmp/scaffold/AGENTS.md" "AGENTS.md"
+  fi
+  rm "$tmp/scaffold/AGENTS.md"
+fi
+
 # Check for conflicts
 conflicts=()
 while IFS= read -r file; do

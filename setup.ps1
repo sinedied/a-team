@@ -32,6 +32,27 @@ foreach ($pattern in $Exclude) {
 }
 Pop-Location
 
+# Handle AGENTS.md separately: append shared memory rules if missing
+$scaffoldAgents = "$tmp/scaffold/AGENTS.md"
+if (Test-Path $scaffoldAgents) {
+  $content = Get-Content $scaffoldAgents -Raw
+  $memoryIdx = $content.IndexOf("## Shared Memory")
+  $memorySection = if ($memoryIdx -ge 0) { $content.Substring($memoryIdx) } else { "" }
+
+  if (Test-Path "AGENTS.md") {
+    $existing = Get-Content "AGENTS.md" -Raw
+    if ($existing -notmatch '(?m)^## Shared Memory') {
+      Log "Appending shared memory rules to existing AGENTS.md..."
+      Add-Content -Path "AGENTS.md" -Value "`n$memorySection"
+    } else {
+      Log "AGENTS.md already contains shared memory rules, skipping."
+    }
+  } else {
+    Copy-Item $scaffoldAgents "AGENTS.md"
+  }
+  Remove-Item $scaffoldAgents
+}
+
 # Check for conflicts
 $scaffoldFiles = Get-ChildItem -Recurse -File "$tmp/scaffold" | ForEach-Object {
   $_.FullName.Substring("$tmp/scaffold".Length + 1)
