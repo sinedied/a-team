@@ -3,18 +3,31 @@ set -euo pipefail
 
 REPO="sinedied/a-team"
 EXCLUDE="README.md LICENSE setup.sh setup.ps1 assets"
+VERBOSE=false
+
+for arg in "$@"; do
+  case "$arg" in
+    -v|--verbose) VERBOSE=true ;;
+  esac
+done
+
+log() { $VERBOSE && echo "$@" || true; }
 
 # Download to temp directory first
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
+mkdir -p "$tmp/scaffold"
 
-if command -v npx &>/dev/null; then
-  npx --yes degit "$REPO" "$tmp/scaffold"
+if command -v curl &>/dev/null; then
+  log "Downloading $REPO via curl..."
+  curl -sL "https://github.com/$REPO/archive/HEAD.tar.gz" \
+    | tar xz --strip-components=1 -C "$tmp/scaffold"
 elif command -v git &>/dev/null; then
+  log "Downloading $REPO via git..."
   git clone --depth 1 "https://github.com/$REPO.git" "$tmp/scaffold" 2>/dev/null
   rm -rf "$tmp/scaffold/.git"
 else
-  echo "Error: npx or git required" >&2
+  echo "Error: curl or git required" >&2
   exit 1
 fi
 

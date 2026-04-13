@@ -2,17 +2,26 @@ $ErrorActionPreference = "Stop"
 
 $Repo = "sinedied/a-team"
 $Exclude = @("README.md", "LICENSE", "setup.sh", "setup.ps1", "assets")
+$Verbose = $args -contains "-v" -or $args -contains "--verbose"
+
+function Log($msg) { if ($Verbose) { Write-Host $msg } }
 
 # Download to temp directory first
 $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ([System.Guid]::NewGuid().ToString())
 
-if (Get-Command npx -ErrorAction SilentlyContinue) {
-  npx --yes degit $Repo "$tmp/scaffold"
+if (Get-Command curl.exe -ErrorAction SilentlyContinue) {
+  Log "Downloading $Repo via curl..."
+  New-Item -ItemType Directory -Path "$tmp/scaffold" -Force | Out-Null
+  $tarball = "$tmp/repo.tar.gz"
+  curl.exe -sL "https://github.com/$Repo/archive/HEAD.tar.gz" -o $tarball
+  tar xzf $tarball --strip-components=1 -C "$tmp/scaffold"
+  Remove-Item $tarball
 } elseif (Get-Command git -ErrorAction SilentlyContinue) {
+  Log "Downloading $Repo via git..."
   git clone --depth 1 "https://github.com/$Repo.git" "$tmp/scaffold" 2>$null
   Remove-Item -Recurse -Force "$tmp/scaffold/.git"
 } else {
-  Write-Error "npx or git required"
+  Write-Error "curl or git required"
   exit 1
 }
 
