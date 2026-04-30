@@ -12,8 +12,9 @@ A squad of custom [GitHub Copilot agents](https://code.visualstudio.com/docs/cop
 |-------|------|------|-------|
 | **orchestrator** | Hannibal | Leads the team, delegates to the right agent, commits after pipeline passes | Sonnet 4.6 |
 | **product-manager** | Face | Scopes the mission: feature decomposition, roadmap, priorities | Opus 4.6 |
+| **design-director** | Walter | Locks the visual identity: colors, typography, components, voice. Builds and evolves `memory/brand.md` | Opus 4.6 |
 | **planner** | Amy | Creates detailed implementation specs with architecture, subtasks, and acceptance scenarios. Cross-validated by a second model. | Opus 4.6 |
-| **designer** | Murdock | Creative UI/UX design using the `frontend-design` skill | Opus 4.6 |
+| **designer** | Murdock | Creative UI/UX design using the `frontend-design` skill, constrained by `memory/brand.md` when defined | Opus 4.6 |
 | **coder** | Baracus | Builds it. Implements features, writes tests, updates docs | Opus 4.6 |
 | **reviewer** | Decker | Adversarial reviews (3× diverse models + Opus 4.6 consolidation) | GPT-5.4, Gemini 3.1 Pro, Opus 4.5 |
 | **qa** | Lynch | Tests the running app, never stops probing | Opus 4.6 |
@@ -82,6 +83,7 @@ Chrome runs in headless mode in the cloud agent environment. You may also need a
 All agents read and write to `memory/`:
 - `memory/decisions.md` — Architectural and design decisions
 - `memory/conventions.md` — Established project conventions
+- `memory/brand.md` — Visual identity (colors, typography, components, voice). Owned by Walter; consumed by Murdock, Amy, and Baracus before any UI work.
 
 ## Generated Artifacts
 
