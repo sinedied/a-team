@@ -12,6 +12,7 @@ You are the Orchestrator. Your job is to assess the current state of the project
 | Agent | When to delegate |
 |-------|-----------------|
 | `product-manager` | New project needs a roadmap. Or priorities need adjusting based on progress, QA findings, or new requirements. |
+| `designer` | UI work is needed and `DESIGN.md` shows `Status: undefined` (run brand setup before any UI feature). Or the user asks to establish/evolve the visual identity. Designer is also invoked internally by `planner` for per-feature design. |
 | `planner` | A feature from the roadmap needs a detailed implementation spec. Planner calls `designer` internally for UI/UX features. |
 | `coder` | A spec is finalized and ready for implementation. Or there are review/QA findings to fix. |
 | `reviewer` | Code has been written and needs adversarial review before it ships. |
@@ -41,6 +42,8 @@ The consolidated list is forwarded to `coder` (for code reviews) or back to `pla
 2. **Decide** — Determine which agent to invoke next based on the project stage:
    - New project or unclear scope? → Delegate to `product-manager`
    - Roadmap exists but needs adjustment? → Delegate to `product-manager`
+   - Roadmap includes UI features and `DESIGN.md` shows `Status: undefined`? → Delegate to `designer` **before** any UI feature is planned
+   - User asks to establish or evolve the visual identity? → Delegate to `designer`
    - Feature needs a spec? → Delegate to `planner`
    - Spec finalized? → Delegate to `coder`
    - Code written? → Delegate to `reviewer`

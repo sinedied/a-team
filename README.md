@@ -15,7 +15,7 @@ Each agent uses whatever main model the session runs on — no models are hardco
 | **orchestrator** | Hannibal | Leads the team, delegates to the right agent, commits after pipeline passes |
 | **product-manager** | Face | Scopes the mission: feature decomposition, roadmap, priorities |
 | **planner** | Amy | Creates detailed implementation specs with architecture, subtasks, and acceptance scenarios |
-| **designer** | Murdock | Creative UI/UX design using the `frontend-design` skill |
+| **designer** | Murdock | Owns `DESIGN.md` (visual identity contract). Runs brand discovery for new projects and creates per-feature UI/UX designs |
 | **coder** | Baracus | Builds it. Implements features, writes tests, updates docs |
 | **reviewer** | Decker | Adversarial review: opposite-provider SOTA + same-model, both at highest reasoning, then consolidated |
 | **qa** | Lynch | Tests the running app, never stops probing |
@@ -89,11 +89,13 @@ All agents read and write to `memory/`:
 
 The agents produce artifacts during the pipeline. These are committed alongside the code:
 
-| Directory | Contents | Written by |
-|-----------|----------|------------|
+| Path | Contents | Written by |
+|------|----------|------------|
+| `DESIGN.md` | Visual identity contract — colors, typography, components, voice, motion (follows [Google's DESIGN.md spec](https://github.com/google-labs-code/design.md)) | Designer |
 | `specs/` | Implementation specs with architecture, subtasks, acceptance scenarios, and decisions | Planner |
 | `qa/` | QA test logs — scenarios tested, edge cases, issues found (persists across sessions) | QA |
 | `memory/` | Shared decisions and conventions | All agents |
+| `brand/` *(optional)* | HTML brand book, UI kit, and demo page derived from `DESIGN.md` | Designer |
 
 ## License
 

@@ -31,3 +31,13 @@ When a new decision is made or convention established:
 ### <Convention Name>
 <Clear description with example if helpful>
 ```
+
+## Visual Identity
+
+`DESIGN.md` at the repo root is the canonical visual contract for the project. It follows Google's [DESIGN.md spec](https://github.com/google-labs-code/design.md) — YAML token frontmatter plus markdown prose, with non-canonical extension sections (Voice, Motion, Positioning, References).
+
+### Reading
+Before any UI work, read `DESIGN.md`. If `Status: undefined`, no visual identity has been established — the `designer` agent (Murdock) must establish it before non-trivial UI work proceeds.
+
+### Writing
+Only the `designer` agent writes to `DESIGN.md`. Other agents flag gaps back to the designer instead of editing the file directly. Validate edits with `npx @google/design.md lint DESIGN.md`.
