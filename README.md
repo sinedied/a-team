@@ -8,7 +8,7 @@ A squad of custom [GitHub Copilot agents](https://code.visualstudio.com/docs/cop
 
 ## Agents
 
-Each agent uses whatever main model the session runs on — no models are hardcoded. The reviewer is automatically spawned with the opposite-provider SOTA model (Claude ↔ GPT) at highest reasoning effort to ensure diverse perspectives.
+Each agent uses whatever main model the session runs on — no models are hardcoded. The reviewer runs **2 parallel reviews** (the current main model + the opposite-provider SOTA, both at highest reasoning), followed by a consolidation pass on the current main model.
 
 | Agent | Name | Role |
 |-------|------|------|
@@ -17,7 +17,7 @@ Each agent uses whatever main model the session runs on — no models are hardco
 | **planner** | Amy | Creates detailed implementation specs with architecture, subtasks, and acceptance scenarios |
 | **designer** | Murdock | Creative UI/UX design using the `frontend-design` skill |
 | **coder** | Baracus | Builds it. Implements features, writes tests, updates docs |
-| **reviewer** | Decker | Adversarial review using the opposite-provider SOTA model with highest reasoning |
+| **reviewer** | Decker | Adversarial review: opposite-provider SOTA + same-model, both at highest reasoning, then consolidated |
 | **qa** | Lynch | Tests the running app, never stops probing |
 
 ## Setup

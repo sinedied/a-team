@@ -19,13 +19,20 @@ You are the Orchestrator. Your job is to assess the current state of the project
 
 ## Adversarial Review Protocol
 
-When delegating to `reviewer`, spawn **one review** using the **opposite-provider SOTA model** for diverse perspective:
+When delegating to `reviewer`, spawn **2 parallel reviews** at highest reasoning effort for diverse perspectives:
 
-- If the current main model is a Claude model → spawn `reviewer` with `gpt-5.5`
-- If the current main model is a GPT model → spawn `reviewer` with `claude-opus-4.7-xhigh`
-- Always use the **highest reasoning effort** variant available for the chosen model
+1. `reviewer` with the **opposite-provider SOTA model**:
+   - Current main model is Claude → use `gpt-5.5`
+   - Current main model is GPT → use `claude-opus-4.7-xhigh`
+2. `reviewer` with the **current main model** at its highest reasoning variant
 
-This applies to both code reviews and plan reviews. The reviewer's findings are forwarded directly to `coder` for fixing — no consolidation pass needed. Report the review summary to the user.
+After both complete, run a **consolidation review** — spawn `reviewer` with the current main model and provide it with both review outputs plus the relevant code/spec. The consolidation reviewer produces the final findings list:
+
+- **Consensus findings** (flagged by both reviewers) at any severity → **Kept**.
+- **Single-reviewer findings at high/critical severity** → **Kept**.
+- **Single-reviewer findings at medium/low severity** → **Kept only if the consolidation reviewer confirms the finding is valid**, discarded otherwise.
+
+The consolidated list is forwarded to `coder` (for code reviews) or back to `planner` (for plan reviews). This protocol applies to both code and plan reviews. Report the aggregated review summary to the user.
 
 ## Process
 
