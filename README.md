@@ -40,6 +40,16 @@ iwr -useb https://raw.githubusercontent.com/sinedied/a-team/main/setup.ps1 -OutF
 
 Files are installed in the current directory. Existing files are never overwritten without confirmation.
 
+To install a specific version (tag), pass `-v <tag>`:
+
+```bash
+# Mac/Linux
+curl -fsSL https://raw.githubusercontent.com/sinedied/a-team/main/setup.sh | bash -s -- -v v1.0
+
+# Windows
+iwr -useb https://raw.githubusercontent.com/sinedied/a-team/main/setup.ps1 -OutFile setup.ps1; .\setup.ps1 -v v1.0; rm setup.ps1
+```
+
 ## Skills
 
 The squad includes two built-in skills that agents use automatically:

@@ -2,8 +2,20 @@ $ErrorActionPreference = "Stop"
 
 $Repo = "sinedied/a-team"
 $Exclude = @("README.md", "LICENSE", "setup.sh", "setup.ps1", "assets")
-$Verbose = $args -contains "-v" -or $args -contains "--verbose"
+$Verbose = $args -contains "--verbose"
 $Yes = $args -contains "-y" -or $args -contains "--yes"
+$Version = "HEAD"
+
+for ($i = 0; $i -lt $args.Length; $i++) {
+  if ($args[$i] -eq "-v" -or $args[$i] -eq "--version") {
+    if ($i + 1 -ge $args.Length) {
+      Write-Error "--version requires an argument (e.g. v1.0.0)"
+      exit 1
+    }
+    $Version = $args[$i + 1]
+    break
+  }
+}
 
 function Log($msg) { if ($Verbose) { Write-Host $msg } }
 
@@ -11,15 +23,28 @@ function Log($msg) { if ($Verbose) { Write-Host $msg } }
 $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ([System.Guid]::NewGuid().ToString())
 
 if (Get-Command curl.exe -ErrorAction SilentlyContinue) {
-  Log "Downloading $Repo via curl..."
+  Log "Downloading ${Repo}@${Version} via curl..."
   New-Item -ItemType Directory -Path "$tmp/scaffold" -Force | Out-Null
   $tarball = "$tmp/repo.tar.gz"
-  curl.exe -sL "https://github.com/$Repo/archive/HEAD.tar.gz" -o $tarball
+  if ($Version -eq "HEAD") {
+    $url = "https://github.com/$Repo/archive/HEAD.tar.gz"
+  } else {
+    $url = "https://github.com/$Repo/archive/refs/tags/$Version.tar.gz"
+  }
+  curl.exe -fsL $url -o $tarball
+  if ($LASTEXITCODE -ne 0) {
+    Write-Error "Failed to download ${Repo}@${Version}. Check that the version/tag exists."
+    exit 1
+  }
   tar xzf $tarball --strip-components=1 -C "$tmp/scaffold"
   Remove-Item $tarball
 } elseif (Get-Command git -ErrorAction SilentlyContinue) {
-  Log "Downloading $Repo via git..."
-  git clone --depth 1 "https://github.com/$Repo.git" "$tmp/scaffold" 2>$null
+  Log "Downloading ${Repo}@${Version} via git..."
+  if ($Version -eq "HEAD") {
+    git clone --depth 1 "https://github.com/$Repo.git" "$tmp/scaffold" 2>$null
+  } else {
+    git clone --depth 1 --branch $Version "https://github.com/$Repo.git" "$tmp/scaffold" 2>$null
+  }
   Remove-Item -Recurse -Force "$tmp/scaffold/.git"
 } else {
   Write-Error "curl or git required"

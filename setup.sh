@@ -5,11 +5,19 @@ REPO="sinedied/a-team"
 EXCLUDE="README.md LICENSE setup.sh setup.ps1 assets"
 VERBOSE=false
 YES=false
+VERSION="HEAD"
 
-for arg in "$@"; do
-  case "$arg" in
-    -v|--verbose) VERBOSE=true ;;
-    -y|--yes) YES=true ;;
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --verbose) VERBOSE=true; shift ;;
+    -y|--yes) YES=true; shift ;;
+    -v|--version)
+      if [ -z "${2:-}" ]; then
+        echo "Error: --version requires an argument (e.g. v1.0.0)" >&2
+        exit 1
+      fi
+      VERSION="$2"; shift 2 ;;
+    *) shift ;;
   esac
 done
 
@@ -21,12 +29,24 @@ trap 'rm -rf "$tmp"' EXIT
 mkdir -p "$tmp/scaffold"
 
 if command -v curl &>/dev/null; then
-  log "Downloading $REPO via curl..."
-  curl -sL "https://github.com/$REPO/archive/HEAD.tar.gz" \
-    | tar xz --strip-components=1 -C "$tmp/scaffold"
+  log "Downloading $REPO@$VERSION via curl..."
+  if [ "$VERSION" = "HEAD" ]; then
+    url="https://github.com/$REPO/archive/HEAD.tar.gz"
+  else
+    url="https://github.com/$REPO/archive/refs/tags/$VERSION.tar.gz"
+  fi
+  if ! curl -fsL "$url" \
+    | tar xz --strip-components=1 -C "$tmp/scaffold"; then
+    echo "Error: failed to download $REPO@$VERSION. Check that the version/tag exists." >&2
+    exit 1
+  fi
 elif command -v git &>/dev/null; then
-  log "Downloading $REPO via git..."
-  git clone --depth 1 "https://github.com/$REPO.git" "$tmp/scaffold" 2>/dev/null
+  log "Downloading $REPO@$VERSION via git..."
+  if [ "$VERSION" = "HEAD" ]; then
+    git clone --depth 1 "https://github.com/$REPO.git" "$tmp/scaffold" 2>/dev/null
+  else
+    git clone --depth 1 --branch "$VERSION" "https://github.com/$REPO.git" "$tmp/scaffold" 2>/dev/null
+  fi
   rm -rf "$tmp/scaffold/.git"
 else
   echo "Error: curl or git required" >&2
