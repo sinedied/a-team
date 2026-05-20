@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 
 $Repo = "sinedied/a-team"
-$Exclude = @("README.md", "LICENSE", "setup.sh", "setup.ps1", "assets")
+$Exclude = @("README.md", "LICENSE", "setup.sh", "setup.ps1", "assets", ".gitignore")
 $Verbose = $args -contains "--verbose"
 $Yes = $args -contains "-y" -or $args -contains "--yes"
 $Version = "HEAD"

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 REPO="sinedied/a-team"
-EXCLUDE="README.md LICENSE setup.sh setup.ps1 assets"
+EXCLUDE="README.md LICENSE setup.sh setup.ps1 assets .gitignore"
 VERBOSE=false
 YES=false
 VERSION="HEAD"
