@@ -52,10 +52,11 @@ iwr -useb https://raw.githubusercontent.com/sinedied/a-team/main/setup.ps1 -OutF
 
 ## Skills
 
-The squad includes two built-in skills that agents use automatically:
+The squad includes built-in skills that agents use automatically:
 
 | Skill | Used by | Description |
 |-------|---------|-------------|
+| **create-branding** | Designer | Establishes or evolves the project's visual identity in `DESIGN.md` via an interview-style discovery. Locks decisions as they're made, validates with Google's DESIGN.md lint |
 | **frontend-design** | Designer | Guides creation of distinctive, production-grade UI that avoids generic AI aesthetics |
 | **chrome-devtools** | QA | Controls a live Chrome browser for visual testing, screenshots, and DOM inspection. Auto-configures the MCP server when needed. |
 
