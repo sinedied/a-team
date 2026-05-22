@@ -1,5 +1,5 @@
 ---
-name: create-roadmap
+name: roadmap
 description: "Create or iterate on the project roadmap at specs/roadmap.md. Use when starting a new project, scoping an MVP, or adjusting priorities based on progress, QA findings, or new requirements. Runs an interview-style discovery, validates an intermediate summary with the user, then locks the roadmap."
 ---
 

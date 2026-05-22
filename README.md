@@ -56,8 +56,8 @@ The squad includes built-in skills that agents use automatically:
 
 | Skill | Used by | Description |
 |-------|---------|-------------|
-| **create-roadmap** | Product Manager | Creates or iterates on `specs/roadmap.md` via an interview, intermediate validation, and adversarial review. Handles initial scoping and reprioritization |
-| **create-branding** | Designer | Establishes or evolves the project's visual identity in `DESIGN.md` via an interview-style discovery. Locks decisions as they're made, validates with Google's DESIGN.md lint |
+| **roadmap** | Product Manager | Creates or iterates on `specs/roadmap.md` via an interview, intermediate validation, and adversarial review. Handles initial scoping and reprioritization |
+| **brand** | Designer | Establishes or evolves the project's visual identity in `DESIGN.md` via an interview-style discovery. Locks decisions as they're made, validates with Google's DESIGN.md lint |
 | **frontend-design** | Designer | Guides creation of distinctive, production-grade UI that avoids generic AI aesthetics |
 | **chrome-devtools** | QA | Controls a live Chrome browser for visual testing, screenshots, and DOM inspection. Auto-configures the MCP server when needed. |
 

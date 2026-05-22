@@ -1,5 +1,5 @@
 ---
-name: create-branding
+name: brand
 description: "Establish or evolve a project's visual identity in DESIGN.md. Use when DESIGN.md is undefined or when the user wants to redefine colors, typography, components, motion, or voice. Runs an interview-style discovery, locks decisions into DESIGN.md as they're made, and produces a brand identity that resists generic AI aesthetic."
 ---
 
