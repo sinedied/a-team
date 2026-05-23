@@ -99,4 +99,11 @@
 
   <text x="220" y="604" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="9" fill="#484f58" text-anchor="middle" font-style="italic">Each agent hands back to the Orchestrator, who decides the next step.</text>
 
+  <rect x="370" y="148" width="120" height="36" rx="6" fill="#f97316" stroke="#ea580c" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="430" y="168" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">Marketer</text>
+  <text x="430" y="179" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="8" fill="#fed7aa" text-anchor="middle" font-style="italic">mostly on-demand</text>
+
+  <path d="M320,93 L430,93 L430,148" fill="none" stroke="#f97316" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#a)"/>
+  <text x="390" y="87" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="8" fill="#fdba74" text-anchor="middle">inception / MVP</text>
+
 </svg>

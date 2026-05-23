@@ -13,12 +13,13 @@ Each agent uses whatever main model the session runs on — no models are hardco
 | Agent | Name | Role |
 |-------|------|------|
 | **orchestrator** | Hannibal | Leads the team, delegates to the right agent, commits after pipeline passes |
-| **product-manager** | Face | Scopes the mission: feature decomposition, roadmap, priorities |
+| **product-manager** | Stockwell | Scopes the mission: feature decomposition, roadmap, priorities |
 | **planner** | Amy | Creates detailed implementation specs with architecture, subtasks, and acceptance scenarios |
 | **designer** | Murdock | Owns `DESIGN.md` (visual identity contract). Runs brand discovery for new projects and creates per-feature UI/UX designs |
 | **coder** | Baracus | Builds it. Implements features, writes tests, updates docs |
 | **reviewer** | Decker | Adversarial review: opposite-provider SOTA + same-model, both at highest reasoning, then consolidated |
 | **qa** | Lynch | Tests the running app, never stops probing |
+| **marketer** | Face | Mostly on-demand: positioning, messaging, channels, content strategy, promo content. Owns `docs/marketing/MARKETING.md`. Auto-engages at MVP completion (first creation), at project inception (lightweight tagline pass), and when a feature spec mandates marketing artifacts |
 
 ## Setup
 
@@ -56,8 +57,9 @@ The squad includes built-in skills that agents use automatically:
 
 | Skill | Used by | Description |
 |-------|---------|-------------|
-| **roadmap** | Product Manager | Creates or iterates on `specs/roadmap.md` via an interview, intermediate validation, and adversarial review. Handles initial scoping and reprioritization |
+| **roadmap** | Product Manager | Creates or iterates on `docs/specs/roadmap.md` via an interview, intermediate validation, and adversarial review. Handles initial scoping and reprioritization |
 | **brand** | Designer | Establishes or evolves the project's visual identity in `DESIGN.md` via an interview-style discovery. Locks decisions as they're made, validates with Google's DESIGN.md lint |
+| **marketing** | Marketer | Establishes or evolves marketing identity in `docs/marketing/MARKETING.md` — positioning, audience, messaging, channels, content strategy. Truth-checks all claims against the codebase, enforces anti-slop guardrails |
 | **frontend-design** | Designer | Guides creation of distinctive, production-grade UI that avoids generic AI aesthetics |
 | **chrome-devtools** | QA | Controls a live Chrome browser for visual testing, screenshots, and DOM inspection. Auto-configures the MCP server when needed. |
 
@@ -93,9 +95,9 @@ Chrome runs in headless mode in the cloud agent environment. You may also need a
 
 ## Shared Memory
 
-All agents read and write to `memory/`:
-- `memory/decisions.md` — Architectural and design decisions
-- `memory/conventions.md` — Established project conventions
+All agents read and write to `docs/memory/`:
+- `docs/memory/decisions.md` — Architectural and design decisions
+- `docs/memory/conventions.md` — Established project conventions
 
 ## Generated Artifacts
 
@@ -104,10 +106,11 @@ The agents produce artifacts during the pipeline. These are committed alongside 
 | Path | Contents | Written by |
 |------|----------|------------|
 | `DESIGN.md` | Visual identity contract — colors, typography, components, voice, motion (follows [Google's DESIGN.md spec](https://github.com/google-labs-code/design.md)) | Designer |
-| `specs/` | Implementation specs with architecture, subtasks, acceptance scenarios, and decisions | Planner |
-| `qa/` | QA test logs — scenarios tested, edge cases, issues found (persists across sessions) | QA |
-| `memory/` | Shared decisions and conventions | All agents |
-| `brand/` *(optional)* | HTML brand book, UI kit, and demo page derived from `DESIGN.md` | Designer |
+| `docs/specs/` | Implementation specs with architecture, subtasks, acceptance scenarios, and decisions | Planner |
+| `docs/qa/` | QA test logs — scenarios tested, edge cases, issues found (persists across sessions) | QA |
+| `docs/memory/` | Shared decisions and conventions | All agents |
+| `docs/brand/` *(optional)* | HTML brand book, UI kit, and demo page derived from `DESIGN.md` | Designer |
+| `docs/marketing/` *(on-demand)* | `MARKETING.md` (positioning, messaging, channels) + dated per-engagement promo content (`<yyyy-mm-dd>_<slug>.md`) | Marketer |
 
 ## License
 

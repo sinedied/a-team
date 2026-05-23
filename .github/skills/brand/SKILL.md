@@ -32,7 +32,7 @@ Non-canonical extension sections used by this project: **Voice**, **Motion**, **
 
 Before asking the user anything:
 - Read the current `DESIGN.md` to detect new identity vs. iteration on existing.
-- Read `memory/decisions.md`, `specs/roadmap.md` (if present), `README.md` to understand audience, domain, and any tonal cues already implied.
+- Read `docs/memory/decisions.md`, `docs/specs/roadmap.md` (if present), `README.md` to understand audience, domain, and any tonal cues already implied.
 
 ### 2. Find references on designdotmd.directory
 
@@ -94,15 +94,15 @@ For each lock:
 ### 6. Generate artifacts (optional)
 
 When the identity is complete and the project has a frontend, ask whether to generate:
-- `brand/brand-book.html` — visual reference of colors, typography, gradients, pairings
-- `brand/ui-kit.html` — reference implementation of base components (buttons, labels, cards, trust bars, badges, footer)
-- `brand/demo.html` — sample implementation of a key page (e.g. homepage) showcasing the identity in action with fake data
+- `docs/brand/brand-book.html` — visual reference of colors, typography, gradients, pairings
+- `docs/brand/ui-kit.html` — reference implementation of base components (buttons, labels, cards, trust bars, badges, footer)
+- `docs/brand/demo.html` — sample implementation of a key page (e.g. homepage) showcasing the identity in action with fake data
 
 Build them as standalone HTML files using Tailwind via CDN, with colors and fonts from `DESIGN.md` wired through CSS variables. These are visual references, not production code.
 
 ### 7. Record decisions
 
-Append the meaningful brand decisions (palette rationale, typography choice, aesthetic direction, references that informed the direction) to `memory/decisions.md` using the project's decision format. The detailed values live in `DESIGN.md`; the *why* lives in `memory/decisions.md`.
+Append the meaningful brand decisions (palette rationale, typography choice, aesthetic direction, references that informed the direction) to `docs/memory/decisions.md` using the project's decision format. The detailed values live in `DESIGN.md`; the *why* lives in `docs/memory/decisions.md`.
 
 ## Iteration mode
 
@@ -112,8 +112,8 @@ When called to update an existing identity (rather than create one):
 2. Confirm with the user which sections are in scope to change.
 3. Preserve untouched sections verbatim. Update only what is in scope.
 4. Run lint after each section update.
-5. Append the change rationale to `memory/decisions.md`.
-6. If `brand/brand-book.html` or `brand/ui-kit.html` exist, regenerate them to match.
+5. Append the change rationale to `docs/memory/decisions.md`.
+6. If `docs/brand/brand-book.html` or `docs/brand/ui-kit.html` exist, regenerate them to match.
 
 ## Rules
 
