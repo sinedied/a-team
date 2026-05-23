@@ -2,10 +2,10 @@
 
 ## Shared Memory
 
-The project maintains shared memory in `memory/`:
+The project maintains shared memory in `docs/memory/`:
 
-- `memory/decisions.md` — Architectural and design decisions
-- `memory/conventions.md` — Established project conventions
+- `docs/memory/decisions.md` — Architectural and design decisions
+- `docs/memory/conventions.md` — Established project conventions
 
 ### Reading
 Before making architectural decisions or proposing changes, check existing decisions and conventions for prior context.
@@ -41,3 +41,4 @@ Before any UI work, read `DESIGN.md`. If `Status: undefined`, no visual identity
 
 ### Writing
 Only the `designer` agent writes to `DESIGN.md`. Other agents flag gaps back to the designer instead of editing the file directly. Validate edits with `npx @google/design.md lint DESIGN.md`.
+

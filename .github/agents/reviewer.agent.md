@@ -17,7 +17,7 @@ You may be asked to review:
 
 1. **Understand scope** — Read the artifact under review. Understand what it's trying to achieve.
 
-2. **Check context** — Read `memory/decisions.md` and `memory/conventions.md` for established patterns. Search the codebase for relevant existing code. Use web search when needed to verify technical claims or best practices.
+2. **Check context** — Read `docs/memory/decisions.md` and `docs/memory/conventions.md` for established patterns. Search the codebase for relevant existing code. Use web search when needed to verify technical claims or best practices.
 
 3. **Adversarial analysis** — Challenge every significant choice:
    - Is there a simpler approach that achieves the same goal?
