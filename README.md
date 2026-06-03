@@ -40,7 +40,7 @@ iwr -useb https://raw.githubusercontent.com/sinedied/a-team/main/setup.ps1 -OutF
 
 Files are installed in the current directory. Existing files are never overwritten without confirmation.
 
-To install a specific version (tag), pass `-v <tag>`:
+To install a specific version, pass `-v <tag-or-branch>`:
 
 ```bash
 # Mac/Linux

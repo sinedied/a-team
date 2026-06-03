@@ -9,7 +9,7 @@ $Version = "HEAD"
 for ($i = 0; $i -lt $args.Length; $i++) {
   if ($args[$i] -eq "-v" -or $args[$i] -eq "--version") {
     if ($i + 1 -ge $args.Length) {
-      Write-Error "--version requires an argument (e.g. v1.0.0)"
+      Write-Error "--version requires an argument (git tag or branch, e.g. v1.0.0 or main)"
       exit 1
     }
     $Version = $args[$i + 1]
@@ -29,11 +29,11 @@ if (Get-Command curl.exe -ErrorAction SilentlyContinue) {
   if ($Version -eq "HEAD") {
     $url = "https://github.com/$Repo/archive/HEAD.tar.gz"
   } else {
-    $url = "https://github.com/$Repo/archive/refs/tags/$Version.tar.gz"
+    $url = "https://github.com/$Repo/archive/$Version.tar.gz"
   }
   curl.exe -fsL $url -o $tarball
   if ($LASTEXITCODE -ne 0) {
-    Write-Error "Failed to download ${Repo}@${Version}. Check that the version/tag exists."
+    Write-Error "Failed to download ${Repo}@${Version}. Check that the tag or branch exists."
     exit 1
   }
   tar xzf $tarball --strip-components=1 -C "$tmp/scaffold"

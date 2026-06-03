@@ -13,7 +13,7 @@ while [ $# -gt 0 ]; do
     -y|--yes) YES=true; shift ;;
     -v|--version)
       if [ -z "${2:-}" ]; then
-        echo "Error: --version requires an argument (e.g. v1.0.0)" >&2
+        echo "Error: --version requires an argument (git tag or branch, e.g. v1.0.0 or main)" >&2
         exit 1
       fi
       VERSION="$2"; shift 2 ;;
@@ -33,11 +33,11 @@ if command -v curl &>/dev/null; then
   if [ "$VERSION" = "HEAD" ]; then
     url="https://github.com/$REPO/archive/HEAD.tar.gz"
   else
-    url="https://github.com/$REPO/archive/refs/tags/$VERSION.tar.gz"
+    url="https://github.com/$REPO/archive/$VERSION.tar.gz"
   fi
   if ! curl -fsL "$url" \
     | tar xz --strip-components=1 -C "$tmp/scaffold"; then
-    echo "Error: failed to download $REPO@$VERSION. Check that the version/tag exists." >&2
+    echo "Error: failed to download $REPO@$VERSION. Check that the tag or branch exists." >&2
     exit 1
   fi
 elif command -v git &>/dev/null; then
