@@ -23,15 +23,17 @@ A roadmap without a clear milestone cut, dependencies, and rationale produces sc
 
 ## Milestone shape (games)
 
-Games ship through a predictable milestone sequence. Use this as the default structure unless the user explicitly chooses otherwise:
+Games ship through different production models. Pick one early — milestones differ dramatically between a 48-hour jam and a commercial 1.0 release:
 
-- **Vertical Slice**: one polished scene / level demonstrating every pillar in `docs/GAME.md` (one mechanic per pillar, art direction in place, audio cues present). Goal: prove the game's identity is achievable.
-- **Alpha**: all core mechanics in, all systems wired together, content sparse. Goal: prove the game is feasible end-to-end.
-- **Beta**: feature-complete, content at target density, balance pass underway. Goal: prove the game holds up over a full playthrough.
-- **1.0**: ship-ready. Polish, accessibility pass, localization (if in scope), platform-cert prep (if applicable).
-- **Post-launch**: patches, balance hotfixes, planned content drops. Each is its own milestone with its own scope.
+- **Commercial premium (default)**: Vertical Slice → Alpha → Beta → 1.0 → Post-launch. Use this for projects targeting paid release on Steam / itch / consoles.
+- **Game jam / prototype**: One milestone (`Submission` or `Prototype`), tightly scoped to the deadline. No alpha/beta phases. Post-jam polish is its own optional milestone.
+- **Live service / ongoing**: Soft Launch → Launch → Season N (recurring). "1.0" is the start, not the end. Each season is its own milestone with its own scope.
+- **Tool / mod / editor**: Functional → Documented → Released → Community (optional). Less about content density, more about API stability and docs.
+- **Educational / sandbox toy**: Playable → Polished → Distributed. Often no "post-launch" — once it's good, it's done.
 
 For non-game projects, fall back to the generic Iteration 1 (MVP) / Iteration 2+ shape.
+
+The delivery model is locked in step 2 of the framing interview; milestone templates flow from it.
 
 ## Process
 
@@ -52,9 +54,17 @@ For new roadmaps, ask the user **one question at a time** and wait for each answ
 In order:
 
 1. **Idea & vision** — What are we building? For games, prompt: pitch, genre, reference games, target platform(s). Mention they can paste from a file if they prefer.
-2. **Audience** — Who is this for? If not obvious from the idea. Skip if already covered.
-3. **Constraints** — Any specific constraints? Engine choice, tech stack restrictions, deadlines (Steam Next Fest? game jam? release window?), compliance, accessibility targets, libraries to use/avoid. If none, assume defaults.
-4. **First milestone intent** — For games: what does the **vertical slice** look like? One scene / level demonstrating every pillar. For non-games: what is the smallest version that delivers core value (MVP)? If the user can't answer, propose a candidate based on the idea.
+2. **Delivery model** — What's the production model? Pick one:
+   - **Commercial premium** (paid release, full alpha/beta/1.0 arc)
+   - **Game jam / prototype** (deadline-driven, single milestone)
+   - **Live service / ongoing** (post-launch is the main phase, recurring seasons)
+   - **Tool / mod / editor** (functional → documented → released)
+   - **Educational / sandbox toy** (playable → polished → done)
+   - **Non-game** (generic Iteration 1 / 2+ shape)
+   The delivery model drives the milestone template in step 3. Default to commercial premium if the user is unsure but the project is clearly a paid release; ask explicitly otherwise.
+3. **Audience** — Who is this for? If not obvious from the idea. Skip if already covered.
+4. **Constraints** — Any specific constraints? Engine choice, tech stack restrictions, deadlines (Steam Next Fest? game jam? release window?), compliance, accessibility targets, libraries to use/avoid. If none, assume defaults.
+5. **First milestone intent** — For commercial: what does the **vertical slice** look like? One scene / level demonstrating every pillar. For jam: what does the submission build contain? For live-service: what does the soft launch include? If the user can't answer, propose a candidate based on the idea and delivery model.
 
 If the project is well-defined from a pitch the user pasted in step 1, you may skip later questions when the answer is already covered. Don't ask redundant questions.
 
@@ -67,15 +77,19 @@ This phase is faster when the AI proposes and the user refines. Don't ask the us
 1. Break the idea into discrete features. For each:
    - Name and one-line description
    - User value: what problem does it solve
-   - UI flag: yes/no — whether the feature has user-facing UI (triggers designer involvement during planning)
+   - UI flag: yes/no — whether the feature has user-facing UI (triggers art-director involvement during planning)
    - Dependencies: which features must come first
    - Scope: what's included, what's explicitly excluded
-2. Group features into **milestones** (game projects) or iterations (non-game projects):
-   - **Vertical Slice** / Iteration 1 (MVP): minimum set to demonstrate every pillar / deliver core value
-   - **Alpha** / Iteration 2: all core systems wired, content sparse
-   - **Beta** / Iteration 3: feature-complete, content at target density, balance pass
-   - **1.0**: ship-ready (polish, accessibility, localization, cert)
-   - **Post-launch**: planned patches / content drops, each its own milestone
+2. Group features into **milestones** based on the delivery model picked in step 2:
+
+   - **Commercial premium**: Vertical Slice → Alpha → Beta → 1.0 → Post-launch
+   - **Game jam / prototype**: Submission (single milestone) → optional Post-jam polish
+   - **Live service**: Soft Launch → Launch → Season 1, Season 2, ...
+   - **Tool / mod / editor**: Functional → Documented → Released → Community (optional)
+   - **Educational / sandbox toy**: Playable → Polished → Distributed
+   - **Non-game**: Iteration 1 (MVP) → Iteration 2+
+
+   Each milestone follows the same column structure. Use only the milestones that exist for this delivery model.
    - **Deferred**: explicitly out of scope for now, with rationale
 3. Identify **potential challenges** for the riskiest features, each with a **mitigation strategy**.
 4. List any **open decisions** the user hasn't committed to (e.g., monetization model, auth provider, hosting choice). Don't block the roadmap on these — surface them so the planner can resolve them later.

@@ -5,7 +5,7 @@ description: "Establish or evolve a project's visual identity in DESIGN.md. Use 
 
 # Create Branding
 
-> **Run as the designer agent.** If you are not the `designer` (Murdock), delegate the entire brand work to it via the task/agent tool before proceeding. The designer owns `DESIGN.md` end-to-end; running brand work from another agent splits ownership and risks inconsistent identity decisions.
+> **Run as the art-director agent.** If you are not the `art-director` (Frankie), delegate the entire brand work to it via the task/agent tool before proceeding. The art-director owns `DESIGN.md` end-to-end; running brand work from another agent splits ownership and risks inconsistent identity decisions.
 
 This skill guides the creation or evolution of a project's visual identity, captured in `DESIGN.md` at the repo root following [Google's DESIGN.md spec](https://github.com/google-labs-code/design.md). A project without a defined visual identity converges on the same generic AI aesthetic as everyone else. Decisions made up front by this skill eliminate that.
 
