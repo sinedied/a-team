@@ -1,8 +1,10 @@
 ![A-Team Banner](assets/banner.svg)
 
-# A-Team
+# A-Team — Game Dev Branch
 
-A squad of custom [GitHub Copilot agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) for autonomous project development. No roleplay bullshit, just gets the job done.
+> **Experimental branch.** This is the `gamedev` variant of A-Team, adapted to operate as a game development squad. The default `main` branch targets generic software/web projects. See [main](https://github.com/sinedied/a-team/tree/main) for that flavor.
+
+A squad of custom [GitHub Copilot agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) for autonomous game development. No roleplay bullshit, just gets the job done.
 
 *"I love it when a plan comes together."* — Hannibal
 
@@ -13,43 +15,37 @@ Each agent uses whatever main model the session runs on — no models are hardco
 | Agent | Name | Role |
 |-------|------|------|
 | **orchestrator** | Hannibal | Leads the team, delegates to the right agent, commits after pipeline passes |
-| **product-manager** | Stockwell | Scopes the mission: feature decomposition, roadmap, priorities |
-| **planner** | Amy | Creates detailed implementation specs with architecture, subtasks, and acceptance scenarios |
-| **designer** | Murdock | Owns `DESIGN.md` (visual identity contract). Runs brand discovery for new projects and creates per-feature UI/UX designs |
+| **product-manager** | Stockwell | Scopes the mission: feature decomposition, milestone-driven roadmap, priorities |
+| **planner** | Amy | Creates detailed implementation specs with architecture, subtasks, acceptance scenarios, and per-discipline design sections |
+| **game-designer** | Murdock | Owns `docs/GAME.md` (game design contract): pillars, core loop, mechanics, systems, numbers, controls |
+| **art-director** | Frankie | Owns `DESIGN.md` (visual identity) and `docs/AUDIO.md` (audio direction). Covers in-game art, UI/HUD, VFX, music brief, SFX vocabulary |
+| **narrative-designer** *(on-demand)* | Tawnia | Owns `docs/NARRATIVE.md` (lore, characters, dialogue, branching). Engaged only when the game has story/dialogue ambition |
 | **coder** | Baracus | Builds it. Implements features, writes tests, updates docs |
-| **reviewer** | Decker | Adversarial review: opposite-provider SOTA + same-model, both at highest reasoning, then consolidated |
-| **qa** | Lynch | Tests the running app, never stops probing |
-| **marketer** | Face | Mostly on-demand: positioning, messaging, channels, content strategy, promo content. Owns `docs/marketing/MARKETING.md`. Auto-engages at MVP completion (first creation), at project inception (lightweight tagline pass), and when a feature spec mandates marketing artifacts |
+| **reviewer** | Decker | Adversarial review: opposite-provider SOTA + same-model, both at highest reasoning, then consolidated. Also reviews `docs/GAME.md` balance changes |
+| **playtester** | Lynch | Tests the running build: acceptance scenarios, soft-locks, exploits, balance, performance, accessibility |
+| **marketer** | Face | Mostly on-demand: positioning, messaging, Steam page, devlog, festival submissions. Owns `docs/marketing/MARKETING.md`. Auto-engages at vertical-slice / MVP completion (first creation), at project inception (lightweight tagline pass), and when a feature spec mandates marketing artifacts |
 
 ## Setup
 
 Add the agent squad to your project:
 
 ```bash
-cd my-project
+cd my-game-project
 ```
 
 **Mac/Linux:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/sinedied/a-team/main/setup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/sinedied/a-team/gamedev/setup.sh | bash -s -- -v gamedev
 ```
 
 **Windows (PowerShell):**
 ```powershell
-iwr -useb https://raw.githubusercontent.com/sinedied/a-team/main/setup.ps1 -OutFile setup.ps1; .\setup.ps1; rm setup.ps1
+iwr -useb https://raw.githubusercontent.com/sinedied/a-team/gamedev/setup.ps1 -OutFile setup.ps1; .\setup.ps1 -v gamedev; rm setup.ps1
 ```
 
 Files are installed in the current directory. Existing files are never overwritten without confirmation.
 
-To install a specific version, pass `-v <tag-or-branch>`:
-
-```bash
-# Mac/Linux
-curl -fsSL https://raw.githubusercontent.com/sinedied/a-team/main/setup.sh | bash -s -- -v v1.0
-
-# Windows
-iwr -useb https://raw.githubusercontent.com/sinedied/a-team/main/setup.ps1 -OutFile setup.ps1; .\setup.ps1 -v v1.0; rm setup.ps1
-```
+`-v` accepts any tag or branch — pin to a specific version once one is tagged.
 
 ## Skills
 
@@ -57,11 +53,17 @@ The squad includes built-in skills that agents use automatically:
 
 | Skill | Used by | Description |
 |-------|---------|-------------|
-| **roadmap** | Product Manager | Creates or iterates on `docs/specs/roadmap.md` via an interview, intermediate validation, and adversarial review. Handles initial scoping and reprioritization |
-| **brand** | Designer | Establishes or evolves the project's visual identity in `DESIGN.md` via an interview-style discovery. Locks decisions as they're made, validates with Google's DESIGN.md lint |
-| **marketing** | Marketer | Establishes or evolves marketing identity in `docs/marketing/MARKETING.md` — positioning, audience, messaging, channels, content strategy. Truth-checks all claims against the codebase, enforces anti-slop guardrails |
-| **frontend-design** | Designer | Guides creation of distinctive, production-grade UI that avoids generic AI aesthetics |
-| **chrome-devtools** | QA | Controls a live Chrome browser for visual testing, screenshots, and DOM inspection. Auto-configures the MCP server when needed. |
+| **roadmap** | Product Manager | Creates or iterates on `docs/specs/roadmap.md` with milestone templates (vertical slice → alpha → beta → 1.0 → post-launch). Interview, intermediate validation, adversarial review |
+| **game-design** | Game Designer | Establishes or evolves `docs/GAME.md`: pillars, core loop (30s / 5min / session), mechanics, systems, numbers, controls. Interview-style, lock-as-you-decide |
+| **brand** | Art Director | Establishes or evolves visual identity in `DESIGN.md` (Google spec). Covers UI **and** in-game art direction (palette, silhouette, animation, VFX). Validates with `npx @google/design.md lint` |
+| **narrative-design** | Narrative Designer | On-demand: establishes or evolves `docs/NARRATIVE.md` (setting, characters, voice, dialogue conventions, branching policy). Only invoked when narrative is in scope |
+| **marketing** | Marketer | Establishes or evolves `docs/marketing/MARKETING.md` — positioning, audience, messaging, channels, content strategy. Game-aware: Steam page, capsule briefs, festival timing, press kit |
+| **frontend-design** | Art Director | Guides creation of distinctive, production-grade UI that avoids generic AI aesthetics. Used for HUD, menus, and marketing pages |
+| **playtest-harness** | Playtester | Engine-agnostic playtest orchestrator. Detects engine, delegates launch/capture to engine skills, writes structured logs to `docs/playtest/` |
+| **engine-godot** | Playtester / Coder | Godot adapter: headless / windowed launch, scene loading, screenshot capture, FPS / draw-call / memory probes, export builds |
+| **engine-web-2d** | Playtester / Coder | Web 2D adapter (Phaser / PixiJS / Kaboom / canvas): wraps `chrome-devtools` with framework-aware FPS probes, console / WebGL error monitoring |
+| **engine-web-3d** | Playtester / Coder | Web 3D adapter (Three.js / Babylon / PlayCanvas): wraps `chrome-devtools` with draw-call / triangle / memory probes, WebGL context-loss detection, asset-load error capture |
+| **chrome-devtools** | Playtester / Art Director | Controls a live Chrome browser for visual testing, screenshots, and DOM inspection. Auto-configures the MCP server when needed. Used by the web engine adapters |
 
 <details>
 <summary>Configuring chrome-devtools for GitHub Copilot cloud agent</summary>
@@ -93,10 +95,12 @@ Chrome runs in headless mode in the cloud agent environment. You may also need a
 
 ![Workflow](assets/workflow.svg)
 
+> The workflow diagram is from the `main` branch and reflects the generic flow. The gamedev pipeline adds: `game-designer` before any gameplay spec, `art-director` for visual **and** audio, `narrative-designer` on-demand only, and a runnable-build gate before `playtester`. Diagram update tracked in `docs/specs/roadmap.md`.
+
 ## Shared Memory
 
 All agents read and write to `docs/memory/`:
-- `docs/memory/decisions.md` — Architectural and design decisions
+- `docs/memory/decisions.md` — Architectural and design decisions (including game-design and balance decisions)
 - `docs/memory/conventions.md` — Established project conventions
 
 ## Generated Artifacts
@@ -105,12 +109,15 @@ The agents produce artifacts during the pipeline. These are committed alongside 
 
 | Path | Contents | Written by |
 |------|----------|------------|
-| `DESIGN.md` | Visual identity contract — colors, typography, components, voice, motion (follows [Google's DESIGN.md spec](https://github.com/google-labs-code/design.md)) | Designer |
-| `docs/specs/` | Implementation specs with architecture, subtasks, acceptance scenarios, and decisions | Planner |
-| `docs/qa/` | QA test logs — scenarios tested, edge cases, issues found (persists across sessions) | QA |
+| `DESIGN.md` | Visual identity contract — colors, typography, components, voice, motion, in-game art direction. Follows [Google's DESIGN.md spec](https://github.com/google-labs-code/design.md) (must stay at repo root) | Art Director |
+| `docs/GAME.md` | Game design contract — pillars, target player, references, core loop, mechanics, systems, numbers, controls, win/loss, monetization, out-of-scope | Game Designer |
+| `docs/AUDIO.md` | Audio direction contract — SFX vocabulary, music brief, audio cues, mix targets, VO direction | Art Director |
+| `docs/NARRATIVE.md` *(on-demand)* | Narrative contract — setting, lore, characters, voice, dialogue conventions, branching policy, spoiler boundaries | Narrative Designer |
+| `docs/specs/` | Implementation specs with architecture, per-discipline design sections, subtasks, acceptance scenarios, playtest hooks, decisions | Planner |
+| `docs/playtest/` | Playtest logs — scenarios tested, failure modes probed, balance observations, performance traces (persists across sessions) | Playtester |
 | `docs/memory/` | Shared decisions and conventions | All agents |
-| `docs/brand/` *(optional)* | HTML brand book, UI kit, and demo page derived from `DESIGN.md` | Designer |
-| `docs/marketing/` *(on-demand)* | `MARKETING.md` (positioning, messaging, channels) + dated per-engagement promo content (`<yyyy-mm-dd>_<slug>.md`) | Marketer |
+| `docs/brand/` *(optional)* | HTML brand book, UI kit, and demo page derived from `DESIGN.md` | Art Director |
+| `docs/marketing/` *(on-demand)* | `MARKETING.md` (positioning, messaging, channels) + dated per-engagement promo content (`<yyyy-mm-dd>_<slug>.md`), Steam page copy, trailer briefs, festival trackers | Marketer |
 
 ## License
 
