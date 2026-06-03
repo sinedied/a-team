@@ -3,6 +3,16 @@ set -euo pipefail
 
 REPO="sinedied/a-team"
 EXCLUDE="README.md LICENSE setup.sh setup.ps1 assets .gitignore"
+# Files retired between scaffold variants. Paths are relative to the install root.
+# When upgrading, these are deleted from the target so old agents/skills don't
+# coexist with their replacements. Comments on each line document why.
+RETIRE_FILES=(
+  ".github/agents/designer.agent.md"   # replaced by art-director and game-designer
+  ".github/agents/qa.agent.md"         # replaced by playtester
+)
+RETIRE_DIRS=(
+  # add directories here if any skill is retired wholesale
+)
 VERBOSE=false
 YES=false
 VERSION="HEAD"
@@ -60,16 +70,61 @@ for pattern in $EXCLUDE; do
 done
 cd - >/dev/null
 
-# Handle AGENTS.md separately: append shared memory rules if missing
-if [ -f "$tmp/scaffold/AGENTS.md" ]; then
-  memory_section=$(sed -n '/^## Shared Memory/,$p' "$tmp/scaffold/AGENTS.md")
-  if [ -f "AGENTS.md" ]; then
-    if ! grep -q '^## Shared Memory' "AGENTS.md"; then
-      log "Appending shared memory rules to existing AGENTS.md..."
-      printf '\n%s\n' "$memory_section" >> "AGENTS.md"
+# Retire files/dirs from a previous scaffold variant if present in the target
+retired=()
+for f in "${RETIRE_FILES[@]}"; do
+  if [ -f "$f" ]; then
+    retired+=("$f")
+  fi
+done
+for d in "${RETIRE_DIRS[@]:-}"; do
+  if [ -n "$d" ] && [ -d "$d" ]; then
+    retired+=("$d/")
+  fi
+done
+
+if [ ${#retired[@]} -gt 0 ]; then
+  echo "The following files/dirs are from a previous scaffold variant and will be removed:"
+  for r in "${retired[@]}"; do
+    echo "  - $r"
+  done
+  if ! $YES; then
+    if [ -t 0 ]; then
+      read -rp "Remove? [y/N] " answer
+    elif [ -r /dev/tty ]; then
+      read -rp "Remove? [y/N] " answer </dev/tty
     else
-      log "AGENTS.md already contains shared memory rules, skipping."
+      echo "Use -y/--yes to remove retired files in non-interactive mode." >&2
+      exit 1
     fi
+    if [[ ! "$answer" =~ ^[Yy]$ ]]; then
+      echo "Aborted."
+      exit 1
+    fi
+  fi
+  for r in "${retired[@]}"; do
+    rm -rf "$r"
+  done
+fi
+
+# Handle AGENTS.md separately: append any missing top-level sections section-aware
+if [ -f "$tmp/scaffold/AGENTS.md" ]; then
+  if [ -f "AGENTS.md" ]; then
+    log "Merging AGENTS.md section-aware..."
+    # Extract H2 section headings from the new scaffold
+    while IFS= read -r heading; do
+      [ -z "$heading" ] && continue
+      if ! grep -qF "$heading" "AGENTS.md"; then
+        # Section missing in target — extract it from the scaffold and append
+        section=$(awk -v h="$heading" '
+          $0 == h {flag=1; print; next}
+          /^## / && flag {flag=0}
+          flag {print}
+        ' "$tmp/scaffold/AGENTS.md")
+        log "  Appending section: $heading"
+        printf '\n%s\n' "$section" >> "AGENTS.md"
+      fi
+    done < <(grep '^## ' "$tmp/scaffold/AGENTS.md")
   else
     cp "$tmp/scaffold/AGENTS.md" "AGENTS.md"
   fi
