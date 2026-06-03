@@ -31,7 +31,8 @@ This skill engages mostly on-demand, with a few auto-triggers (inception lightwe
 Before asking the user anything, read:
 
 - `DESIGN.md` — adopt its **Voice** section by default. Only diverge with explicit rationale and call out the delta in `MARKETING.md`.
-- `docs/specs/roadmap.md` — the actual product roadmap. What's shipped vs. what's planned vs. what's deferred.
+- `docs/GAME.md` (if present) — pillars and references inform positioning. A game's pillars often map directly to its differentiators.
+- `docs/specs/roadmap.md` — the actual product / game roadmap. What's shipped vs. what's planned vs. what's deferred. For games: which milestone are we in (slice / alpha / beta / 1.0)?
 - Recent specs in `docs/specs/` — what features actually exist and behave how.
 - `README.md` — implied audience, domain, tone.
 - `docs/memory/decisions.md` — prior product/marketing decisions.
@@ -69,7 +70,7 @@ Ask remaining questions **one at a time**. Wait for each answer before the next.
 1. **Stakes** — Why does this audience care enough to switch / try? What does the pain cost them today?
 2. **Non-audience** — Who is this explicitly **not** for? Naming the non-audience sharpens the positioning.
 3. **Proof** — What concrete proof can we point to? Shipped features, benchmarks, contributor count, who uses it, design partners. (If proof is thin, plan content strategy around generating it.)
-4. **Channels** — Where does this audience actually spend time? Be specific (Hacker News, r/golang, .NET Conf, Discord servers, dev.to, niche newsletters). No generic "social media".
+4. **Channels** — Where does this audience actually spend time? Be specific. For software: Hacker News, r/golang, .NET Conf, Discord servers, dev.to, niche newsletters. For games: Steam (capsule + tags + page + Next Fest), itch.io, r/IndieDev / r/Games / genre-specific subreddits, TIGSource, Bluesky / X gamedev tags, devlog cadence on YouTube / Twitter / Bluesky, festival circuits (Day of the Devs, Tiny Teams, AG French Direct, BIG Festival), press / curators (Indie Games Plus, Rock Paper Shotgun, specific YouTubers / streamers for the genre). No generic "social media".
 5. **Tone deltas** — Is there any reason marketing voice should differ from `DESIGN.md`'s voice? Default: no. If yes, write down why and where.
 
 Skip any question already answered by the hypothesis validation. Don't ask twice.
@@ -203,12 +204,21 @@ Which channels (from `MARKETING.md`), in what order, with what message tweak. Be
 Concrete deliverables, with target file paths and owner:
 
 - [ ] Landing page copy → `docs/marketing/<yyyy-mm-dd>_<name>-landing.md`
-- [ ] HN / Reddit / LinkedIn / X post drafts → `docs/marketing/<yyyy-mm-dd>_<name>-social.md`
-- [ ] Blog post draft → `docs/marketing/<yyyy-mm-dd>_<name>-blog.md`
+- [ ] HN / Reddit / LinkedIn / X / Bluesky post drafts → `docs/marketing/<yyyy-mm-dd>_<name>-social.md`
+- [ ] Blog / devlog post draft → `docs/marketing/<yyyy-mm-dd>_<name>-blog.md`
 - [ ] README marketing section update
-- [ ] Demo video/gif script (if applicable)
+- [ ] Demo video / GIF script (if applicable)
 - [ ] FAQ / objections doc (if applicable)
-- [ ] Email/announcement copy (if applicable)
+- [ ] Email / announcement copy (if applicable)
+
+**For games**, additionally:
+
+- [ ] Steam page copy → `docs/marketing/<yyyy-mm-dd>_<name>-steam.md` (short description ≤ 300 chars, long description, About This Game, tags, system requirements)
+- [ ] Capsule art brief (header / library / vertical / portrait) → brief to `art-director`
+- [ ] Screenshots checklist (5-8 minimum for Steam) → coordinated with `playtester` for in-game capture
+- [ ] Trailer brief → `docs/marketing/<yyyy-mm-dd>_<name>-trailer.md` (beat sheet, music brief, target length, captions strategy)
+- [ ] Press kit (presskit() / dopresskit format or equivalent) → `docs/marketing/presskit/`
+- [ ] Festival submission tracker (if applicable) → `docs/marketing/<yyyy-mm-dd>_<name>-festivals.md`
 
 Only include what's actually needed. Don't pad.
 

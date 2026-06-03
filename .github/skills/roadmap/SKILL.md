@@ -7,7 +7,9 @@ description: "Create or iterate on the project roadmap at docs/specs/roadmap.md.
 
 > **Run as the product-manager agent.** If you are not the `product-manager` (Stockwell), delegate the entire roadmap work to it via the task/agent tool before proceeding. The PM owns `docs/specs/roadmap.md` end-to-end; running roadmap work from another agent splits ownership and risks inconsistent product direction.
 
-This skill guides the creation or iteration of the project roadmap. A roadmap without a clear MVP cut, dependencies, and rationale produces scope creep and rework. This skill enforces a structured discovery, then locks decisions into `docs/specs/roadmap.md`.
+This skill guides the creation or iteration of the project roadmap. For games, the roadmap is **milestone-driven** (vertical slice → alpha → beta → 1.0 → post-launch) rather than feature-sprint-driven — milestones are how games actually ship.
+
+A roadmap without a clear milestone cut, dependencies, and rationale produces scope creep and rework. This skill enforces a structured discovery, then locks decisions into `docs/specs/roadmap.md`.
 
 ## When to use
 
@@ -17,7 +19,19 @@ This skill guides the creation or iteration of the project roadmap. A roadmap wi
 
 ## Source of truth
 
-`docs/specs/roadmap.md`. Product-level only — features, value, dependencies, ordering, scope boundaries. **No implementation details** — those live in per-feature specs at `docs/specs/<yyyy-mm-dd>_<feature>.md`.
+`docs/specs/roadmap.md`. Product-level only — features grouped by milestone, with value, dependencies, ordering, scope boundaries. **No implementation details** — those live in per-feature specs at `docs/specs/<yyyy-mm-dd>_<feature>.md`.
+
+## Milestone shape (games)
+
+Games ship through a predictable milestone sequence. Use this as the default structure unless the user explicitly chooses otherwise:
+
+- **Vertical Slice**: one polished scene / level demonstrating every pillar in `docs/GAME.md` (one mechanic per pillar, art direction in place, audio cues present). Goal: prove the game's identity is achievable.
+- **Alpha**: all core mechanics in, all systems wired together, content sparse. Goal: prove the game is feasible end-to-end.
+- **Beta**: feature-complete, content at target density, balance pass underway. Goal: prove the game holds up over a full playthrough.
+- **1.0**: ship-ready. Polish, accessibility pass, localization (if in scope), platform-cert prep (if applicable).
+- **Post-launch**: patches, balance hotfixes, planned content drops. Each is its own milestone with its own scope.
+
+For non-game projects, fall back to the generic Iteration 1 (MVP) / Iteration 2+ shape.
 
 ## Process
 
@@ -37,10 +51,12 @@ For new roadmaps, ask the user **one question at a time** and wait for each answ
 
 In order:
 
-1. **Idea & vision** — What are we building? Mention they can describe features, target audience, technology preferences, and any other relevant details. Mention they can paste from a file if they prefer.
+1. **Idea & vision** — What are we building? For games, prompt: pitch, genre, reference games, target platform(s). Mention they can paste from a file if they prefer.
 2. **Audience** — Who is this for? If not obvious from the idea. Skip if already covered.
-3. **Constraints** — Any specific constraints? Tech stack restrictions, deadlines, compliance, accessibility, libraries to use/avoid. If none, assume defaults.
-4. **MVP intent** — What is the smallest version that delivers core value? What would you happily ship first? If the user can't answer, propose a candidate based on the idea.
+3. **Constraints** — Any specific constraints? Engine choice, tech stack restrictions, deadlines (Steam Next Fest? game jam? release window?), compliance, accessibility targets, libraries to use/avoid. If none, assume defaults.
+4. **First milestone intent** — For games: what does the **vertical slice** look like? One scene / level demonstrating every pillar. For non-games: what is the smallest version that delivers core value (MVP)? If the user can't answer, propose a candidate based on the idea.
+
+If the project is well-defined from a pitch the user pasted in step 1, you may skip later questions when the answer is already covered. Don't ask redundant questions.
 
 If the project is well-defined from a pitch the user paste in step 1, you may skip later questions when the answer is already covered. Don't ask redundant questions.
 
@@ -54,9 +70,12 @@ This phase is faster when the AI proposes and the user refines. Don't ask the us
    - UI flag: yes/no — whether the feature has user-facing UI (triggers designer involvement during planning)
    - Dependencies: which features must come first
    - Scope: what's included, what's explicitly excluded
-2. Group features into iterations:
-   - **Iteration 1 (MVP)**: minimum set to deliver core value
-   - **Iteration 2+**: incremental additions ordered by value and dependency
+2. Group features into **milestones** (game projects) or iterations (non-game projects):
+   - **Vertical Slice** / Iteration 1 (MVP): minimum set to demonstrate every pillar / deliver core value
+   - **Alpha** / Iteration 2: all core systems wired, content sparse
+   - **Beta** / Iteration 3: feature-complete, content at target density, balance pass
+   - **1.0**: ship-ready (polish, accessibility, localization, cert)
+   - **Post-launch**: planned patches / content drops, each its own milestone
    - **Deferred**: explicitly out of scope for now, with rationale
 3. Identify **potential challenges** for the riskiest features, each with a **mitigation strategy**.
 4. List any **open decisions** the user hasn't committed to (e.g., monetization model, auth provider, hosting choice). Don't block the roadmap on these — surface them so the planner can resolve them later.
@@ -76,16 +95,29 @@ Loop until the user is satisfied. Make concrete edits between rounds, not abstra
 <One-line vision>
 
 ## Audience
-<Target users>
+<Target players (for games) or users>
 
-## Iteration 1 (MVP)
+## Vertical Slice
+<!-- For games. Use "Iteration 1 (MVP)" for non-game projects. -->
 | # | Feature | Value | UI | Depends on |
 |---|---------|-------|----|------------|
-| 1 | <Name> | <Why it matters> | ✓ / – | – |
+| 1 | <Name> | <Why it matters / which pillar it serves> | ✓ / – | – |
 
-## Iteration 2
+## Alpha
 | # | Feature | Value | UI | Depends on |
 |---|---------|-------|----|------------|
+
+## Beta
+| # | Feature | Value | UI | Depends on |
+|---|---------|-------|----|------------|
+
+## 1.0
+| # | Feature | Value | UI | Depends on |
+|---|---------|-------|----|------------|
+
+## Post-launch (planned)
+| # | Feature | Value | Depends on |
+|---|---------|-------|------------|
 
 ## Deferred
 - <Feature> — <Why deferred>
@@ -103,11 +135,13 @@ Loop until the user is satisfied. Make concrete edits between rounds, not abstra
 Once the user accepts the intermediate summary, the PM agent delegates the proposed roadmap to the `reviewer` agent for adversarial review (orchestrator runs the standard 2-parallel + consolidation protocol if available; otherwise self-review).
 
 The reviewer challenges:
-- Is the MVP cut truly minimal? Could it be smaller?
+- Is the first milestone (vertical slice / MVP) truly minimal? Could it be smaller?
+- For games: does the vertical slice actually demonstrate **every** pillar in `docs/GAME.md`? A vertical slice that skips a pillar doesn't prove the game's identity.
 - Are dependencies correct? Are any features blocked by missing prerequisites?
 - Are there features that overlap and should be merged or split?
 - Are challenges adequately covered, or are there missing risks?
 - Are open decisions specific enough to be resolvable later?
+- For games: is the milestone progression (slice → alpha → beta → 1.0) realistic, or is the scope quietly impossible?
 
 Resolve all findings autonomously, documenting rationale.
 
@@ -122,16 +156,29 @@ Write `docs/specs/roadmap.md` using the final format below. Update `docs/memory/
 <High-level project vision>
 
 ## Audience
-<Target users>
+<Target players or users>
 
-## Iteration 1 (MVP)
+## Vertical Slice
+<!-- For games. Use "Iteration 1 (MVP)" for non-game projects. -->
 | # | Feature | Description | UI | Dependencies | Status |
 |---|---------|-------------|----|--------------|--------|
 | 1 | <Name> | <One-line description> | ✓ / – | – | ⬜ |
 
-## Iteration 2
+## Alpha
 | # | Feature | Description | UI | Dependencies | Status |
 |---|---------|-------------|----|--------------|--------|
+
+## Beta
+| # | Feature | Description | UI | Dependencies | Status |
+|---|---------|-------------|----|--------------|--------|
+
+## 1.0
+| # | Feature | Description | UI | Dependencies | Status |
+|---|---------|-------------|----|--------------|--------|
+
+## Post-launch (planned)
+| # | Feature | Description | Dependencies | Status |
+|---|---------|-------------|--------------|--------|
 
 ## Deferred
 | Feature | Rationale |
@@ -157,12 +204,13 @@ Status markers: ⬜ (not started), 🔄 (in progress), ✅ (complete).
 When invoked with an existing populated `docs/specs/roadmap.md`:
 
 1. Read the current roadmap in full.
-2. Read recent specs in `docs/specs/` and QA logs in `docs/qa/` to understand what shipped and what surfaced.
+2. Read recent specs in `docs/specs/` and playtest logs in `docs/playtest/` to understand what shipped and what surfaced.
 3. Ask the user **what triggered the iteration**:
-   - A pivot in direction?
-   - QA / production findings?
-   - New requirements?
-   - Reprioritization based on user feedback?
+   - A pivot in direction (genre shift, mechanic cut)?
+   - Playtest / production findings?
+   - New requirements or platform target?
+   - Reprioritization based on player feedback?
+   - Milestone slip (slice → alpha taking longer than planned)?
 4. Propose specific changes (don't rewrite from scratch). For each change, state the rationale.
 5. **Mark completed features as `✅` — do NOT remove them.** History matters.
 6. Show the diff (added, removed, reordered, status-updated) and ask for confirmation.
@@ -179,6 +227,6 @@ When invoked with an existing populated `docs/specs/roadmap.md`:
 - **DO NOT leave features vaguely scoped** — each needs clear boundaries (in / out / dependencies).
 - **DO NOT create features that overlap in scope** — split or merge them.
 - **DO NOT remove completed features** during iteration. Mark them as ✅.
-- **DO NOT bloat the MVP.** Push back when the user includes "nice-to-haves" in Iteration 1. The MVP cut is the most valuable decision in the document.
+- **DO NOT bloat the first milestone.** Push back when the user includes "nice-to-haves" in the vertical slice / MVP. The first milestone cut is the most valuable decision in the document.
 - Keep iterations small and deliverable. Prefer shipping often over shipping big.
 - When the user has no opinion, make a clear recommendation with rationale. A locked decision beats infinite optionality.
