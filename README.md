@@ -59,11 +59,18 @@ The squad includes built-in skills that agents use automatically:
 | **narrative-design** | Narrative Designer | On-demand: establishes or evolves `docs/NARRATIVE.md` (setting, characters, voice, dialogue conventions, branching policy). Only invoked when narrative is in scope |
 | **marketing** | Marketer | Establishes or evolves `docs/marketing/MARKETING.md` — positioning, audience, messaging, channels, content strategy. Game-aware: Steam page, capsule briefs, festival timing, press kit |
 | **frontend-design** | Art Director | Guides creation of distinctive, production-grade UI that avoids generic AI aesthetics. Used for HUD, menus, and marketing pages |
-| **playtest-harness** | Playtester | Engine-agnostic playtest orchestrator. Detects engine, delegates launch/capture to engine skills, writes structured logs to `docs/playtest/` |
-| **engine-godot** | Playtester / Coder | Godot adapter: headless / windowed launch, scene loading, screenshot capture, FPS / draw-call / memory probes, export builds |
-| **engine-web-2d** | Playtester / Coder | Web 2D adapter (Phaser / PixiJS / Kaboom / canvas): wraps `chrome-devtools` with framework-aware FPS probes, console / WebGL error monitoring |
-| **engine-web-3d** | Playtester / Coder | Web 3D adapter (Three.js / Babylon / PlayCanvas): wraps `chrome-devtools` with draw-call / triangle / memory probes, WebGL context-loss detection, asset-load error capture |
-| **chrome-devtools** | Playtester / Art Director | Controls a live Chrome browser for visual testing, screenshots, and DOM inspection. Auto-configures the MCP server when needed. Used by the web engine adapters |
+| **playtest-harness** | Playtester | Engine-agnostic playtest orchestrator. Launches via the spec's `## Run Target`, captures screenshots / perf, writes structured logs to `docs/playtest/`. Works with or without engine helper skills |
+| **chrome-devtools** | Playtester / Art Director | Controls a live Chrome browser for visual testing, screenshots, and DOM inspection. Auto-configures the MCP server when needed |
+
+### Optional engine helper skills
+
+These ship as starting points for common engines. They are **optional** — `playtest-harness` works without them by invoking the Run Target directly. Remove, replace, or extend them to match your project's stack.
+
+| Skill | Description |
+|-------|-------------|
+| **engine-godot** | Godot helper: headless / windowed launch, scene loading, screenshot capture, FPS / draw-call / memory probes, export builds |
+| **engine-web-2d** | Web 2D helper (Phaser / PixiJS / Kaboom / canvas): framework-aware FPS probes, console / WebGL error monitoring |
+| **engine-web-3d** | Web 3D helper (Three.js / Babylon / PlayCanvas): draw-call / triangle / memory probes, WebGL context-loss detection, asset-load error capture |
 
 <details>
 <summary>Configuring chrome-devtools for GitHub Copilot cloud agent</summary>
