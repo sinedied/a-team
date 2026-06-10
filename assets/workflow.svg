@@ -145,6 +145,6 @@
   <text x="455" y="122" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="8" fill="#fed7aa" text-anchor="middle" font-style="italic">mostly on-demand &#183; Steam / devlog</text>
 
   <path d="M315,93 L370,105" fill="none" stroke="#f97316" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#ao)"/>
-  <text x="343" y="86" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="8" fill="#fdba74" text-anchor="middle">inception / MVP</text>
+  <text x="352" y="85" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="7.5" fill="#fdba74" text-anchor="middle">inception / MVP</text>
 
 </svg>
