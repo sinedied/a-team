@@ -103,8 +103,6 @@ Chrome runs in headless mode in the cloud agent environment. You may also need a
 
 ![Workflow](assets/workflow.svg)
 
-> The workflow diagram is from the `main` branch and reflects the generic flow. The gamedev pipeline adds: `game-designer` before any gameplay spec, `art-director` for visual **and** audio, `narrative-designer` on-demand only, and a runnable-build gate before `playtester`. Diagram update tracked in `docs/specs/roadmap.md`.
-
 ## Shared Memory
 
 All agents read and write to `docs/memory/`:
