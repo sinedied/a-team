@@ -26,7 +26,7 @@ When this condition is met (check the `docs/GAME.md` pillars and the spec's Audi
 1. **Flag explicitly** in the AUDIO.md `Status` line: `audio is load-bearing — deeper treatment required`.
 2. **Expand AUDIO.md** with sections for: timing windows (rhythm), beat map / tempo authoring pipeline (music games), VO casting / recording / localization plan (VO-heavy), adaptive layer state machine (adaptive music).
 3. **Surface to the user**: this scope may justify a dedicated audio-designer role (not currently in the squad). If the project's audio surface grows beyond what this art-director slot can credibly own, recommend splitting audio into its own agent before adding more audio-bearing features.
-4. **Coordinate with the game-designer**: audio-mechanic timing windows, beat maps, and adaptive triggers are also game-design decisions. Co-author the relevant `docs/GAME.md` and `docs/AUDIO.md` sections — do not split them.
+4. **Coordinate with the game-designer**: audio-mechanic timing windows, beat maps, and adaptive triggers are also game-design decisions. **Propose** these constraints to the game-designer, who updates `docs/GAME.md`; you reflect them in `docs/AUDIO.md`. Keep the two contracts in sync — never write `docs/GAME.md` yourself.
 
 ## Process
 

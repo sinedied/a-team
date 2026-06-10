@@ -48,6 +48,8 @@ Read the relevant file for the task at hand — don't load all of them at once.
 
 Keep it minimal — `npm run dev` / `build` / `test` (Vite, Vitest) are native and need no wrapper, and project structure comes pre-wired by scaffolding and fails loudly on build if broken. The only thing npm doesn't give you is **driving the real browser**, so that's the only tool shipped.
 
+> The `tools/capture.mjs` path is relative to this skill's directory (`.github/skills/game-web-2d/tools/`). Run it from there, or copy it into your project.
+
 | Tool | Runtime | Purpose |
 |------|---------|---------|
 | `tools/capture.mjs` | Node + Playwright | Screenshot + FPS sample + console/error capture against the running game (optional; `npm i -D playwright`) |
@@ -77,7 +79,7 @@ The `playtest-harness` discovers this skill (or not) at runtime; nothing breaks 
 
 ## Rules
 
-- **DO NOT** add pip dependencies for the Python tools. Stdlib only. Browser capture may use Playwright (Node), kept optional.
+- **DO NOT** add helper-runtime dependencies beyond the optional Playwright used for browser capture. The only shipped tool is `capture.mjs` (Node); everything else is native npm.
 - **DO NOT** use absolute asset paths (`/assets/...`) — they break on itch.io and GitHub Pages subpaths. Use relative paths and set Vite `base` appropriately.
 - **DO NOT** put game logic inside render/update callbacks that can't be tested — decouple pure logic into plain TS modules and unit-test them with Vitest (see `references/architecture.md`).
 - **DO NOT** load assets ad hoc — use a dedicated preload scene with a progress bar (see `references/rendering.md`).

@@ -58,7 +58,7 @@ The squad includes built-in skills that agents use automatically:
 | **brand** | Art Director | Establishes or evolves visual identity in `DESIGN.md` (Google spec). Covers UI **and** in-game art direction (palette, silhouette, animation, VFX). Validates with `npx @google/design.md lint` |
 | **narrative-design** | Narrative Designer | On-demand: establishes or evolves `docs/NARRATIVE.md` (setting, characters, voice, dialogue conventions, branching policy). Only invoked when narrative is in scope |
 | **marketing** | Marketer | Establishes or evolves `docs/marketing/MARKETING.md` — positioning, audience, messaging, channels, content strategy. Game-aware: Steam page, capsule briefs, festival timing, press kit |
-| **frontend-design** | Art Director | Guides creation of distinctive, production-grade UI that avoids generic AI aesthetics. Used for HUD, menus, and marketing pages |
+| **frontend-design** | Art Director / Marketer | Guides creation of distinctive, production-grade UI that avoids generic AI aesthetics. Used for HUD, menus, and marketing pages |
 | **playtest-harness** | Playtester | Engine-agnostic playtest orchestrator. Launches via the spec's `## Run Target`, captures screenshots / perf, writes structured logs to `docs/playtest/`. Works with or without engine helper skills |
 | **chrome-devtools** | Playtester / Art Director | Controls a live Chrome browser for visual testing, screenshots, and DOM inspection. Auto-configures the MCP server when needed |
 

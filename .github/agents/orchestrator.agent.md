@@ -59,7 +59,7 @@ The consolidated list is forwarded to `coder` (for code reviews), back to `plann
    - Roadmap includes gameplay features and `docs/GAME.md` shows `Status: undefined`? → Delegate to `game-designer` **before** any gameplay feature is planned
    - Roadmap includes UI/visual features and `DESIGN.md` shows `Status: undefined`? → Delegate to `art-director` **before** any visual feature is planned
    - Roadmap includes audio-bearing features and `docs/AUDIO.md` is missing? → Delegate to `art-director` (covers audio too) before those features land
-   - Roadmap pillar lists story/lore and `docs/NARRATIVE.md` is missing? → Delegate to `narrative-designer`
+   - Roadmap includes story/lore/dialogue as a pillar in `docs/GAME.md` and `docs/NARRATIVE.md` is missing? → Delegate to `narrative-designer`
    - User asks to establish or evolve game design / visual identity / audio / narrative? → Delegate to the corresponding owner
    - Feature needs a spec? → Delegate to `planner`
    - Spec finalized? → Delegate to `coder`

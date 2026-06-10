@@ -48,6 +48,8 @@ Read the relevant file for the task at hand — don't load all of them at once.
 
 Python 3 **stdlib-only** (no pip installs). Run any with `-h`. Human-readable by default; `--json` for machine output (playtester/CI). Every tool accepts `--godot <path>` (default `$GODOT_BIN` or `godot`).
 
+> Paths below (`tools/…`) are relative to this skill's directory (`.github/skills/game-godot/tools/`). Run them from there, or copy `tools/` into your game project and run them from the project root.
+
 | Tool | Purpose |
 |------|---------|
 | `tools/godot_run.py` | Launch (headless / windowed / specific scene), smoke check, scan stderr for `SCRIPT ERROR` / missing resources / parse errors (exit code alone is unreliable), timeout, JSON result |

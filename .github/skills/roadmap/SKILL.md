@@ -1,6 +1,6 @@
 ---
 name: roadmap
-description: "Create or iterate on the project roadmap at docs/specs/roadmap.md. Use when starting a new project, scoping an MVP, or adjusting priorities based on progress, QA findings, or new requirements. Runs an interview-style discovery, validates an intermediate summary with the user, then locks the roadmap."
+description: "Create or iterate on the project roadmap at docs/specs/roadmap.md. Use when starting a new project, scoping an MVP, or adjusting priorities based on progress, playtest findings, or new requirements. Runs an interview-style discovery, validates an intermediate summary with the user, then locks the roadmap."
 ---
 
 # Create Roadmap
@@ -15,7 +15,7 @@ A roadmap without a clear milestone cut, dependencies, and rationale produces sc
 
 - The project has no `docs/specs/roadmap.md` and a high-level idea or vision exists
 - The user explicitly asks to create a roadmap
-- The user asks to evolve / reprioritize an existing roadmap (after shipped features, QA findings, or pivots)
+- The user asks to evolve / reprioritize an existing roadmap (after shipped features, playtest findings, or pivots)
 
 ## Source of truth
 

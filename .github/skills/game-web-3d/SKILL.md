@@ -49,6 +49,8 @@ Read the relevant file for the task at hand — don't load all of them at once.
 
 Keep it minimal — `npm run dev` / `build` / `test` (Vite, Vitest) are native and need no wrapper. The only thing npm doesn't give you is **driving the real WebGL canvas**, so that's the only tool shipped.
 
+> The `tools/capture.mjs` path is relative to this skill's directory (`.github/skills/game-web-3d/tools/`). Run it from there, or copy it into your project.
+
 | Tool | Runtime | Purpose |
 |------|---------|---------|
 | `tools/capture.mjs` | Node + Playwright | Screenshot + FPS sample + draw-call/active-mesh read + console-error and **WebGL context-loss** capture against the running game (optional; `npm i -D playwright`) |
