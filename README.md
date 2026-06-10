@@ -56,6 +56,7 @@ The squad includes built-in skills that agents use automatically:
 | **roadmap** | Product Manager | Creates or iterates on `docs/specs/roadmap.md` with milestone templates (vertical slice → alpha → beta → 1.0 → post-launch). Interview, intermediate validation, adversarial review |
 | **game-design** | Game Designer | Establishes or evolves `docs/GAME.md`: pillars, core loop (30s / 5min / session), mechanics, systems, numbers, controls. Interview-style, lock-as-you-decide |
 | **brand** | Art Director | Establishes or evolves visual identity in `DESIGN.md` (Google spec). Covers UI **and** in-game art direction (palette, silhouette, animation, VFX). Validates with `npx @google/design.md lint` |
+| **audio-design** | Art Director | Establishes or evolves `docs/AUDIO.md`: SFX vocabulary, music brief, gameplay audio cues, mix & accessibility, VO. Interview-style, with a load-bearing-audio escalation path (rhythm / adaptive / VO-heavy) |
 | **narrative-design** | Narrative Designer | On-demand: establishes or evolves `docs/NARRATIVE.md` (setting, characters, voice, dialogue conventions, branching policy). Only invoked when narrative is in scope |
 | **marketing** | Marketer | Establishes or evolves `docs/marketing/MARKETING.md` — positioning, audience, messaging, channels, content strategy. Game-aware: Steam page, capsule briefs, festival timing, press kit |
 | **frontend-design** | Art Director / Marketer | Guides creation of distinctive, production-grade UI that avoids generic AI aesthetics. Used for HUD, menus, and marketing pages |
@@ -100,9 +101,28 @@ Chrome runs in headless mode in the cloud agent environment. You may also need a
 
 ## Workflow
 
-![Workflow](assets/workflow.svg)
+```mermaid
+flowchart TD
+    PM["product-manager<br/>roadmap.md (milestones)"] --> PLAN["planner<br/>spec in docs/specs/"]
 
-> The workflow diagram is from the `main` branch and reflects the generic flow. The gamedev pipeline adds: `game-designer` before any gameplay spec, `art-director` for visual **and** audio, `narrative-designer` on-demand only, and a runnable-build gate before `playtester`. Diagram update tracked in `docs/specs/roadmap.md`.
+    PLAN -. "delegates design sections" .-> GD["game-designer<br/>docs/GAME.md"]
+    PLAN -. delegates .-> AD["art-director<br/>DESIGN.md + docs/AUDIO.md"]
+    PLAN -. "on-demand" .-> ND["narrative-designer<br/>docs/NARRATIVE.md"]
+
+    PLAN --> RVP{{"reviewer<br/>plan review"}}
+    RVP --> CODE["coder<br/>implement + tests"]
+    CODE --> RVC{{"reviewer<br/>code review (2 parallel + consolidation)"}}
+    RVC -- issues --> CODE
+    RVC -- PASS --> GATE{"Run Target<br/>smoke check"}
+    GATE --> PT["playtester<br/>docs/playtest/"]
+    PT -- issues --> CODE
+    PT -- PASS --> COMMIT[("orchestrator<br/>commit")]
+    COMMIT -. "mostly on-demand" .-> MK["marketer<br/>docs/marketing/"]
+
+    HAN(["orchestrator (Hannibal)<br/>coordinates the whole pipeline"]) -.-> PM
+```
+
+The **orchestrator** (Hannibal) drives the loop: scope (`product-manager`) → plan (`planner`, which pulls in `game-designer` / `art-director` / `narrative-designer` for the per-discipline spec sections) → build (`coder`) → adversarial review (`reviewer`, 2 parallel + consolidation) → a **Run Target smoke-check gate** → playtest (`playtester`) → commit. The `marketer` engages mostly on-demand. Gameplay can't be planned until `docs/GAME.md` exists; `narrative-designer` is invoked only when story is in scope.
 
 ## Shared Memory
 
