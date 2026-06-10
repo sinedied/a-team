@@ -1,6 +1,6 @@
 ---
 name: game-web-2d
-description: "Complete guide and toolkit for developing 2D web games with Phaser 3 on a Vite + TypeScript stack. Covers the recommended stack, project structure, architecture (scenes, decoupled logic), rendering, physics, performance, testing, and deploy workflows, and ships stdlib-only Python tools (dev-server smoke check, build/bundle check, project validation) plus an optional Playwright capture helper. Use when the project is a browser-based 2D game (Phaser, or canvas/WebGL 2D)."
+description: "Complete guide and toolkit for developing 2D web games with Phaser 3 on a Vite + TypeScript stack. Covers the recommended stack, project structure, architecture (scenes, decoupled logic), rendering, physics, performance, testing, and deploy workflows, and ships an optional Playwright capture helper (screenshots, FPS, console errors). Use when the project is a browser-based 2D game (Phaser, or canvas/WebGL 2D)."
 ---
 
 # 2D Web Game Development (Phaser)
@@ -46,15 +46,14 @@ Read the relevant file for the task at hand — don't load all of them at once.
 
 ## Tooling
 
-Keep it minimal — `npm run dev` / `build` / `test` (Vite, Vitest) are native and need no wrapper. This skill only ships what npm doesn't give you: deploy-oriented project validation (Python 3 **stdlib-only**) and browser capture (**Node + Playwright**, an optional dev dependency). Run with `-h`/`--help`; `--json` for machine output.
+Keep it minimal — `npm run dev` / `build` / `test` (Vite, Vitest) are native and need no wrapper, and project structure comes pre-wired by scaffolding and fails loudly on build if broken. The only thing npm doesn't give you is **driving the real browser**, so that's the only tool shipped.
 
 | Tool | Runtime | Purpose |
 |------|---------|---------|
-| `tools/project_check.py` | Python (stdlib) | Validate structure, `package.json` scripts/deps, tsconfig, Vite `base`, and relative asset paths for itch/Pages deploy |
 | `tools/capture.mjs` | Node + Playwright | Screenshot + FPS sample + console/error capture against the running game (optional; `npm i -D playwright`) |
 
 > For zero-install browser capture, the `chrome-devtools` skill (MCP) is an alternative to `capture.mjs`. The playtester uses whichever is available.
-> Bundle size: `npm run build` (Vite prints per-chunk sizes). Enforce a budget with a Vite plugin if needed — no custom tool required.
+> Bundle size: `npm run build` (Vite prints per-chunk sizes). Deploy-path safety (relative `base`, no root-absolute asset paths): one grep, documented in `references/workflows.md` — no custom validator needed.
 
 ## Playtest integration
 
@@ -63,6 +62,7 @@ When the project is a Phaser game, this skill satisfies a spec's `## Run Target`
 - **Dev command**: `npm run dev` (Vite prints the local URL, e.g. `http://localhost:5173`)
 - **Smoke check**: the page returns 200 with the expected root markup and the canvas mounts with no console errors within a few seconds; `npm run build` succeeds. (A plain HTTP GET / `curl` confirms the server is up — no custom launcher needed.)
 - **Capture**: `tools/capture.mjs` (or the `chrome-devtools` skill) for screenshots, FPS, and console errors; expose a `window.__debug` object (see `references/templates.md`) for a stable metrics surface
+- **Deploy safety**: before publishing, confirm relative `base` + no root-absolute asset paths (grep one-liner in `references/workflows.md`)
 
 The `playtest-harness` discovers this skill (or not) at runtime; nothing breaks if it's absent — the harness falls back to invoking the Run Target commands directly.
 

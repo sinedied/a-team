@@ -14,8 +14,7 @@ npm scripts — this skill does not wrap them.
     "test": "vitest run",
     "test:watch": "vitest",
     "e2e": "playwright test",
-    "lint": "eslint . && prettier --check .",
-    "validate": "python .github/skills/game-web-2d/tools/project_check.py"
+    "lint": "eslint . && prettier --check ."
   }
 }
 ```
@@ -29,7 +28,6 @@ e2e      → npm run e2e          # Playwright canvas/visual tests
 lint     → npm run lint
 build    → npm run build        # type-check + production bundle to dist/
 preview  → npm run preview      # serve the built bundle locally
-validate → python tools/project_check.py
 capture  → node tools/capture.mjs --url http://localhost:5173 --out shot.png --seconds 5
 ```
 
@@ -100,4 +98,12 @@ works under itch.io and GitHub Pages subpaths.
 - **itch.io**: `npm run build` → zip `dist/` (or `butler push dist/ user/game:html`). Set the project to HTML, mark `index.html` as the main file, enable fullscreen.
 - **GitHub Pages**: build, then publish `dist/` to the `gh-pages` branch (e.g. with `actions/deploy-pages`). Confirm `base` matches the repo subpath.
 
-Validate the build's asset paths with `python tools/project_check.py` before publishing.
+**Before publishing, catch the #1 silent deploy bug — root-absolute asset paths.** They
+work in dev but 404 under a subpath. A quick grep flags them (should print nothing):
+
+```sh
+grep -rnE '["'"'"'(]/(assets|sprites|audio|img|images|tilemaps)/' src index.html
+```
+
+Also confirm `base: './'` is set in your Vite config. These two checks are all you need —
+no custom validator required.

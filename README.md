@@ -69,7 +69,7 @@ These ship as starting points for common engines. They are **optional** — `pla
 | Skill | Description |
 |-------|-------------|
 | **game-godot** | Complete Godot 4 (GDScript, 2D + 3D) guide & toolkit: recommended stack, project structure, architecture patterns, performance, testing, dev/export workflows, plus stdlib-only Python tools (launch/smoke-check, headless tests, perf summary, project validation) |
-| **game-web-2d** | Complete 2D web game guide & toolkit (Phaser 3 on Vite + TypeScript): architecture (decoupled logic), rendering, physics, performance, testing (Vitest + Playwright), deploy (itch/Pages), plus a stdlib-only project validator and an optional Playwright capture helper |
+| **game-web-2d** | Complete 2D web game guide & toolkit (Phaser 3 on Vite + TypeScript): architecture (decoupled logic), rendering, physics, performance, testing (Vitest + Playwright), deploy (itch/Pages), plus an optional Playwright capture helper |
 | **engine-web-3d** | Web 3D helper (Three.js / Babylon / PlayCanvas): draw-call / triangle / memory probes, WebGL context-loss detection, asset-load error capture |
 
 <details>
