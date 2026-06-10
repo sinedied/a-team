@@ -9,7 +9,8 @@ $RetireFiles = @(
   ".github/agents/qa.agent.md"          # replaced by playtester
 )
 $RetireDirs = @(
-  ".github/skills/engine-godot"        # renamed to game-godot
+  ".github/skills/engine-godot",       # renamed to game-godot
+  ".github/skills/engine-web-2d"       # renamed to game-web-2d
 )
 $Verbose = $args -contains "--verbose"
 $Yes = $args -contains "-y" -or $args -contains "--yes"

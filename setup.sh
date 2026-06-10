@@ -12,6 +12,7 @@ RETIRE_FILES=(
 )
 RETIRE_DIRS=(
   ".github/skills/engine-godot"        # renamed to game-godot
+  ".github/skills/engine-web-2d"       # renamed to game-web-2d
 )
 VERBOSE=false
 YES=false
