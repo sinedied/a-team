@@ -9,7 +9,7 @@ $RetireFiles = @(
   ".github/agents/qa.agent.md"          # replaced by playtester
 )
 $RetireDirs = @(
-  # add directories here if any skill is retired wholesale
+  ".github/skills/engine-godot"        # renamed to game-godot
 )
 $Verbose = $args -contains "--verbose"
 $Yes = $args -contains "-y" -or $args -contains "--yes"

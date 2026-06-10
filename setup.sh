@@ -11,7 +11,7 @@ RETIRE_FILES=(
   ".github/agents/qa.agent.md"         # replaced by playtester
 )
 RETIRE_DIRS=(
-  # add directories here if any skill is retired wholesale
+  ".github/skills/engine-godot"        # renamed to game-godot
 )
 VERBOSE=false
 YES=false

@@ -68,7 +68,7 @@ These ship as starting points for common engines. They are **optional** — `pla
 
 | Skill | Description |
 |-------|-------------|
-| **engine-godot** | Godot helper: headless / windowed launch, scene loading, screenshot capture, FPS / draw-call / memory probes, export builds |
+| **game-godot** | Complete Godot 4 (GDScript, 2D + 3D) guide & toolkit: recommended stack, project structure, architecture patterns, performance, testing, dev/export workflows, plus stdlib-only Python tools (launch/smoke-check, headless tests, perf summary, project validation) |
 | **engine-web-2d** | Web 2D helper (Phaser / PixiJS / Kaboom / canvas): framework-aware FPS probes, console / WebGL error monitoring |
 | **engine-web-3d** | Web 3D helper (Three.js / Babylon / PlayCanvas): draw-call / triangle / memory probes, WebGL context-loss detection, asset-load error capture |
 
