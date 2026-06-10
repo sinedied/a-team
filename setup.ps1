@@ -2,16 +2,6 @@ $ErrorActionPreference = "Stop"
 
 $Repo = "sinedied/a-team"
 $Exclude = @("README.md", "LICENSE", "setup.sh", "setup.ps1", "assets", ".gitignore")
-# Files retired between scaffold variants. When upgrading, these are deleted
-# from the target so old agents/skills don't coexist with their replacements.
-$RetireFiles = @(
-  ".github/agents/designer.agent.md",   # replaced by art-director and game-designer
-  ".github/agents/qa.agent.md"          # replaced by playtester
-)
-$RetireDirs = @(
-  ".github/skills/engine-godot",       # renamed to game-godot
-  ".github/skills/engine-web-2d"       # renamed to game-web-2d
-)
 $Verbose = $args -contains "--verbose"
 $Yes = $args -contains "-y" -or $args -contains "--yes"
 $Version = "HEAD"
@@ -68,54 +58,20 @@ foreach ($pattern in $Exclude) {
 }
 Pop-Location
 
-# Retire files/dirs from a previous scaffold variant if present in the target
-$retired = @()
-foreach ($f in $RetireFiles) {
-  if (Test-Path -PathType Leaf $f) { $retired += $f }
-}
-foreach ($d in $RetireDirs) {
-  if (Test-Path -PathType Container $d) { $retired += "$d/" }
-}
-
-if ($retired.Count -gt 0) {
-  Write-Host "The following files/dirs are from a previous scaffold variant and will be removed:"
-  foreach ($r in $retired) {
-    Write-Host "  - $r"
-  }
-  if (-not $Yes) {
-    if ([Environment]::UserInteractive) {
-      $answer = Read-Host "Remove? [y/N]"
-      if ($answer -ne "y" -and $answer -ne "Y") {
-        Write-Host "Aborted."
-        Remove-Item -Recurse -Force $tmp
-        exit 1
-      }
-    } else {
-      Write-Error "Use -y/--yes to remove retired files in non-interactive mode."
-      Remove-Item -Recurse -Force $tmp
-      exit 1
-    }
-  }
-  foreach ($r in $retired) {
-    Remove-Item -Recurse -Force $r
-  }
-}
-
-# Handle AGENTS.md separately: append any missing top-level sections section-aware
+# Handle AGENTS.md separately: append shared memory rules if missing
 $scaffoldAgents = "$tmp/scaffold/AGENTS.md"
 if (Test-Path $scaffoldAgents) {
+  $content = Get-Content $scaffoldAgents -Raw
+  $memoryIdx = $content.IndexOf("## Shared Memory")
+  $memorySection = if ($memoryIdx -ge 0) { $content.Substring($memoryIdx) } else { "" }
+
   if (Test-Path "AGENTS.md") {
     $existing = Get-Content "AGENTS.md" -Raw
-    $scaffoldContent = Get-Content $scaffoldAgents -Raw
-    # Match each "## Heading" block in scaffold and append if missing in target
-    $matches = [regex]::Matches($scaffoldContent, '(?ms)^(## .+?)(?=^## |\z)')
-    foreach ($m in $matches) {
-      $block = $m.Value
-      $heading = ($block -split "`n", 2)[0].Trim()
-      if ($existing -notlike "*$heading*") {
-        if ($Verbose) { Write-Host "  Appending section: $heading" }
-        Add-Content -Path "AGENTS.md" -Value "`n$block"
-      }
+    if ($existing -notmatch '(?m)^## Shared Memory') {
+      Log "Appending shared memory rules to existing AGENTS.md..."
+      Add-Content -Path "AGENTS.md" -Value "`n$memorySection"
+    } else {
+      Log "AGENTS.md already contains shared memory rules, skipping."
     }
   } else {
     Copy-Item $scaffoldAgents "AGENTS.md"
