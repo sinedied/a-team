@@ -101,28 +101,9 @@ Chrome runs in headless mode in the cloud agent environment. You may also need a
 
 ## Workflow
 
-```mermaid
-flowchart TD
-    PM["product-manager<br/>roadmap.md (milestones)"] --> PLAN["planner<br/>spec in docs/specs/"]
+![Workflow](assets/workflow.svg)
 
-    PLAN -. "delegates design sections" .-> GD["game-designer<br/>docs/GAME.md"]
-    PLAN -. delegates .-> AD["art-director<br/>DESIGN.md + docs/AUDIO.md"]
-    PLAN -. "on-demand" .-> ND["narrative-designer<br/>docs/NARRATIVE.md"]
-
-    PLAN --> RVP{{"reviewer<br/>plan review"}}
-    RVP --> CODE["coder<br/>implement + tests"]
-    CODE --> RVC{{"reviewer<br/>code review (2 parallel + consolidation)"}}
-    RVC -- issues --> CODE
-    RVC -- PASS --> GATE{"Run Target<br/>smoke check"}
-    GATE --> PT["playtester<br/>docs/playtest/"]
-    PT -- issues --> CODE
-    PT -- PASS --> COMMIT[("orchestrator<br/>commit")]
-    COMMIT -. "mostly on-demand" .-> MK["marketer<br/>docs/marketing/"]
-
-    HAN(["orchestrator (Hannibal)<br/>coordinates the whole pipeline"]) -.-> PM
-```
-
-The **orchestrator** (Hannibal) drives the loop: scope (`product-manager`) → plan (`planner`, which pulls in `game-designer` / `art-director` / `narrative-designer` for the per-discipline spec sections) → build (`coder`) → adversarial review (`reviewer`, 2 parallel + consolidation) → a **Run Target smoke-check gate** → playtest (`playtester`) → commit. The `marketer` engages mostly on-demand. Gameplay can't be planned until `docs/GAME.md` exists; `narrative-designer` is invoked only when story is in scope.
+> The workflow diagram is from the `main` branch and reflects the generic flow. The gamedev pipeline adds: `game-designer` before any gameplay spec, `art-director` for visual **and** audio, `narrative-designer` on-demand only, and a runnable-build gate before `playtester`. Diagram update tracked in `docs/specs/roadmap.md`.
 
 ## Shared Memory
 
