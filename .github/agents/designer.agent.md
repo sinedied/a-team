@@ -29,7 +29,7 @@ Triggered when the planner delegates a UI feature and `DESIGN.md` is defined.
 
 1. **Read the  Read `DESIGN.md` in full. Every choice (colors, typography, components, motion, voice) must be drawn from it. Do not invent palettes, fonts, or component patterns that aren't there.contract** 
 
-2. ** Read the spec in `specs/` and the request. Identify what the user will see and interact with. Check `memory/decisions.md` and `memory/conventions.md` for established patterns.Understand** 
+2. ** Read the spec in `devdocs/specs/` and the request. Identify what the user will see and interact with. Check `devdocs/memory/decisions.md` and `devdocs/memory/conventions.md` for established patterns.Understand** 
 
 3. ** Search the codebase for existing UI patterns, components, and styles. Identify what can be reused. Use web search to reference best practices for the specific UI pattern being designed.Research** 
 
@@ -42,7 +42,7 @@ Triggered when the planner delegates a UI feature and `DESIGN.md` is defined.
 
 5. **Extend the identity if  If the feature surfaces a gap (new component pattern, missing color role, undefined motion behavior), re-invoke the `brand` skill in iteration mode to extend `DESIGN.md`, then proceed with the feature design. Do not invent unilateral one-off choices.needed** 
 
-6. ** Write the design into the relevant spec in `specs/` as a `## Design` section. Update `memory/conventions.md` if new code-level patterns are established (`DESIGN.md` handles visual patterns; `conventions.md` handles code structure).Integrate** 
+6. ** Write the design into the relevant spec in `devdocs/specs/` as a `## Design` section. Update `devdocs/memory/conventions.md` if new code-level patterns are established (`DESIGN.md` handles visual patterns; `conventions.md` handles code structure).Integrate** 
 
 ## Design Section Format
 
