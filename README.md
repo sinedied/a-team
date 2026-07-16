@@ -37,7 +37,7 @@ curl -fsSL https://raw.githubusercontent.com/sinedied/a-team/lite/setup.sh | bas
 iwr -useb https://raw.githubusercontent.com/sinedied/a-team/lite/setup.ps1 -OutFile setup.ps1; .\setup.ps1 -v lite; rm setup.ps1
 ```
 
-Files are installed in the current directory. Existing files are never overwritten without confirmation. `-v` accepts any tag or branch.
+Files are installed in the current directory. Existing files are never overwritten without confirmation. The lite playbook lives in a marker-delimited block (`<!-- A-TEAM:START -->` … `<!-- A-TEAM:END -->`) in `AGENTS.md`: on install it's added to (or, on re-install, refreshed in place within) your existing `AGENTS.md`, preserving anything you wrote outside the markers. `-v` accepts any tag or branch.
 
 ## Skills
 

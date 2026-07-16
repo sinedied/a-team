@@ -58,20 +58,21 @@ foreach ($pattern in $Exclude) {
 }
 Pop-Location
 
-# Handle AGENTS.md separately: append shared memory rules if missing
+# Handle AGENTS.md separately: merge the marker-delimited A-Team block, preserving any
+# user content outside the markers. Update the block in place on re-install.
 $scaffoldAgents = "$tmp/scaffold/AGENTS.md"
 if (Test-Path $scaffoldAgents) {
-  $content = Get-Content $scaffoldAgents -Raw
-  $memoryIdx = $content.IndexOf("## Shared Memory")
-  $memorySection = if ($memoryIdx -ge 0) { $content.Substring($memoryIdx) } else { "" }
-
+  $block = Get-Content $scaffoldAgents -Raw
   if (Test-Path "AGENTS.md") {
     $existing = Get-Content "AGENTS.md" -Raw
-    if ($existing -notmatch '(?m)^## Shared Memory') {
-      Log "Appending shared memory rules to existing AGENTS.md..."
-      Add-Content -Path "AGENTS.md" -Value "`n$memorySection"
+    if ($existing -match 'A-TEAM:START') {
+      Log "Updating the A-Team block in existing AGENTS.md..."
+      $pattern = '(?s)<!-- A-TEAM:START.*?A-TEAM:END -->'
+      $updated = [regex]::Replace($existing, $pattern, { param($m) $block.TrimEnd() })
+      Set-Content -Path "AGENTS.md" -Value $updated -NoNewline
     } else {
-      Log "AGENTS.md already contains shared memory rules, skipping."
+      Log "Appending the A-Team block to existing AGENTS.md..."
+      Add-Content -Path "AGENTS.md" -Value "`n$block"
     }
   } else {
     Copy-Item $scaffoldAgents "AGENTS.md"

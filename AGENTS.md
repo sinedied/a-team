@@ -1,3 +1,4 @@
+<!-- A-TEAM:START (managed block — the installer updates everything between these markers; add your own project notes outside them) -->
 # Project Guidelines
 
 This is the **lite** A-Team: one agent, a playbook, and on-demand skills — no subagent
@@ -123,4 +124,6 @@ Before any UI work, read `DESIGN.md`. If `Status: undefined`, no visual identity
   the cost.
 - No custom subagents ship with lite. If you want a repeatable specialized workflow, capture
   it as a skill with `skill-builder` rather than hand-rolling it each time.
+<!-- A-TEAM:END -->
+
 

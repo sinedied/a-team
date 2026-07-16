@@ -60,15 +60,22 @@ for pattern in $EXCLUDE; do
 done
 cd - >/dev/null
 
-# Handle AGENTS.md separately: append shared memory rules if missing
+# Handle AGENTS.md separately: merge the marker-delimited A-Team block, preserving any
+# user content outside the markers. Update the block in place on re-install.
 if [ -f "$tmp/scaffold/AGENTS.md" ]; then
-  memory_section=$(sed -n '/^## Shared Memory/,$p' "$tmp/scaffold/AGENTS.md")
   if [ -f "AGENTS.md" ]; then
-    if ! grep -q '^## Shared Memory' "AGENTS.md"; then
-      log "Appending shared memory rules to existing AGENTS.md..."
-      printf '\n%s\n' "$memory_section" >> "AGENTS.md"
+    if grep -q 'A-TEAM:START' "AGENTS.md"; then
+      log "Updating the A-Team block in existing AGENTS.md..."
+      awk -v blockfile="$tmp/scaffold/AGENTS.md" '
+        BEGIN { while ((getline line < blockfile) > 0) block = block line "\n" }
+        index($0, "A-TEAM:START") { printf "%s", block; skipping=1; next }
+        index($0, "A-TEAM:END") { if (skipping) { skipping=0; next } }
+        !skipping { print }
+      ' "AGENTS.md" > "AGENTS.md.tmp" && mv "AGENTS.md.tmp" "AGENTS.md"
     else
-      log "AGENTS.md already contains shared memory rules, skipping."
+      log "Appending the A-Team block to existing AGENTS.md..."
+      printf '\n' >> "AGENTS.md"
+      cat "$tmp/scaffold/AGENTS.md" >> "AGENTS.md"
     fi
   else
     cp "$tmp/scaffold/AGENTS.md" "AGENTS.md"
