@@ -19,6 +19,17 @@ for ($i = 0; $i -lt $args.Length; $i++) {
 
 function Log($msg) { if ($Verbose) { Write-Host $msg } }
 
+function Confirm-Action($message) {
+  if ($Yes) { return $true }
+  if (-not [Environment]::UserInteractive) {
+    Write-Error "Use -y/--yes to confirm in non-interactive mode."
+    return $false
+  }
+
+  $answer = Read-Host "$message [y/N]"
+  return $answer -eq "y" -or $answer -eq "Y"
+}
+
 # Download to temp directory first
 $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ([System.Guid]::NewGuid().ToString())
 
@@ -58,28 +69,87 @@ foreach ($pattern in $Exclude) {
 }
 Pop-Location
 
-# Handle AGENTS.md separately: append shared memory rules if missing
+# Stage the managed AGENTS.md update; apply it after all confirmations.
+$pendingAgents = "$tmp/AGENTS.md.pending"
+$hasPendingAgents = $false
+$agentsRequireConfirmation = $false
+
 $scaffoldAgents = "$tmp/scaffold/AGENTS.md"
 if (Test-Path $scaffoldAgents) {
   $content = Get-Content $scaffoldAgents -Raw
-  $memoryIdx = $content.IndexOf("## Shared Memory")
-  $memorySection = if ($memoryIdx -ge 0) { $content.Substring($memoryIdx) } else { "" }
+  $startMarker = "<!-- a-team-lite:start -->"
+  $endMarker = "<!-- a-team-lite:end -->"
+  $managedPattern = "(?ms)^" + [regex]::Escape($startMarker) + "\r?\n.*?^" + [regex]::Escape($endMarker) + "\r?\n?"
+  $managedMatch = [regex]::Match($content, $managedPattern)
+  if (-not $managedMatch.Success) {
+    Write-Error "Scaffold AGENTS.md has no valid A-Team Lite managed block."
+    exit 1
+  }
+  $managedBlock = $managedMatch.Value.TrimEnd("`r", "`n")
 
   if (Test-Path "AGENTS.md") {
     $existing = Get-Content "AGENTS.md" -Raw
-    if ($existing -notmatch '(?m)^## Shared Memory') {
-      Log "Appending shared memory rules to existing AGENTS.md..."
-      Add-Content -Path "AGENTS.md" -Value "`n$memorySection"
+    $startCount = ([regex]::Matches($existing, [regex]::Escape($startMarker))).Count
+    $endCount = ([regex]::Matches($existing, [regex]::Escape($endMarker))).Count
+
+    if ($startCount -eq 0 -and $endCount -eq 0) {
+      $legacyEnd = 'Only the `designer` agent writes to `DESIGN.md`. Other agents flag gaps back to the designer instead of editing the file directly. Validate edits with `npx @google/design.md lint DESIGN.md`.'
+      $legacyPattern = '(?ms)^## Shared Memory\r?\n.*?^' + [regex]::Escape($legacyEnd) + '\r?\n?'
+      $legacyRegex = [regex]::new($legacyPattern)
+      $baseContent = $existing
+
+      if ($legacyRegex.IsMatch($existing)) {
+        Log "Migrating legacy unmarked A-Team instructions in AGENTS.md..."
+        $baseContent = $legacyRegex.Replace($existing, "", 1)
+        $agentsRequireConfirmation = $true
+      } else {
+        Log "Appending A-Team Lite workflow to existing AGENTS.md..."
+      }
+
+      $separator = if ($baseContent.Length -eq 0) {
+        ""
+      } elseif ($baseContent.EndsWith("`n")) {
+        "`n"
+      } else {
+        "`n`n"
+      }
+      [System.IO.File]::WriteAllText($pendingAgents, $baseContent + $separator + $managedBlock + "`n")
+      $hasPendingAgents = $true
+    } elseif ($startCount -eq 1 -and $endCount -eq 1) {
+      $existingPattern = [regex]::new(
+        $managedPattern,
+        [System.Text.RegularExpressions.RegexOptions]::Multiline -bor
+          [System.Text.RegularExpressions.RegexOptions]::Singleline
+      )
+      $updated = $existingPattern.Replace(
+        $existing,
+        [System.Text.RegularExpressions.MatchEvaluator]{
+          param($match)
+          return $managedBlock + "`n"
+        },
+        1
+      )
+
+      if ($updated -eq $existing) {
+        Log "A-Team Lite workflow is already up to date."
+      } else {
+        [System.IO.File]::WriteAllText($pendingAgents, $updated)
+        $hasPendingAgents = $true
+        $agentsRequireConfirmation = $true
+      }
     } else {
-      Log "AGENTS.md already contains shared memory rules, skipping."
+      Write-Error "Existing AGENTS.md has duplicate or unmatched A-Team Lite markers."
+      Remove-Item -Recurse -Force $tmp
+      exit 1
     }
   } else {
-    Copy-Item $scaffoldAgents "AGENTS.md"
+    Copy-Item $scaffoldAgents $pendingAgents
+    $hasPendingAgents = $true
   }
   Remove-Item $scaffoldAgents
 }
 
-# Check for conflicts
+# Check for file conflicts and legacy A-Team agents.
 $scaffoldFiles = Get-ChildItem -Recurse -File "$tmp/scaffold" | ForEach-Object {
   $_.FullName.Substring("$tmp/scaffold".Length + 1)
 }
@@ -90,29 +160,50 @@ foreach ($file in $scaffoldFiles) {
   }
 }
 
-if ($conflicts.Count -gt 0) {
-  Write-Host "The following files already exist:"
-  foreach ($f in $conflicts) {
-    Write-Host "  - $f"
+$legacyAgentPaths = @(
+  ".github/agents/coder.agent.md",
+  ".github/agents/designer.agent.md",
+  ".github/agents/marketer.agent.md",
+  ".github/agents/orchestrator.agent.md",
+  ".github/agents/planner.agent.md",
+  ".github/agents/product-manager.agent.md",
+  ".github/agents/qa.agent.md",
+  ".github/agents/reviewer.agent.md"
+)
+$legacyAgents = @($legacyAgentPaths | Where-Object { Test-Path $_ })
+
+if ($agentsRequireConfirmation -or $conflicts.Count -gt 0 -or $legacyAgents.Count -gt 0) {
+  Write-Host "The following changes require confirmation:"
+  if ($agentsRequireConfirmation) {
+    Write-Host "  - update managed workflow in AGENTS.md"
   }
-  if (-not $Yes) {
-    if ([Environment]::UserInteractive) {
-      $answer = Read-Host "Overwrite? [y/N]"
-      if ($answer -ne "y" -and $answer -ne "Y") {
-        Write-Host "Aborted."
-        Remove-Item -Recurse -Force $tmp
-        exit 1
-      }
-    } else {
-      Write-Error "Use -y/--yes to overwrite in non-interactive mode."
-      Remove-Item -Recurse -Force $tmp
-      exit 1
-    }
+  foreach ($f in $conflicts) {
+    Write-Host "  - overwrite $f"
+  }
+  foreach ($f in $legacyAgents) {
+    Write-Host "  - remove legacy agent $f"
+  }
+  if (-not (Confirm-Action "Continue?")) {
+    Write-Host "Aborted."
+    Remove-Item -Recurse -Force $tmp
+    exit 1
   }
 }
 
-# Copy files
+# Apply all changes after confirmation.
+if ($hasPendingAgents) {
+  Copy-Item -Force $pendingAgents "AGENTS.md"
+}
+foreach ($file in $legacyAgents) {
+  Remove-Item -Force $file
+}
+if (Test-Path ".github/agents") {
+  $remainingAgents = Get-ChildItem -Force ".github/agents"
+  if ($remainingAgents.Count -eq 0) {
+    Remove-Item ".github/agents"
+  }
+}
 Copy-Item -Recurse -Force "$tmp/scaffold/*" .
 Remove-Item -Recurse -Force $tmp
 
-Write-Host "Done. Agent squad installed in current directory."
+Write-Host "Done. A-Team Lite installed in current directory."

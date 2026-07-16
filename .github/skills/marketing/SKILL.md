@@ -5,8 +5,6 @@ description: "Establish or evolve a project's marketing identity in docs/marketi
 
 # Create Marketing
 
-> **Run as the marketer agent.** If you are not the `marketer` (Face), delegate the entire marketing work to it via the task/agent tool before proceeding. The marketer owns `docs/marketing/MARKETING.md` end-to-end; running marketing work from another agent splits ownership, breaks the truth/voice guardrails, and risks inconsistent positioning.
-
 This skill guides the creation or iteration of the project's marketing identity, captured in `docs/marketing/MARKETING.md`, and the production of per-launch GTM plans under `docs/marketing/`. Marketing copy is the highest-risk surface for generic AI-slop and for unverified claims; this skill enforces structured discovery, voice/truth guardrails, and lock-as-you-decide iteration.
 
 ## When to use
@@ -16,7 +14,7 @@ This skill guides the creation or iteration of the project's marketing identity,
 - A feature requires marketing artifacts (landing page, sales contact form, sales-oriented website, launch announcement) and no `MARKETING.md` exists yet
 - The user explicitly asks to establish or evolve marketing
 - A specific launch / release / campaign is approaching and needs a GTM plan
-- The marketer agent is invoked for any non-trivial promo content and finds `MARKETING.md` stale or absent
+- This skill is invoked for non-trivial promo content and finds `MARKETING.md` stale or absent
 
 This skill engages mostly on-demand, with a few auto-triggers (inception lightweight pass, MVP completion, feature-mandated marketing artifacts). It does **not** run on every project change.
 
@@ -111,7 +109,7 @@ Write each section into `MARKETING.md` as it's confirmed. Don't wait until the e
 
 ### 8. Adversarial review
 
-When `MARKETING.md` is initially complete (or substantially changed), delegate to the `reviewer` agent. Same standard as roadmap and DESIGN.md: consensus + all high/critical issues fixed before considering it locked. Reviewer is looking for:
+When `MARKETING.md` is initially complete or substantially changed, invoke the `adversarial-review` skill. Resolve all blocking findings before considering it locked. The critique looks for:
 
 - Generic AI-slop language
 - Unverifiable or false claims about the product
@@ -119,7 +117,7 @@ When `MARKETING.md` is initially complete (or substantially changed), delegate t
 - Voice that contradicts `DESIGN.md` without rationale
 - Channel claims with no realistic plan behind them
 
-Apply the consolidated review, then re-lock.
+Apply confirmed findings, then re-lock.
 
 ### 9. Record decisions
 
@@ -133,7 +131,7 @@ When called to update an existing `MARKETING.md`:
 2. Confirm with the user which sections are in scope to change.
 3. Preserve untouched sections verbatim.
 4. Update only in-scope sections; lock each one as it's decided.
-5. Delegate to `reviewer` if the change is substantial (positioning, audience, or voice). Skip for minor channel/cadence tweaks.
+5. Invoke `adversarial-review` if the change is substantial (positioning, audience, or voice). Skip it for minor channel/cadence tweaks.
 6. Append the change rationale to `docs/memory/decisions.md`.
 
 ## Promo content workflow (not MARKETING.md)
@@ -142,7 +140,7 @@ For one-off promo content (landing copy, launch announcement, social thread, blo
 
 - Read `MARKETING.md` first. Pull positioning, messaging, voice from it. If `MARKETING.md` doesn't exist and the content is non-trivial, ask whether to create it first via this skill.
 - Write the content to `docs/marketing/<yyyy-mm-dd>_<slug>.md` (e.g. `docs/marketing/2026-05-23_landing-v1.md`).
-- For marketing UI (landing pages, sales pages), produce the copy and a layout brief here, then delegate UI build to the `frontend-design` skill. Read `DESIGN.md` to keep visuals on-brand.
+- For marketing UI (landing pages, sales pages), produce the copy and a layout brief here, then invoke the `frontend-design` skill for the UI. Read `DESIGN.md` to keep visuals on-brand.
 - Truth check: every claim must be verifiable from the codebase. If unsure, ask before publishing.
 
 ## Launch plan (GTM) workflow
@@ -249,7 +247,7 @@ Filled in after the launch. What worked, what didn't, what to do differently nex
 
 ## Rules
 
-- **DO NOT engage unless explicitly invoked** by the user or routed by the orchestrator for a feature that requires marketing artifacts. No auto-sync.
+- **DO NOT engage unless explicitly invoked** by the user or required by an active feature that includes marketing artifacts. No auto-sync.
 - **DO NOT write marketing fiction.** Every claim must be verifiable from the codebase. If a feature isn't built, don't market it as built.
 - **DO NOT use generic marketing AI-slop.** Banned words/phrases (non-exhaustive):
   - empower, empowering, empowerment
@@ -267,7 +265,7 @@ Filled in after the launch. What worked, what didn't, what to do differently nex
   Replace with concrete verbs and specific outcomes.
 - **DO NOT use vague audiences.** "Developers" is not an audience. "Backend engineers at growth-stage SaaS shipping multi-tenant infra" is.
 - **DO NOT duplicate DESIGN.md voice.** Reference it. Document only marketing-specific deltas with a rationale.
-- **DO NOT define features, set priorities, or alter the roadmap.** Out of scope; that's the PM.
+- **DO NOT define features, set priorities, or alter the roadmap.** Out of scope; use the `roadmap` skill.
 - **DO NOT influence design or UI patterns.** Pull from `DESIGN.md`; don't redefine.
 - **DO NOT do SEO, keyword research, analytics setup, pricing strategy, or localization** in v1. Flag and defer unless the user explicitly asks.
 - **DO NOT ask 20 questions at once.** One at a time after the hypothesis validation.

@@ -1,12 +1,23 @@
 ---
 name: frontend-design
-description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.
+description: Create or plan distinctive, production-grade frontend interfaces with high design quality. Use when the user asks to design or build web components, pages, artifacts, posters, applications, or to style and improve a web UI. Reads DESIGN.md as the visual contract and avoids generic AI aesthetics.
 license: Complete terms in LICENSE.txt
 ---
 
 This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.
 
 The user provides frontend requirements: a component, page, application, or interface to build. They may include context about the purpose, audience, or technical constraints.
+
+## Project Visual Contract
+
+Before planning or coding:
+
+1. Read `DESIGN.md` and existing UI patterns.
+2. If `DESIGN.md` is undefined, invoke the `brand` skill before non-trivial UI work.
+3. Use its colors, typography, layout, components, voice, and motion as constraints.
+4. If the feature needs a missing visual rule, extend `DESIGN.md` through `brand`; do not invent a one-off exception.
+
+For planning requests, produce an implementable design section covering layout, component states, user flow, responsiveness, and accessibility. For build requests, apply the same decisions in working code.
 
 ## Design Thinking
 
@@ -39,4 +50,4 @@ Interpret creatively and make unexpected choices that feel genuinely designed fo
 
 **IMPORTANT**: Match implementation complexity to the aesthetic vision. Maximalist designs need elaborate code with extensive animations and effects. Minimalist or refined designs need restraint, precision, and careful attention to spacing, typography, and subtle details. Elegance comes from executing the vision well.
 
-Remember: Claude is capable of extraordinary creative work. Don't hold back, show what can truly be created when thinking outside the box and committing fully to a distinctive vision.
+Commit fully to the chosen direction. Distinctive work comes from coherent decisions, not from adding decoration without purpose.

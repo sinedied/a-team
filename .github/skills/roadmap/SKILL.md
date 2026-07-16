@@ -5,8 +5,6 @@ description: "Create or iterate on the project roadmap at docs/specs/roadmap.md.
 
 # Create Roadmap
 
-> **Run as the product-manager agent.** If you are not the `product-manager` (Stockwell), delegate the entire roadmap work to it via the task/agent tool before proceeding. The PM owns `docs/specs/roadmap.md` end-to-end; running roadmap work from another agent splits ownership and risks inconsistent product direction.
-
 This skill guides the creation or iteration of the project roadmap. A roadmap without a clear MVP cut, dependencies, and rationale produces scope creep and rework. This skill enforces a structured discovery, then locks decisions into `docs/specs/roadmap.md`.
 
 ## When to use
@@ -17,7 +15,7 @@ This skill guides the creation or iteration of the project roadmap. A roadmap wi
 
 ## Source of truth
 
-`docs/specs/roadmap.md`. Product-level only — features, value, dependencies, ordering, scope boundaries. **No implementation details** — those live in per-feature specs at `docs/specs/<yyyy-mm-dd>_<feature>.md`.
+`docs/specs/roadmap.md`. Product-level only — features, value, dependencies, ordering, scope boundaries. **No implementation details** — those belong in Copilot plan mode and may be persisted to a per-feature spec when a durable handoff is useful.
 
 ## Process
 
@@ -51,7 +49,7 @@ This phase is faster when the AI proposes and the user refines. Don't ask the us
 1. Break the idea into discrete features. For each:
    - Name and one-line description
    - User value: what problem does it solve
-   - UI flag: yes/no — whether the feature has user-facing UI (triggers designer involvement during planning)
+   - UI flag: yes/no — whether the feature has user-facing UI (triggers the `frontend-design` skill during planning)
    - Dependencies: which features must come first
    - Scope: what's included, what's explicitly excluded
 2. Group features into iterations:
@@ -59,7 +57,7 @@ This phase is faster when the AI proposes and the user refines. Don't ask the us
    - **Iteration 2+**: incremental additions ordered by value and dependency
    - **Deferred**: explicitly out of scope for now, with rationale
 3. Identify **potential challenges** for the riskiest features, each with a **mitigation strategy**.
-4. List any **open decisions** the user hasn't committed to (e.g., monetization model, auth provider, hosting choice). Don't block the roadmap on these — surface them so the planner can resolve them later.
+4. List any **open decisions** the user hasn't committed to (e.g., monetization model, auth provider, hosting choice). Don't block the roadmap on these — surface them for resolution during feature planning.
 
 ### 4. Intermediate summary → user validation
 
@@ -100,9 +98,9 @@ Loop until the user is satisfied. Make concrete edits between rounds, not abstra
 
 ### 5. Adversarial review
 
-Once the user accepts the intermediate summary, the PM agent delegates the proposed roadmap to the `reviewer` agent for adversarial review (orchestrator runs the standard 2-parallel + consolidation protocol if available; otherwise self-review).
+Once the user accepts the intermediate summary, invoke the `adversarial-review` skill on the proposed roadmap. It uses Copilot CLI's built-in rubber duck to obtain a contrasting-model critique without starting a persistent role pipeline.
 
-The reviewer challenges:
+The critique challenges:
 - Is the MVP cut truly minimal? Could it be smaller?
 - Are dependencies correct? Are any features blocked by missing prerequisites?
 - Are there features that overlap and should be merged or split?
@@ -166,12 +164,12 @@ When invoked with an existing populated `docs/specs/roadmap.md`:
 4. Propose specific changes (don't rewrite from scratch). For each change, state the rationale.
 5. **Mark completed features as `✅` — do NOT remove them.** History matters.
 6. Show the diff (added, removed, reordered, status-updated) and ask for confirmation.
-7. Send the updated roadmap through adversarial review.
+7. Run the updated roadmap through the `adversarial-review` skill.
 8. Apply the changes and update `docs/memory/decisions.md` with any new product-level decisions.
 
 ## Rules
 
-- **DO NOT include implementation details** — that's the planner's job. Features are scoped at the product level (what + why), not the code level (how).
+- **DO NOT include implementation details** — feature planning handles those. Roadmap items are scoped at the product level (what + why), not the code level (how).
 - **DO NOT ask the user to enumerate every feature.** Derive them from the framing, then iterate with them.
 - **DO NOT batch the framing questions.** One at a time, in order.
 - **DO NOT skip the intermediate summary step.** User must validate before the file is locked.
