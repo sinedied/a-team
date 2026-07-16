@@ -5,9 +5,7 @@ description: "Establish or evolve a project's marketing identity in docs/marketi
 
 # Create Marketing
 
-> **Skill for maintaining `docs/marketing/`.** Run it directly (the lite squad has no
-> separate marketer agent). This skill owns `docs/marketing/MARKETING.md` end-to-end and
-> enforces the truth/voice guardrails against generic AI-slop.
+> **Skill for maintaining `docs/marketing/`.** This skill owns `docs/marketing/MARKETING.md` end-to-end and enforces the truth/voice guardrails against generic AI-slop.
 
 This skill guides the creation or iteration of the project's marketing identity, captured in `docs/marketing/MARKETING.md`, and the production of per-launch GTM plans under `docs/marketing/`. Marketing copy is the highest-risk surface for generic AI-slop and for unverified claims; this skill enforces structured discovery, voice/truth guardrails, and lock-as-you-decide iteration.
 
@@ -121,7 +119,7 @@ When `MARKETING.md` is initially complete (or substantially changed), run an adv
 - Voice that contradicts `DESIGN.md` without rationale
 - Channel claims with no realistic plan behind them
 
-Apply the consolidated review, then re-lock.
+Apply the review findings, then re-lock.
 
 ### 9. Record decisions
 
@@ -135,7 +133,7 @@ When called to update an existing `MARKETING.md`:
 2. Confirm with the user which sections are in scope to change.
 3. Preserve untouched sections verbatim.
 4. Update only in-scope sections; lock each one as it's decided.
-5. Delegate to `reviewer` if the change is substantial (positioning, audience, or voice). Skip for minor channel/cadence tweaks.
+5. Run a `/rubber-duck` review (opposite-provider SOTA at xhigh) if the change is substantial (positioning, audience, or voice). Skip for minor channel/cadence tweaks.
 6. Append the change rationale to `docs/memory/decisions.md`.
 
 ## Promo content workflow (not MARKETING.md)
@@ -269,7 +267,7 @@ Filled in after the launch. What worked, what didn't, what to do differently nex
   Replace with concrete verbs and specific outcomes.
 - **DO NOT use vague audiences.** "Developers" is not an audience. "Backend engineers at growth-stage SaaS shipping multi-tenant infra" is.
 - **DO NOT duplicate DESIGN.md voice.** Reference it. Document only marketing-specific deltas with a rationale.
-- **DO NOT define features, set priorities, or alter the roadmap.** Out of scope; that's the PM.
+- **DO NOT define features, set priorities, or alter the roadmap.** Out of scope; that's roadmap work (the `roadmap` skill).
 - **DO NOT influence design or UI patterns.** Pull from `DESIGN.md`; don't redefine.
 - **DO NOT do SEO, keyword research, analytics setup, pricing strategy, or localization** in v1. Flag and defer unless the user explicitly asks.
 - **DO NOT ask 20 questions at once.** One at a time after the hypothesis validation.

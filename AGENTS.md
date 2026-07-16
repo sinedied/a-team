@@ -21,37 +21,43 @@ starting the next.
    the plan like a spec:
    - **Problem** — what and why.
    - **Approach** — architecture, data flow, integration points, with rationale.
+   - **Design (UI features)** — layout, user flow, component states (default/hover/active/
+     disabled/error/loading), responsive behaviour, accessibility, and reuse of existing
+     patterns. Pull `brand` (visual system) + `frontend-design` (implementation) here. Skip
+     for non-UI work.
    - **Subtasks** — ordered, each with a clear definition of done.
    - **Acceptance scenarios** — concrete, independently testable steps + expected results
      (these drive the verify step). Include a **Setup** (commands/data/services) and, for UI,
      the views/states/breakpoints to check.
    - **Decisions** — resolve every open question; no "TBD" in a finalized plan.
-   Persist a durable spec to `docs/specs/<yyyy-mm-dd>_<feature>.md` only when the feature is
-   large or long-lived; otherwise plan mode is enough.
+   Persist the plan as a durable spec to `docs/specs/<yyyy-mm-dd>_<feature>.md`.
 
 3. **Implement.** Work subtasks in order. Read existing code first; make surgical changes;
    build/lint/test as you go. Pull `brand` + `frontend-design` for UI/visual work (see below).
    Don't leave dead code, debug logs, or commented-out blocks.
 
-4. **Review (static) — cross-model.** Run **`/rubber-duck` on the opposite-provider SOTA
-   model at `xhigh` reasoning** for a diverse perspective:
+4. **Review (static) — cross-model.** Launch a **rubber-duck review** for a diverse
+   perspective, preferring the **opposite-provider SOTA model at `xhigh` reasoning**:
    - current model is **Claude → review with the best current GPT**;
    - current model is **GPT → review with the best current Claude**.
-   Invoke the reviewer with that model override. If model selection isn't available, do a
-   focused self-review pass instead. Review criteria: is there a simpler approach? unhandled
-   failure modes? security? missing edge cases? contradicts `docs/memory`? **Only act on
-   high-confidence, medium-or-above findings — no style/nitpick noise** (linters own those).
+   Invoke it via the review agent / Task tool with that model override where the runtime
+   supports it; otherwise run `/rubber-duck` (Copilot may auto-select a contrasting model), and
+   if neither is available, do a focused self-review pass. Review criteria: is there a simpler
+   approach? unhandled failure modes? security? missing edge cases? contradicts `docs/memory`?
+   **Act on Blocking findings and high-confidence correctness/security issues; ignore style and
+   nitpicks** (linters own those).
 
-5. **Verify (dynamic) — QA.** Distinct from the static review: actually run it. Use the
+5. **Verify.** Distinct from the static review: actually run it. Use the
    **`qa`** skill for the checklist (dev-workflow commands, happy paths, edge cases, and for
    web UI the `chrome-devtools` skill). Run every acceptance scenario. Dev-workflow failures
    (can't install/build/run) are critical.
 
 6. **Fix + commit.** For each review/QA finding, fix the root cause **and add a regression
-   test** that reproduces it. Re-verify. Then commit with a conventional-commit message
-   (`feat:`, `fix:`, `refactor:`, `docs:`, `chore:`, `test:`, `style:`, `perf:` — lowercase,
-   imperative, one line). One commit per completed feature/fix. Update `docs/memory/` if the
-   work established a new decision or convention.
+   test** that reproduces it. **A substantive fix resets both gates** — re-run the static
+   review (step 4) and verify (step 5) against the latest revision. Only when both pass, commit
+   with a conventional-commit message (`feat:`, `fix:`, `refactor:`, `docs:`, `chore:`, `test:`,
+   `style:`, `perf:` — lowercase, imperative, one line). One commit per completed feature/fix.
+   Update `docs/memory/` if the work established a new decision or convention.
 
 ## Skills (on-demand)
 

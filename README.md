@@ -41,7 +41,7 @@ Files are installed in the current directory. Existing files are never overwritt
 
 ## Skills
 
-Lite ships on-demand skills — loaded only when their trigger matches, so they cost nothing until used.
+Lite ships on-demand skills. Only each skill's short description is always visible (for activation); its full body loads only when the trigger matches — so the always-on cost is small.
 
 | Skill | Use when |
 |-------|----------|

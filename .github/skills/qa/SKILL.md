@@ -15,16 +15,19 @@ Use this during the workflow's verify step. This skill tests — it does **not**
    your primary test plan) and `docs/memory/decisions.md` for context. If a
    `docs/qa/<feature>_log.md` exists, re-run its scenarios to catch regressions.
 
-2. **Validate dev workflows first.** Before testing the feature, verify every developer
-   command actually works — a broken workflow is **critical** (nothing else matters if the
-   app won't run):
-   - Install deps (`npm install`, `pip install`, `cargo build`, …)
-   - Run the app (`npm run dev`, `python main.py`, …)
-   - Run tests (`npm test`, `pytest`, …) and lint/format if configured
-   - Build (`npm run build`, …)
-   - Every script in `package.json` / `Makefile` / etc. runs without error
-   - Every command mentioned in README/docs — try each one
-   - Docs match actual behavior — flag outdated instructions, wrong commands, missing steps
+2. **Validate dev workflows.** Verify the developer commands relevant to the change actually
+   work — a broken workflow is **critical** (nothing else matters if the app won't run). Scope
+   the sweep to the work at hand:
+   - **Per-feature verify (default):** install (`npm install`, `pip install`, `cargo build`),
+     run the app (`npm run dev`, `python main.py`), the tests + lint that cover the change,
+     and the build. This is what runs after every feature — keep it fast.
+   - **Full audit (release / on request):** every script in `package.json` / `Makefile` and
+     every command mentioned in README/docs. Do this before a release or when explicitly asked,
+     not after every small change.
+   - **Never run destructive or externally-mutating commands** without explicit user approval —
+     deploy, publish, `db:reset` / migrations against real data, `clean`/`prune` that deletes
+     artifacts, anything that hits a live/external service or costs money. List them and ask.
+   - Verify docs match actual behavior — flag outdated instructions, wrong commands, missing steps.
 
 3. **Run acceptance scenarios.** Execute each scenario from the plan exactly; report
    pass/fail per scenario.
@@ -98,5 +101,8 @@ Use this during the workflow's verify step. This skill tests — it does **not**
   worthless.
 - **Always include reproduction steps.** An issue without a repro is useless.
 - **A clean PASS is valid.** Don't invent problems.
+- **Never run destructive or externally-mutating commands** (deploy, publish, data resets,
+  migrations against real data, cleanup that deletes artifacts, anything hitting a live service)
+  without explicit user approval — list them and ask.
 - Fixing findings (root cause + a regression test) happens back in the main workflow, not
   here — this skill only verifies and reports.

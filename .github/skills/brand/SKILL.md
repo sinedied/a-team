@@ -5,9 +5,7 @@ description: "Establish or evolve a project's visual identity in DESIGN.md. Use 
 
 # Create Branding
 
-> **Skill for maintaining `DESIGN.md`.** Run it directly (the lite squad has no separate
-> designer agent). `DESIGN.md` at the repo root is the project's single visual contract;
-> this skill owns it end-to-end.
+> **Skill for maintaining `DESIGN.md`, the project's single visual contract.** This skill owns it end-to-end.
 
 This skill guides the creation or evolution of a project's visual identity, captured in `DESIGN.md` at the repo root following [Google's DESIGN.md spec](https://github.com/google-labs-code/design.md). A project without a defined visual identity converges on the same generic AI aesthetic as everyone else. Decisions made up front by this skill eliminate that.
 
@@ -123,7 +121,7 @@ When called to update an existing identity (rather than create one):
 - **DO NOT propose a generic palette** (purple gradient on white, blue SaaS, etc.) unless the user explicitly asks for it. Push for differentiation.
 - **DO NOT use generic AI defaults** (Inter, Roboto, Arial, system fonts) unless the user insists.
 - **DO NOT define more than 5 colors or 3 type families.** Constraint creates identity.
-- **DO NOT leave `DESIGN.md` half-filled with TODOs** after the session. Anything unresolved goes under `## Open questions` so the next agent knows it's unresolved.
+- **DO NOT leave `DESIGN.md` half-filled with TODOs** after the session. Anything unresolved goes under `## Open questions` so it's clearly flagged as unresolved.
 - **DO NOT skip writing to `DESIGN.md` until the end.** Lock each section as soon as it's decided.
 - **DO NOT skip lint validation** after edits.
 - **DO NOT copy a designdotmd.directory entry wholesale.** Use them as references to anchor direction, not as templates.

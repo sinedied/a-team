@@ -5,9 +5,7 @@ description: "Create or iterate on the project roadmap at docs/specs/roadmap.md.
 
 # Create Roadmap
 
-> **Skill for maintaining `docs/specs/roadmap.md`.** Run it directly (the lite squad has no
-> separate product-manager agent). The roadmap is the project's single source of product
-> truth — features, value, dependencies, ordering.
+> **Skill for maintaining `docs/specs/roadmap.md`.** The roadmap is the project's single source of product truth — features, value, dependencies, ordering.
 
 This skill guides the creation or iteration of the project roadmap. A roadmap without a clear MVP cut, dependencies, and rationale produces scope creep and rework. This skill enforces a structured discovery, then locks decisions into `docs/specs/roadmap.md`.
 
@@ -53,7 +51,7 @@ This phase is faster when the AI proposes and the user refines. Don't ask the us
 1. Break the idea into discrete features. For each:
    - Name and one-line description
    - User value: what problem does it solve
-   - UI flag: yes/no — whether the feature has user-facing UI (triggers designer involvement during planning)
+   - UI flag: yes/no — whether the feature has user-facing UI (flags UI work: pull the `brand` + `frontend-design` skills during planning)
    - Dependencies: which features must come first
    - Scope: what's included, what's explicitly excluded
 2. Group features into iterations:
