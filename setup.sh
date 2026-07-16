@@ -60,23 +60,24 @@ for pattern in $EXCLUDE; do
 done
 cd - >/dev/null
 
-# Handle AGENTS.md separately: merge the marker-delimited A-Team block, preserving any
-# user content outside the markers. Update the block in place on re-install.
+# Handle AGENTS.md separately: merge the A-Team level-2 (##) sections into any existing
+# AGENTS.md — replacing same-heading sections, appending new ones — while preserving the
+# user's own heading and non-colliding sections. Copy wholesale for a new project.
 if [ -f "$tmp/scaffold/AGENTS.md" ]; then
   if [ -f "AGENTS.md" ]; then
-    if grep -q 'A-TEAM:START' "AGENTS.md"; then
-      log "Updating the A-Team block in existing AGENTS.md..."
-      awk -v blockfile="$tmp/scaffold/AGENTS.md" '
-        BEGIN { while ((getline line < blockfile) > 0) block = block line "\n" }
-        index($0, "A-TEAM:START") { printf "%s", block; skipping=1; next }
-        index($0, "A-TEAM:END") { if (skipping) { skipping=0; next } }
-        !skipping { print }
-      ' "AGENTS.md" > "AGENTS.md.tmp" && mv "AGENTS.md.tmp" "AGENTS.md"
-    else
-      log "Appending the A-Team block to existing AGENTS.md..."
-      printf '\n' >> "AGENTS.md"
-      cat "$tmp/scaffold/AGENTS.md" >> "AGENTS.md"
-    fi
+    log "Merging A-Team sections into existing AGENTS.md..."
+    awk -v scaffold="$tmp/scaffold/AGENTS.md" '
+      function is_h2(l) { return l ~ /^## / }
+      BEGIN {
+        capture = 0
+        while ((getline line < scaffold) > 0) {
+          if (is_h2(line)) { set[line] = 1; capture = 1 }
+          if (capture) block = block line "\n"
+        }
+      }
+      { if (is_h2($0)) skip = ($0 in set) ? 1 : 0; if (!skip) print }
+      END { printf "\n%s", block }
+    ' "AGENTS.md" > "AGENTS.md.tmp" && mv "AGENTS.md.tmp" "AGENTS.md"
   else
     cp "$tmp/scaffold/AGENTS.md" "AGENTS.md"
   fi

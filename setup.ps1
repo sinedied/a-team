@@ -58,22 +58,26 @@ foreach ($pattern in $Exclude) {
 }
 Pop-Location
 
-# Handle AGENTS.md separately: merge the marker-delimited A-Team block, preserving any
-# user content outside the markers. Update the block in place on re-install.
+# Handle AGENTS.md separately: merge the A-Team level-2 (##) sections into any existing
+# AGENTS.md — replacing same-heading sections, appending new ones — while preserving the
+# user's own heading and non-colliding sections. Copy wholesale for a new project.
 $scaffoldAgents = "$tmp/scaffold/AGENTS.md"
 if (Test-Path $scaffoldAgents) {
-  $block = Get-Content $scaffoldAgents -Raw
+  $scaffold = Get-Content $scaffoldAgents -Raw
   if (Test-Path "AGENTS.md") {
-    $existing = Get-Content "AGENTS.md" -Raw
-    if ($existing -match 'A-TEAM:START') {
-      Log "Updating the A-Team block in existing AGENTS.md..."
-      $pattern = '(?s)<!-- A-TEAM:START.*?A-TEAM:END -->'
-      $updated = [regex]::Replace($existing, $pattern, { param($m) $block.TrimEnd() })
-      Set-Content -Path "AGENTS.md" -Value $updated -NoNewline
-    } else {
-      Log "Appending the A-Team block to existing AGENTS.md..."
-      Add-Content -Path "AGENTS.md" -Value "`n$block"
+    Log "Merging A-Team sections into existing AGENTS.md..."
+    $target = Get-Content "AGENTS.md" -Raw
+    $headings = [regex]::Matches($scaffold, '(?m)^## .*$') | ForEach-Object { $_.Value.TrimEnd() }
+    # Strip any existing section whose heading matches an A-Team heading.
+    foreach ($h in $headings) {
+      $he = [regex]::Escape($h)
+      $target = [regex]::Replace($target, "(?ms)^$he[^\r\n]*\r?\n.*?(?=^## |\z)", "")
     }
+    # Append the A-Team sections (scaffold content from its first ## heading onward).
+    $fm = [regex]::Match($scaffold, '(?s)(?:^|\n)(## .*)$')
+    $block = if ($fm.Success) { $fm.Groups[1].Value } else { "" }
+    $target = $target.TrimEnd() + "`n`n" + $block.TrimEnd() + "`n"
+    Set-Content -Path "AGENTS.md" -Value $target -NoNewline
   } else {
     Copy-Item $scaffoldAgents "AGENTS.md"
   }

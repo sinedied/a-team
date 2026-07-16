@@ -1,18 +1,10 @@
-<!-- A-TEAM:START (managed block — the installer updates everything between these markers; add your own project notes outside them) -->
 # Project Guidelines
-
-This is the **lite** A-Team: one agent, a playbook, and on-demand skills — no subagent
-relay. You (the primary agent) run the whole workflow yourself, using **plan mode** and
-**/rubber-duck** where available, and pulling **skills** only when a task needs one. The
-speed and token savings come from *not* handing work between specialized agents.
-
-> Optimized for GitHub Copilot CLI (plan mode, `/rubber-duck`). On other agents, fall back
-> to the inline equivalents noted below (plan inline, self-review pass).
 
 ## Workflow
 
-Follow this loop. Keep **one feature in flight at a time** — finish and commit before
-starting the next.
+Feature work follows this loop. Keep **one feature in flight** — finish and commit before the
+next. (Copilot CLI: use **plan mode** + **`/rubber-duck`**; on other agents use the inline
+equivalents — plan inline, self-review pass.)
 
 1. **Roadmap first (new project or reprioritization).** If there's no `docs/specs/roadmap.md`,
    or priorities changed, use the **`roadmap`** skill to create/iterate it. The roadmap is
@@ -34,10 +26,10 @@ starting the next.
    Persist the plan as a durable spec to `docs/specs/<yyyy-mm-dd>_<feature>.md`.
 
 3. **Implement.** Work subtasks in order. Read existing code first; make surgical changes;
-   build/lint/test as you go. Pull `brand` + `frontend-design` for UI/visual work (see below).
+   build/lint/test as you go. Pull `brand` + `frontend-design` for UI/visual work.
    Don't leave dead code, debug logs, or commented-out blocks.
 
-4. **Review (static) — cross-model.** Launch a **rubber-duck review** for a diverse
+4. **Review.** Launch a **rubber-duck review** for a diverse
    perspective, preferring the **opposite-provider SOTA model at `xhigh` reasoning**:
    - current model is **Claude → review with the best current GPT**;
    - current model is **GPT → review with the best current Claude**.
@@ -60,20 +52,8 @@ starting the next.
    `style:`, `perf:` — lowercase, imperative, one line). One commit per completed feature/fix.
    Update `docs/memory/` if the work established a new decision or convention.
 
-## Skills (on-demand)
-
-Load a skill only when its trigger matches — don't pull them for one-off tasks you already
-handle well.
-
-| Skill | Use when |
-|-------|----------|
-| `roadmap` | Starting a project or reprioritizing — create/iterate `docs/specs/roadmap.md`. |
-| `brand` | Establishing or evolving the visual identity in `DESIGN.md` (before non-trivial UI). |
-| `frontend-design` | Building UI — for distinctive, production-grade interfaces that avoid generic AI aesthetics. |
-| `marketing` | Positioning, messaging, landing/promo copy → `docs/marketing/`. Mostly on request or at MVP. |
-| `qa` | Verifying a build works from a user's perspective (the verify step). |
-| `skill-builder` | Capturing a repeatable workflow as a new skill, or refining/retiring one. |
-| `chrome-devtools` | Driving a real browser for web verification (used by `qa`). |
+Capturing a repeatable workflow? Make it a skill with **`skill-builder`** instead of
+hand-rolling it each time.
 
 ## Shared Memory
 
@@ -116,14 +96,3 @@ Before any UI work, read `DESIGN.md`. If `Status: undefined`, no visual identity
 
 ### Writing
 `DESIGN.md` is maintained through the **`brand`** skill. Validate edits with `npx @google/design.md lint DESIGN.md`.
-
-## Notes
-
-- Lite drops the full squad's **2-parallel + consolidation** review protocol; it keeps the
-  single cross-provider `/rubber-duck` pass (step 4) for diverse perspective at a fraction of
-  the cost.
-- No custom subagents ship with lite. If you want a repeatable specialized workflow, capture
-  it as a skill with `skill-builder` rather than hand-rolling it each time.
-<!-- A-TEAM:END -->
-
-
