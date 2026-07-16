@@ -58,21 +58,26 @@ foreach ($pattern in $Exclude) {
 }
 Pop-Location
 
-# Handle AGENTS.md separately: append shared memory rules if missing
+# Handle AGENTS.md separately: merge the A-Team level-2 (##) sections into any existing
+# AGENTS.md — replacing same-heading sections, appending new ones — while preserving the
+# user's own heading and non-colliding sections. Copy wholesale for a new project.
 $scaffoldAgents = "$tmp/scaffold/AGENTS.md"
 if (Test-Path $scaffoldAgents) {
-  $content = Get-Content $scaffoldAgents -Raw
-  $memoryIdx = $content.IndexOf("## Shared Memory")
-  $memorySection = if ($memoryIdx -ge 0) { $content.Substring($memoryIdx) } else { "" }
-
+  $scaffold = Get-Content $scaffoldAgents -Raw
   if (Test-Path "AGENTS.md") {
-    $existing = Get-Content "AGENTS.md" -Raw
-    if ($existing -notmatch '(?m)^## Shared Memory') {
-      Log "Appending shared memory rules to existing AGENTS.md..."
-      Add-Content -Path "AGENTS.md" -Value "`n$memorySection"
-    } else {
-      Log "AGENTS.md already contains shared memory rules, skipping."
+    Log "Merging A-Team sections into existing AGENTS.md..."
+    $target = Get-Content "AGENTS.md" -Raw
+    $headings = [regex]::Matches($scaffold, '(?m)^## .*$') | ForEach-Object { $_.Value.TrimEnd() }
+    # Strip any existing section whose heading matches an A-Team heading.
+    foreach ($h in $headings) {
+      $he = [regex]::Escape($h)
+      $target = [regex]::Replace($target, "(?ms)^$he[^\r\n]*\r?\n.*?(?=^## |\z)", "")
     }
+    # Append the A-Team sections (scaffold content from its first ## heading onward).
+    $fm = [regex]::Match($scaffold, '(?s)(?:^|\n)(## .*)$')
+    $block = if ($fm.Success) { $fm.Groups[1].Value } else { "" }
+    $target = $target.TrimEnd() + "`n`n" + $block.TrimEnd() + "`n"
+    Set-Content -Path "AGENTS.md" -Value $target -NoNewline
   } else {
     Copy-Item $scaffoldAgents "AGENTS.md"
   }
