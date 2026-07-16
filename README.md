@@ -1,29 +1,27 @@
 ![A-Team Banner](assets/banner.svg)
 
-# A-Team
+# A-Team — Lite
 
-A squad of custom [GitHub Copilot agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) for autonomous project development. No roleplay bullshit, just gets the job done.
+A **lite** variant of the [A-Team](https://github.com/sinedied/a-team) Copilot squad. Instead of a relay of specialized subagents, **one agent follows a playbook** (in `AGENTS.md`) and pulls **on-demand skills** only when a task needs one. Faster, fewer tokens, less ceremony — the same disciplined loop.
 
 *"I love it when a plan comes together."* — Hannibal
 
-## Agents
+## How it works
 
-Each agent uses whatever main model the session runs on — no models are hardcoded. The reviewer runs **2 parallel reviews** (the current main model + the opposite-provider SOTA, both at highest reasoning), followed by a consolidation pass on the current main model.
+There are **no custom subagents**. The primary agent runs the whole loop itself, using the built-in **plan mode** and **/rubber-duck**, guided by `AGENTS.md`:
 
-| Agent | Name | Role |
-|-------|------|------|
-| **orchestrator** | Hannibal | Leads the team, delegates to the right agent, commits after pipeline passes |
-| **product-manager** | Stockwell | Scopes the mission: feature decomposition, roadmap, priorities |
-| **planner** | Amy | Creates detailed implementation specs with architecture, subtasks, and acceptance scenarios |
-| **designer** | Murdock | Owns `DESIGN.md` (visual identity contract). Runs brand discovery for new projects and creates per-feature UI/UX designs |
-| **coder** | Baracus | Builds it. Implements features, writes tests, updates docs |
-| **reviewer** | Decker | Adversarial review: opposite-provider SOTA + same-model, both at highest reasoning, then consolidated |
-| **qa** | Lynch | Tests the running app, never stops probing |
-| **marketer** | Face | Mostly on-demand: positioning, messaging, channels, content strategy, promo content. Owns `docs/marketing/MARKETING.md`. Auto-engages at MVP completion (first creation), at project inception (lightweight tagline pass), and when a feature spec mandates marketing artifacts |
+1. **Roadmap** (new project / reprioritize) → the `roadmap` skill writes `docs/specs/roadmap.md`.
+2. **Plan** a feature — plan mode (problem → approach → subtasks → acceptance scenarios → decisions).
+3. **Implement** — pull `brand` + `frontend-design` for UI work.
+4. **Review (static)** — `/rubber-duck` on the **opposite-provider SOTA at xhigh** (Claude↔GPT) for a diverse perspective; self-review fallback.
+5. **Verify (dynamic)** — the `qa` skill: run it, execute acceptance scenarios, try to break it (web UI via `chrome-devtools`).
+6. **Fix + commit** — root-cause fix **plus a regression test**; conventional commits.
+
+Compared to the full squad, lite keeps the **single cross-provider review** but drops the heavier 2-parallel + consolidation protocol — the speed/token trade that defines lite.
 
 ## Setup
 
-Add the agent squad to your project:
+Add the lite squad to your project:
 
 ```bash
 cd my-project
@@ -31,42 +29,34 @@ cd my-project
 
 **Mac/Linux:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/sinedied/a-team/main/setup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/sinedied/a-team/lite/setup.sh | bash -s -- -v lite
 ```
 
 **Windows (PowerShell):**
 ```powershell
-iwr -useb https://raw.githubusercontent.com/sinedied/a-team/main/setup.ps1 -OutFile setup.ps1; .\setup.ps1; rm setup.ps1
+iwr -useb https://raw.githubusercontent.com/sinedied/a-team/lite/setup.ps1 -OutFile setup.ps1; .\setup.ps1 -v lite; rm setup.ps1
 ```
 
-Files are installed in the current directory. Existing files are never overwritten without confirmation.
-
-To install a specific version, pass `-v <tag-or-branch>`:
-
-```bash
-# Mac/Linux
-curl -fsSL https://raw.githubusercontent.com/sinedied/a-team/main/setup.sh | bash -s -- -v v1.0
-
-# Windows
-iwr -useb https://raw.githubusercontent.com/sinedied/a-team/main/setup.ps1 -OutFile setup.ps1; .\setup.ps1 -v v1.0; rm setup.ps1
-```
+Files are installed in the current directory. Existing files are never overwritten without confirmation. `-v` accepts any tag or branch.
 
 ## Skills
 
-The squad includes built-in skills that agents use automatically:
+Lite ships on-demand skills — loaded only when their trigger matches, so they cost nothing until used.
 
-| Skill | Used by | Description |
-|-------|---------|-------------|
-| **roadmap** | Product Manager | Creates or iterates on `docs/specs/roadmap.md` via an interview, intermediate validation, and adversarial review. Handles initial scoping and reprioritization |
-| **brand** | Designer | Establishes or evolves the project's visual identity in `DESIGN.md` via an interview-style discovery. Locks decisions as they're made, validates with Google's DESIGN.md lint |
-| **marketing** | Marketer | Establishes or evolves marketing identity in `docs/marketing/MARKETING.md` — positioning, audience, messaging, channels, content strategy. Truth-checks all claims against the codebase, enforces anti-slop guardrails |
-| **frontend-design** | Designer | Guides creation of distinctive, production-grade UI that avoids generic AI aesthetics |
-| **chrome-devtools** | QA | Controls a live Chrome browser for visual testing, screenshots, and DOM inspection. Auto-configures the MCP server when needed. |
+| Skill | Use when |
+|-------|----------|
+| **roadmap** | Starting a project or reprioritizing — create/iterate `docs/specs/roadmap.md` (interview, validation, adversarial review). |
+| **brand** | Establishing or evolving the visual identity in `DESIGN.md` (Google spec; validated with `npx @google/design.md lint`). |
+| **frontend-design** | Building UI that avoids generic AI aesthetics. |
+| **marketing** | Positioning, messaging, and promo copy → `docs/marketing/`. Truth-checked, anti-slop. |
+| **qa** | The verify step — run the build, execute acceptance scenarios, probe edge cases (web UI via `chrome-devtools`). |
+| **skill-builder** | Capture a repeatable workflow as a new skill, or refine/retire one. Make the squad your own. |
+| **chrome-devtools** | Drive a real browser for web verification. Auto-configures the MCP server when needed. |
 
 <details>
 <summary>Configuring chrome-devtools for GitHub Copilot cloud agent</summary>
 
-The chrome-devtools skill auto-configures in VS Code and Copilot CLI. For the **GitHub Copilot cloud agent** (SWE agent), you need to configure the MCP server manually in your repository settings:
+The chrome-devtools skill auto-configures in VS Code and Copilot CLI. For the **GitHub Copilot cloud agent** (SWE agent), configure the MCP server manually in your repository settings:
 
 1. Go to your repository on GitHub.com
 2. Navigate to **Settings → Code & automation → Copilot → Cloud agent**
@@ -89,28 +79,29 @@ Chrome runs in headless mode in the cloud agent environment. You may also need a
 
 </details>
 
-## Workflow
+## Extending
 
-![Workflow](assets/workflow.svg)
+Lite is meant to be customized. Use the **skill-builder** skill to capture your own repeatable workflows as skills — that's the intended extension point, rather than adding subagents.
 
 ## Shared Memory
 
-All agents read and write to `docs/memory/`:
+The agent reads and writes `docs/memory/`:
 - `docs/memory/decisions.md` — Architectural and design decisions
 - `docs/memory/conventions.md` — Established project conventions
 
 ## Generated Artifacts
 
-The agents produce artifacts during the pipeline. These are committed alongside the code:
+Produced during the workflow and committed alongside the code:
 
-| Path | Contents | Written by |
-|------|----------|------------|
-| `DESIGN.md` | Visual identity contract — colors, typography, components, voice, motion (follows [Google's DESIGN.md spec](https://github.com/google-labs-code/design.md)) | Designer |
-| `docs/specs/` | Implementation specs with architecture, subtasks, acceptance scenarios, and decisions | Planner |
-| `docs/qa/` | QA test logs — scenarios tested, edge cases, issues found (persists across sessions) | QA |
-| `docs/memory/` | Shared decisions and conventions | All agents |
-| `docs/brand/` *(optional)* | HTML brand book, UI kit, and demo page derived from `DESIGN.md` | Designer |
-| `docs/marketing/` *(on-demand)* | `MARKETING.md` (positioning, messaging, channels) + dated per-engagement promo content (`<yyyy-mm-dd>_<slug>.md`) | Marketer |
+| Path | Contents |
+|------|----------|
+| `DESIGN.md` | Visual identity contract (follows [Google's DESIGN.md spec](https://github.com/google-labs-code/design.md)) |
+| `docs/specs/roadmap.md` | Product roadmap — features, value, dependencies, ordering |
+| `docs/specs/` *(optional)* | Persisted feature specs for large/long-lived features |
+| `docs/qa/` *(optional)* | QA logs — scenarios tested, edge cases, issues found |
+| `docs/memory/` | Shared decisions and conventions |
+| `docs/brand/` *(optional)* | HTML brand book / UI kit derived from `DESIGN.md` |
+| `docs/marketing/` *(on-demand)* | `MARKETING.md` + dated promo content |
 
 ## License
 
