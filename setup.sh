@@ -60,16 +60,24 @@ for pattern in $EXCLUDE; do
 done
 cd - >/dev/null
 
-# Handle AGENTS.md separately: append shared memory rules if missing
+# Handle AGENTS.md separately: merge the A-Team level-2 (##) sections into any existing
+# AGENTS.md — replacing same-heading sections, appending new ones — while preserving the
+# user's own heading and non-colliding sections. Copy wholesale for a new project.
 if [ -f "$tmp/scaffold/AGENTS.md" ]; then
-  memory_section=$(sed -n '/^## Shared Memory/,$p' "$tmp/scaffold/AGENTS.md")
   if [ -f "AGENTS.md" ]; then
-    if ! grep -q '^## Shared Memory' "AGENTS.md"; then
-      log "Appending shared memory rules to existing AGENTS.md..."
-      printf '\n%s\n' "$memory_section" >> "AGENTS.md"
-    else
-      log "AGENTS.md already contains shared memory rules, skipping."
-    fi
+    log "Merging A-Team sections into existing AGENTS.md..."
+    awk -v scaffold="$tmp/scaffold/AGENTS.md" '
+      function is_h2(l) { return l ~ /^## / }
+      BEGIN {
+        capture = 0
+        while ((getline line < scaffold) > 0) {
+          if (is_h2(line)) { set[line] = 1; capture = 1 }
+          if (capture) block = block line "\n"
+        }
+      }
+      { if (is_h2($0)) skip = ($0 in set) ? 1 : 0; if (!skip) print }
+      END { printf "\n%s", block }
+    ' "AGENTS.md" > "AGENTS.md.tmp" && mv "AGENTS.md.tmp" "AGENTS.md"
   else
     cp "$tmp/scaffold/AGENTS.md" "AGENTS.md"
   fi
