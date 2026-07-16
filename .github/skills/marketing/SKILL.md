@@ -5,7 +5,9 @@ description: "Establish or evolve a project's marketing identity in docs/marketi
 
 # Create Marketing
 
-> **Run as the marketer agent.** If you are not the `marketer` (Face), delegate the entire marketing work to it via the task/agent tool before proceeding. The marketer owns `docs/marketing/MARKETING.md` end-to-end; running marketing work from another agent splits ownership, breaks the truth/voice guardrails, and risks inconsistent positioning.
+> **Skill for maintaining `docs/marketing/`.** Run it directly (the lite squad has no
+> separate marketer agent). This skill owns `docs/marketing/MARKETING.md` end-to-end and
+> enforces the truth/voice guardrails against generic AI-slop.
 
 This skill guides the creation or iteration of the project's marketing identity, captured in `docs/marketing/MARKETING.md`, and the production of per-launch GTM plans under `docs/marketing/`. Marketing copy is the highest-risk surface for generic AI-slop and for unverified claims; this skill enforces structured discovery, voice/truth guardrails, and lock-as-you-decide iteration.
 
@@ -16,7 +18,7 @@ This skill guides the creation or iteration of the project's marketing identity,
 - A feature requires marketing artifacts (landing page, sales contact form, sales-oriented website, launch announcement) and no `MARKETING.md` exists yet
 - The user explicitly asks to establish or evolve marketing
 - A specific launch / release / campaign is approaching and needs a GTM plan
-- The marketer agent is invoked for any non-trivial promo content and finds `MARKETING.md` stale or absent
+- Any non-trivial promo content is requested and `MARKETING.md` is stale or absent
 
 This skill engages mostly on-demand, with a few auto-triggers (inception lightweight pass, MVP completion, feature-mandated marketing artifacts). It does **not** run on every project change.
 
@@ -111,7 +113,7 @@ Write each section into `MARKETING.md` as it's confirmed. Don't wait until the e
 
 ### 8. Adversarial review
 
-When `MARKETING.md` is initially complete (or substantially changed), delegate to the `reviewer` agent. Same standard as roadmap and DESIGN.md: consensus + all high/critical issues fixed before considering it locked. Reviewer is looking for:
+When `MARKETING.md` is initially complete (or substantially changed), run an adversarial review: **`/rubber-duck` on the opposite-provider SOTA model at `xhigh`** (Claude↔GPT), or a focused self-review pass if model selection isn't available. Fix all high/critical issues before considering it locked. The review looks for:
 
 - Generic AI-slop language
 - Unverifiable or false claims about the product
@@ -249,7 +251,7 @@ Filled in after the launch. What worked, what didn't, what to do differently nex
 
 ## Rules
 
-- **DO NOT engage unless explicitly invoked** by the user or routed by the orchestrator for a feature that requires marketing artifacts. No auto-sync.
+- **DO NOT engage unless the work is marketing** — the user asks for it, or a feature genuinely needs a marketing artifact (landing page, launch copy). No auto-sync on unrelated changes.
 - **DO NOT write marketing fiction.** Every claim must be verifiable from the codebase. If a feature isn't built, don't market it as built.
 - **DO NOT use generic marketing AI-slop.** Banned words/phrases (non-exhaustive):
   - empower, empowering, empowerment
