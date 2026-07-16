@@ -1,6 +1,6 @@
 ---
 name: retrospective
-description: Manually reflect on the current session to improve the workflow itself. Use ONLY when the user explicitly asks — e.g. "run a retrospective", "let's do a retro", "reflect on this session", "what did we learn", "how did that go", "improve the workflow/AGENTS.md/skills". Reviews what went well, what went wrong, and what to improve about the *process*, then proposes (and on approval applies) changes to AGENTS.md, existing skills, or new skills. Do NOT auto-trigger, do NOT run as part of the feature loop, and do NOT use it to review code or test the app — that's `/rubber-duck` and the `qa` skill.
+description: Manually reflect on the current session to improve the workflow itself. Use ONLY when the user explicitly asks — e.g. "run a retrospective", "let's do a retro", "reflect on this session", "what did we learn", "how did that go", "improve the workflow/AGENTS.md/skills". Do NOT auto-trigger, do NOT run as part of the feature loop, and do NOT use it to review code or test the app — that's `/rubber-duck` and the `qa` skill.
 ---
 
 # Retrospective
@@ -10,8 +10,7 @@ Improve **how the work gets done**, not the work itself. This is self-reflection
 results with less friction. It is **user-triggered only**; never start a retro on your own.
 
 Improving the code, tests, or deliverables is out of scope — that's `/rubber-duck` (static
-review) and `qa` (dynamic verification). If asked to "review", clarify whether they mean the
-work (those skills) or the workflow (this one).
+review) and `qa` (dynamic verification).
 
 ## Procedure
 
