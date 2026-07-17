@@ -16,9 +16,10 @@ Each agent uses whatever main model the session runs on — no models are hardco
 | **product-manager** | Face | Scopes the mission: feature decomposition, roadmap, priorities |
 | **planner** | Amy | Creates detailed implementation specs with architecture, subtasks, and acceptance scenarios |
 | **designer** | Murdock | Owns `DESIGN.md` (visual identity contract). Runs brand discovery for new projects and creates per-feature UI/UX designs |
-| **coder** | Baracus | Builds it. Implements features, writes tests, updates docs |
+| **coder** | Baracus | Builds it. Implements features, writes tests, and prepares documentation handoffs |
 | **reviewer** | Decker | Adversarial review: opposite-provider SOTA + same-model, both at highest reasoning, then consolidated |
 | **qa** | Lynch | Tests the running app, never stops probing |
+| **technical-writer** | Tawnia | Creates public docs with Diátaxis, leads docs-site work with Astro as the default, and captures product screenshots. Never implements code |
 
 ## Setup
 
@@ -59,12 +60,12 @@ The squad includes built-in skills that agents use automatically:
 | **roadmap** | Product Manager | Creates or iterates on `specs/roadmap.md` via an interview, intermediate validation, and adversarial review. Handles initial scoping and reprioritization |
 | **brand** | Designer | Establishes or evolves the project's visual identity in `DESIGN.md` via an interview-style discovery. Locks decisions as they're made, validates with Google's DESIGN.md lint |
 | **frontend-design** | Designer | Guides creation of distinctive, production-grade UI that avoids generic AI aesthetics |
-| **chrome-devtools** | QA | Controls a live Chrome browser for visual testing, screenshots, and DOM inspection. Auto-configures the MCP server when needed. |
+| **chrome-devtools** | QA, Technical Writer | Controls a live Chrome browser for visual testing, product screenshots, and DOM inspection. Auto-configures the MCP server when needed. |
 
 <details>
 <summary>Configuring chrome-devtools for GitHub Copilot cloud agent</summary>
 
-The chrome-devtools skill auto-configures in VS Code and Copilot CLI. For the **GitHub Copilot cloud agent** (SWE agent), you need to configure the MCP server manually in your repository settings:
+The chrome-devtools skill can auto-configure in VS Code and Copilot CLI when the active agent has permission to edit the relevant configuration. The Technical Writer never writes outside `docs/`, so configure the server before asking it to capture screenshots. For the **GitHub Copilot cloud agent** (SWE agent), configure the MCP server manually in your repository settings:
 
 1. Go to your repository on GitHub.com
 2. Navigate to **Settings → Code & automation → Copilot → Cloud agent**
@@ -93,7 +94,7 @@ Chrome runs in headless mode in the cloud agent environment. You may also need a
 
 ## Shared Memory
 
-All agents read and write to `memory/`:
+Agents use `memory/` for shared project context. Read-only roles consume it; planning and implementation roles update it when they establish new decisions or conventions:
 - `memory/decisions.md` — Architectural and design decisions
 - `memory/conventions.md` — Established project conventions
 
@@ -106,8 +107,9 @@ The agents produce artifacts during the pipeline. These are committed alongside 
 | `DESIGN.md` | Visual identity contract — colors, typography, components, voice, motion (follows [Google's DESIGN.md spec](https://github.com/google-labs-code/design.md)) | Designer |
 | `specs/` | Implementation specs with architecture, subtasks, acceptance scenarios, and decisions | Planner |
 | `qa/` | QA test logs — scenarios tested, edge cases, issues found (persists across sessions) | QA |
-| `memory/` | Shared decisions and conventions | All agents |
+| `memory/` | Shared decisions and conventions | Product Manager, Planner, Designer, Coder |
 | `brand/` *(optional)* | HTML brand book, UI kit, and demo page derived from `DESIGN.md` | Designer |
+| `docs/` | Public documentation website, Diátaxis content, and product screenshots | Technical Writer (content), Coder (site implementation only) |
 
 ## License
 
