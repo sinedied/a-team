@@ -1,33 +1,33 @@
 ---
 name: roadmap
-description: "Create or iterate on the project roadmap at specs/roadmap.md. Use when starting a new project, scoping an MVP, or adjusting priorities based on progress, QA findings, or new requirements. Runs an interview-style discovery, validates an intermediate summary with the user, then locks the roadmap."
+description: "Create or iterate on the project roadmap at devdocs/specs/roadmap.md. Use when starting a new project, scoping an MVP, or adjusting priorities based on progress, QA findings, or new requirements. Runs an interview-style discovery, validates an intermediate summary with the user, then locks the roadmap."
 ---
 
 # Create Roadmap
 
-> **Run as the product-manager agent.** If you are not the `product-manager` (Face), delegate the entire roadmap work to it via the task/agent tool before proceeding. The PM owns `specs/roadmap.md` end-to-end; running roadmap work from another agent splits ownership and risks inconsistent product direction.
+> **Run as the product-manager agent.** If you are not the `product-manager` (Face), delegate the entire roadmap work to it via the task/agent tool before proceeding. The PM owns `devdocs/specs/roadmap.md` end-to-end; running roadmap work from another agent splits ownership and risks inconsistent product direction.
 
-This skill guides the creation or iteration of the project roadmap. A roadmap without a clear MVP cut, dependencies, and rationale produces scope creep and rework. This skill enforces a structured discovery, then locks decisions into `specs/roadmap.md`.
+This skill guides the creation or iteration of the project roadmap. A roadmap without a clear MVP cut, dependencies, and rationale produces scope creep and rework. This skill enforces a structured discovery, then locks decisions into `devdocs/specs/roadmap.md`.
 
 ## When to use
 
-- The project has no `specs/roadmap.md` and a high-level idea or vision exists
+- The project has no `devdocs/specs/roadmap.md` and a high-level idea or vision exists
 - The user explicitly asks to create a roadmap
 - The user asks to evolve / reprioritize an existing roadmap (after shipped features, QA findings, or pivots)
 
 ## Source of truth
 
-`specs/roadmap.md`. Product-level only — features, value, dependencies, ordering, scope boundaries. **No implementation details** — those live in per-feature specs at `specs/<yyyy-mm-dd>_<feature>.md`.
+`devdocs/specs/roadmap.md`. Product-level only — features, value, dependencies, ordering, scope boundaries. **No implementation details** — those live in per-feature specs at `devdocs/specs/<yyyy-mm-dd>_<feature>.md`.
 
 ## Process
 
 ### 1. Preconditions check
 
 Before asking the user anything:
-- Read `specs/roadmap.md` if it exists.
+- Read `devdocs/specs/roadmap.md` if it exists.
   - If present **and** populated → enter **Iteration mode** (skip to the bottom of this skill).
   - If missing or placeholder → enter **Initial creation mode** (continue below).
-- Read `memory/decisions.md` for any prior product-level decisions.
+- Read `devdocs/memory/decisions.md` for any prior product-level decisions.
 - If `DESIGN.md` exists, read its Positioning section for audience/differentiation context (don't ask the user twice).
 - Search the codebase briefly to see what already exists (don't assume greenfield if there is shipped code).
 
@@ -113,7 +113,7 @@ Resolve all findings autonomously, documenting rationale.
 
 ### 6. Lock the roadmap
 
-Write `specs/roadmap.md` using the final format below. Update `memory/decisions.md` with any product-level decisions made (palette of audience, MVP scope rationale, deferred-feature reasoning).
+Write `devdocs/specs/roadmap.md` using the final format below. Update `devdocs/memory/decisions.md` with any product-level decisions made (palette of audience, MVP scope rationale, deferred-feature reasoning).
 
 ```md
 # Roadmap: <Project Name>
@@ -154,10 +154,10 @@ Status markers: ⬜ (not started), 🔄 (in progress), ✅ (complete).
 
 ## Iteration mode
 
-When invoked with an existing populated `specs/roadmap.md`:
+When invoked with an existing populated `devdocs/specs/roadmap.md`:
 
 1. Read the current roadmap in full.
-2. Read recent specs in `specs/` and QA logs in `qa/` to understand what shipped and what surfaced.
+2. Read recent specs in `devdocs/specs/` and QA logs in `devdocs/qa/` to understand what shipped and what surfaced.
 3. Ask the user **what triggered the iteration**:
    - A pivot in direction?
    - QA / production findings?
@@ -167,7 +167,7 @@ When invoked with an existing populated `specs/roadmap.md`:
 5. **Mark completed features as `✅` — do NOT remove them.** History matters.
 6. Show the diff (added, removed, reordered, status-updated) and ask for confirmation.
 7. Send the updated roadmap through adversarial review.
-8. Apply the changes and update `memory/decisions.md` with any new product-level decisions.
+8. Apply the changes and update `devdocs/memory/decisions.md` with any new product-level decisions.
 
 ## Rules
 

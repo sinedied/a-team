@@ -2,10 +2,10 @@
 
 ## Shared Memory
 
-The project maintains shared memory in `memory/`:
+The project maintains shared memory in `devdocs/memory/`:
 
-- `memory/decisions.md` — Architectural and design decisions
-- `memory/conventions.md` — Established project conventions
+- `devdocs/memory/decisions.md` — Architectural and design decisions
+- `devdocs/memory/conventions.md` — Established project conventions
 
 ### Reading
 Before making architectural decisions or proposing changes, check existing decisions and conventions for prior context.

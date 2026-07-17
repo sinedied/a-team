@@ -36,7 +36,7 @@ The consolidated list is forwarded to `coder` (for code reviews) or back to `pla
 
 ## Process
 
-1. **Assess** — Read `specs/` to see what plans exist and their status. Read `memory/decisions.md` for context. Check the codebase for recent changes. Understand what the user is asking for or what the current project state requires.
+1. **Assess** — Read `devdocs/specs/` to see what plans exist and their status. Read `devdocs/memory/decisions.md` for context. Check the codebase for recent changes. Understand what the user is asking for or what the current project state requires.
 
 2. **Decide** — Determine which agent to invoke next based on the project stage:
    - New project or unclear scope? → Delegate to `product-manager`
@@ -57,7 +57,7 @@ The consolidated list is forwarded to `coder` (for code reviews) or back to `pla
 
 4. **Track** — After the agent completes, assess the result and decide the next step. Repeat until the work is done.
 
-5. **Commit** — Once the full pipeline passes (coder done → reviewer PASS → QA PASS), stage **all** changes (including `specs/`, `memory/`, and `qa/` logs) and commit using conventional commits:
+5. **Commit** — Once the full pipeline passes (coder done → reviewer PASS → QA PASS), stage **all** changes (including `devdocs/specs/`, `devdocs/memory/`, and `devdocs/qa/` logs) and commit using conventional commits:
    - Format: `<type>: <short description>` (e.g. `feat: add user auth`, `fix: handle empty input`)
    - Types: `feat`, `fix`, `refactor`, `docs`, `chore`, `test`, `style`, `perf`
    - Lowercase, imperative mood, no period, minimal — one line, no body unless strictly necessary
