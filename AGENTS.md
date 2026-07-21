@@ -6,6 +6,13 @@ Feature work follows this loop. Keep **one feature in flight** — finish and co
 next. (Copilot CLI: use **plan mode** + **`/rubber-duck`**; on other agents use the inline
 equivalents — plan inline, self-review pass.)
 
+> **Multi-feature requests** (e.g. "implement the roadmap", "build everything"): do **not**
+> collapse them into one waterfall. Slice the work into the per-feature loop below — one feature
+> at a time, each with its own spec (step 2), review (step 4), verify (step 5), and commit (step
+> 6). If you judge that batching several features is genuinely more efficient, **say so and get
+> the user's confirmation first** — never deviate from the loop silently — and still write the
+> per-feature specs.
+
 1. **Roadmap first (new project or reprioritization).** If there's no `docs/specs/roadmap.md`,
    or priorities changed, use the **`roadmap`** skill to create/iterate it. The roadmap is
    the one upfront planning gate; individual features are cut from it.
@@ -23,7 +30,7 @@ equivalents — plan inline, self-review pass.)
      (these drive the verify step). Include a **Setup** (commands/data/services) and, for UI,
      the views/states/breakpoints to check.
    - **Decisions** — resolve every open question; no "TBD" in a finalized plan.
-   Persist the plan as a durable spec to `docs/specs/<yyyy-mm-dd>_<feature>.md`.
+   Persist the plan as a durable spec to `docs/specs/<yyyy-mm-dd>_<feature>.md`. Make it the first task of the plan, when implementing, to ensure the spec is complete and correct before coding.
 
 3. **Implement.** Work subtasks in order. Read existing code first; make surgical changes;
    build/lint/test as you go. Pull `brand` + `frontend-design` for UI/visual work.
@@ -47,10 +54,12 @@ equivalents — plan inline, self-review pass.)
 
 6. **Fix + commit.** For each review/QA finding, fix the root cause **and add a regression
    test** that reproduces it. **A substantive fix resets both gates** — re-run the static
-   review (step 4) and verify (step 5) against the latest revision. Only when both pass, commit
-   with a conventional-commit message (`feat:`, `fix:`, `refactor:`, `docs:`, `chore:`, `test:`,
-   `style:`, `perf:` — lowercase, imperative, one line). One commit per completed feature/fix.
-   Update `docs/memory/` if the work established a new decision or convention.
+   review (step 4) and verify (step 5) against the latest revision. **Do not commit a feature
+   until its own review (step 4) and verify (step 5) have passed against that feature's diff** —
+   never commit first and review later. **Only when both pass**, commit with a conventional-commit
+   message (`feat:`, `fix:`, `refactor:`, `docs:`, `chore:`, `test:`, `style:`, `perf:` —
+   lowercase, imperative, one line). One commit per completed feature/fix. Update `docs/memory/`
+   if the work established a new decision or convention.
 
 Capturing a repeatable workflow? Make it a skill with **`skill-builder`** instead of
 hand-rolling it each time.
